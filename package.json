@@ -2,20 +2,25 @@
   "name": "black-white-website",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx eleventy",
+    "serve": "npx eleventy --serve"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
-  "devDependencies": {
-    "@11ty/eleventy-plugin-vite": "^7.1.0-alpha.2"
-  },
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-plugin-vite": "^7.1.0-alpha.2",
     "@tailwindcss/vite": "^4.1.12",
+    "autoprefixer": "^10.4.21"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@tailwindcss/postcss": "^4.1.12",
+    "cssnano": "^7.1.1",
+    "postcss": "^8.5.6",
     "tailwindcss": "^4.1.12"
   }
 }
