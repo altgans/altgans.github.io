@@ -6,10 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="{{ eleventy.generator }}">
   <link rel="stylesheet" href="/styles.css">
-  <title>Just a title</title>
+<title>{{title}}</title>
 </head>
-<body class="bg-black">
-  <p class="text-3xl text-pink-600" >Just some styled content here</p>
-  <p class="text-3xl text-green-600" >Just some styled content here</p>
-</body>
+<body class="">
+		{{ content | safe }}
+  </body>
 </html>
