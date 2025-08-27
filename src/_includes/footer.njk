@@ -1,0 +1,12 @@
+<footer class="bg-gray-200 text-gray-800 p-6">
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline">Home</a></li>
+      {% for post in collections.posts %}
+      <li>
+        <a href="{{ post.url }}" class="text-blue-600 underline">{{ post.data.title }}</a>
+      </li>
+      {% endfor %}
+    </ol>
+  </footer>
+
+

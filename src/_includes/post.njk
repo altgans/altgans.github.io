@@ -1,0 +1,31 @@
+---
+layout: base.njk
+---
+
+<div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
+<head>
+<p>{{ page.date.toISOString().slice(0,10)  }} </p>
+<h1 class="text-3xl font-bold mb-2">{{ title }}</h1>
+</head>
+<main class="bg-gray-300 markdown p-4">
+
+
+	<article>
+	{{ content | safe }}
+    </article>
+</main>
+
+<!-- {% renderFile "./src/_includes/footer.njk" %} -->
+<footer class="bg-gray-100 text-gray-800 p-4 markdown">
+		<h3>Index</h3>
+	
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline">Home</a></li>
+      {% for post in collections.posts %}
+      <li>
+        <a href="{{ post.url }}" class="text-blue-600 underline">{{ post.data.title }}</a>
+      </li>
+      {% endfor %}
+    </ol>
+  </footer>
+</div>

@@ -1,7 +1,13 @@
 ---
-layout: layout.njk
-title: Altgans
+title: My Post
+tags: posts
+layout: post.njk
+date: 2025-08-26
 ---
-<h1 class="text-3xl">{{ title }}</h1>
-<p class="bg-red-200">Test</p>
-<p class="bg-red-200">Test</p>
+
+# Hello
+
+This is my website.
+
+
+
