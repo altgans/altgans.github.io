@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Eleventy v3.1.2">
+  <link rel="stylesheet" href="/styles.css">
+<title>Using a LLM to help create this website</title>
+</head>
+<body class="w-full h-screen flex flex-col bg-gray-500">
+		
+<div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
+<head >
+<p class="text-gray-200 italic">2025-08-29 </p>
+<h1 class="text-white text-4xl font-bold mb-2">Using a LLM to help create this website</h1>
+</head>
+<main class="bg-gray-300 markdown p-4">
+
+    <p>
+
+     <a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
+     </p> 
+	<article>
+	<blockquote>
+<p>This will be fast, I thought. Boy was I wrong.</p>
+</blockquote>
+<h2>The so very helpful LLM</h2>
+<p>I tried ChatGPT to answer me a few programming questions to big success (<code>How to setup SSH keys on Github</code>) and expected it to be a breeze to create a static website project based on the latest Eleventy starter. Add some TailwindCSS and markdown-based posts, this should be very straightforward. No big complexity, lots of boilerplate, no scripts or colors.</p>
+<blockquote>
+<p>You are a webdev expert. Create a Eleventy website. It is to be used as blog. Posts are written in markdown. The posts are styled via TailwindCSS.</p>
+</blockquote>
+<p>Unfortunately, Eleventy is pretty niche, so I got a random assortment of commands to run, which all were taken from different versions of Eleventy and TailwindCSS and npm. Scripts didn't exist anymore, plugins did neither, and ChatGPT was helpfully wrong about everything. <em>I'm sorry, you are correct.</em></p>
+<p>I expected to spend 5 minutes on building the boilerplate, mix in some styles and then get writing!</p>
+<p>Instead I spend 5 days (!) fiddling with the different config files (The 2nd worst thing after gradle build), and then another 3 to get the project working on github pages.</p>
+<p>Maybe I should have used some of the more suited models (Claude?), or upgraded to premium. But still, I expected a bit more. Less human intervention, less looking up script errors, just generally less time spent on the unfun things.</p>
+<p>Worst of all is the cheerful helpfullness of ChatGPT -- if you know that the latest version of Eleventy and TailwindCSS are 3 and 4 respectively, then why do you mix in responses from older versions?! (Actually I shouldn't have been surprised -- this is how LLMs work, they have no notion of truth or context, they just repeat the thing they have seen most often before)</p>
+<h2>Deploying on Github</h2>
+<p>Beyond getting Eleventy 3 to utilize TailwindCSS 4 in its build process, deploying the webstie to github pages was yet another nightmare. It took me a while to find <a href="https://www.dawidsblog.com/posts/tutorial_11ty_github_pages/">this</a> post, which explains the scripting process well.</p>
+<p>Takeaways</p>
+<ul>
+<li>Ensure you set the read &amp; write permissions for your workflow</li>
+<li>Even though you created a workflow, you need to deploy from the github-pages branch</li>
+<li>To start the github pages build process, you need to commit to <code>master</code></li>
+<li>Setting up the custom domain is straightforward, you just have to follow the steps in <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site">the github docs</a>. My domain registrar (porkbun) even had a 1-click button to set up the DNS values</li>
+</ul>
+
+    </article>
+</main>
+
+<!-- <footer class="bg-gray-200 text-gray-800 p-6">
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline">Home</a></li>
+      
+    </ol>
+  </footer>
+
+
+ -->
+<footer class="bg-gray-100 text-gray-800 p-4 markdown">
+		<h3> Index</h3>
+	
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline pl-1">Home</a></li>
+      
+      <li>
+        <a href="/posts/about/" class="text-blue-600 underline">About this website</a>
+      </li>
+      
+      <li>
+        <a href="/posts/test-post/" class="text-blue-600 underline">Test post</a>
+      </li>
+      
+      <li>
+        <a href="/posts/todo/" class="text-blue-600 underline">Things to improve on this website</a>
+      </li>
+      
+      <li>
+        <a href="/posts/using-a-LLM-to-create-this-website/" class="text-blue-600 underline">Using a LLM to help create this website</a>
+      </li>
+      
+    </ol>
+  </footer>
+</div>
+
+</body>
+</html>
