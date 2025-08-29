@@ -31,3 +31,43 @@ Takeaways
 - Even though you created a workflow, you need to deploy from the github-pages branch
 - To start the github pages build process, you need to commit to `master` to trigger the github pages process (as well as the initial gh pages setup)
 - Setting up the custom domain is straightforward, you just have to follow the steps in [the github docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site). My domain registrar (porkbun) even had a 1-click button to set up the DNS values
+
+Here is my slightly adapted workflow script
+
+```yml
+# Name of the action:
+name: Deploy GH Pages
+
+# when should it trigger? 
+on:
+  # trigger when something is pushed to the branch main
+  push: 
+    branches: [ "master" ]
+  # make it possible to trigger manually, useful for debugging
+  workflow_dispatch: 
+
+# what should be done
+jobs:
+  # we have only one stage and we name it 'build'
+  build:
+    # this is the (docker) image used to run the steps below
+    runs-on: ubuntu-latest
+
+    steps:
+      # checkout the branch
+      - uses: actions/checkout@v4
+
+      # install the project and to build the page
+      - name: npm ci & build
+        uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npx @11ty/eleventy
+
+      # deploy the content of 'dist' to the branch gh-pages (default setting)
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          # this line is needed for the action to be able to push something to your repository
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+```
