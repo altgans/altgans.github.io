@@ -12,6 +12,7 @@
   "scripts": {
     "clean": "npx rimraf dist build",
     "dev": "npm run clean && eleventy --serve --quiet",
-    "build": "npm run clean && eleventy"
+    "clean-build": "npm run clean && eleventy"
+    "build": "npx @11ty/eleventy"
   }
 }

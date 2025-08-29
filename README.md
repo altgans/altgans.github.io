@@ -1,6 +1,7 @@
-# Minimal repo with 11ty and Tailwind 4
-Pretty much the smallest Eleventy and Tailwind 4 repo. 
+# Readme
 
-Useful for tracking down bugs
+My website
 
-`yarn && yarn dev` to install and run.
+```
+npm run dev
+```
