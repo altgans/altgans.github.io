@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy v3.1.2">
   <link rel="stylesheet" href="/styles.css">
-<title>Attempting to use a LLM to create this website</title>
+<title>Altgans—Attempting to use a LLM to create this website</title>
 </head>
 <body class="w-full h-screen flex flex-col bg-gray-500">
 		
@@ -44,6 +44,43 @@
 <li>To start the github pages build process, you need to commit to <code>master</code> to trigger the github pages process (as well as the initial gh pages setup)</li>
 <li>Setting up the custom domain is straightforward, you just have to follow the steps in <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site">the github docs</a>. My domain registrar (porkbun) even had a 1-click button to set up the DNS values</li>
 </ul>
+<p>Here is my slightly adapted workflow script</p>
+<pre><code class="language-yml"># Name of the action:
+name: Deploy GH Pages
+
+# when should it trigger? 
+on:
+  # trigger when something is pushed to the branch main
+  push: 
+    branches: [ &quot;master&quot; ]
+  # make it possible to trigger manually, useful for debugging
+  workflow_dispatch: 
+
+# what should be done
+jobs:
+  # we have only one stage and we name it 'build'
+  build:
+    # this is the (docker) image used to run the steps below
+    runs-on: ubuntu-latest
+
+    steps:
+      # checkout the branch
+      - uses: actions/checkout@v4
+
+      # install the project and to build the page
+      - name: npm ci &amp; build
+        uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npx @11ty/eleventy
+
+      # deploy the content of 'dist' to the branch gh-pages (default setting)
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          # this line is needed for the action to be able to push something to your repository
+          github_token: $
+          publish_dir: ./dist
+</code></pre>
 
     </article>
 </main>
@@ -72,11 +109,23 @@
       </li>
       
       <li>
-        <a href="/posts/todo/" class="text-blue-600 underline">Things to improve on this website</a>
+        <a href="/posts/contact/" class="text-blue-600 underline">Contact / Impressum</a>
+      </li>
+      
+      <li>
+        <a href="/posts/todo/" class="text-blue-600 underline">Things to improve on this website (TODOs)</a>
       </li>
       
       <li>
         <a href="/posts/using-a-LLM-to-create-this-website/" class="text-blue-600 underline">Attempting to use a LLM to create this website</a>
+      </li>
+      
+      <li>
+        <a href="/posts/schreiben-be-my-boyfriend/" class="text-blue-600 underline">Schreiben I - Be my boyfriend! [DE]</a>
+      </li>
+      
+      <li>
+        <a href="/posts/schreiben-sugar/" class="text-blue-600 underline">Schreiben II - Sugar [EN]</a>
       </li>
       
     </ol>
