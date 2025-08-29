@@ -7,4 +7,5 @@ date: 2025-08-29
 Not sure what to do, the website is perfect.
 
 - [ ] Wikilinks?
+- [ ] Typography, Inital letters, nice font
 
