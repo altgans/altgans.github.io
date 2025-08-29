@@ -1,6 +1,5 @@
 ---
-title: My Post
-tags: posts
+title: Home
 layout: post.njk
 date: 2025-08-26
 ---
