@@ -1,5 +1,5 @@
 ---
-title: Using a LLM to help create this website
+title: Attempting to use a LLM to create this website
 tags: posts
 date: 2025-08-29
 ---
@@ -24,10 +24,10 @@ Worst of all is the cheerful helpfullness of ChatGPT -- if you know that the lat
 
 ## Deploying on Github
 
-Beyond getting Eleventy 3 to utilize TailwindCSS 4 in its build process, deploying the webstie to github pages was yet another nightmare. It took me a while to find [this](https://www.dawidsblog.com/posts/tutorial_11ty_github_pages/) post, which explains the scripting process well.
+Beyond getting Eleventy 3 to utilize TailwindCSS 4 in its build process, deploying the website to github pages was yet another nightmare. It took me a while to find [this](https://www.dawidsblog.com/posts/tutorial_11ty_github_pages/) post, which explains the scripting process well.
 
 Takeaways
 - Ensure you set the read & write permissions for your workflow
 - Even though you created a workflow, you need to deploy from the github-pages branch
-- To start the github pages build process, you need to commit to `master`
+- To start the github pages build process, you need to commit to `master` to trigger the github pages process (as well as the initial gh pages setup)
 - Setting up the custom domain is straightforward, you just have to follow the steps in [the github docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site). My domain registrar (porkbun) even had a 1-click button to set up the DNS values
