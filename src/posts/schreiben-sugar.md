@@ -16,7 +16,7 @@ We turn to the weather, pink sky, silver moon. High season for everyone who like
 
 I feel sad again. The first one was a great cook, especially her pastel cakes. The second one not so much, she just doesn't get the colors right. It needs to be a mauvaise explosion of mellowness, not a haze cloud of fluff! But I love her, still.
 
-'I'm getting married', says Gun, son of Gun, senior police officer in Pink City, and my best friend. Her name is psychosis. He clicks his finger, as if pulling a trigger. Bang, bang.
+'I'm getting married', says Gun, son of Gun, senior police officer in Pink City, and my best friend. "Her name is psychosis." He clicks his finger, as if pulling a trigger. Bang, bang.
 
 We met in Massachussets, down the rainbow road. A little bromance, but that was long ago. Now I like sweets, and he likes psychosis. I order another Strawberyy Sunday, knowing he dislikes it. Cannibalism or so, I don't respect his people.
 
