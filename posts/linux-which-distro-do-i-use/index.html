@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy v3.1.2">
   <link rel="stylesheet" href="/styles.css">
-<title>Altgans—Home</title>
+<title>Altgans—Linux: Which distro am I using?</title>
 </head>
 <body class="w-full h-screen flex flex-col bg-gray-500">
 		
 <div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
 <head >
-<p class="text-gray-200 italic">2025-08-26 </p>
-<h1 class="text-white text-4xl font-bold mb-2">Home</h1>
+<p class="text-gray-200 italic">2025-10-05 </p>
+<h1 class="text-white text-4xl font-bold mb-2">Linux: Which distro am I using?</h1>
 </head>
 <main class="bg-gray-300 markdown p-4">
 
@@ -22,8 +22,14 @@
      <a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
      </p> 
 	<article>
-	<h1>Hello</h1>
-<p>This is my website.</p>
+	<p>It's a bit awkward, but I often forget it...</p>
+<p>Luckily, we can run either of these commands to find out. (<a href="https://www.cyberciti.biz/faq/find-linux-distribution-name-version-number/">Source</a>)</p>
+<ul>
+<li><code>cat /etc/*-release </code></li>
+<li><code>lsb_release -a</code></li>
+<li><code>hostnamectl</code></li>
+</ul>
+<p>Alternatively, we can use a _fetching tool like <a href="https://github.com/fastfetch-cli/fastfetch">fastfetch</a></p>
 
     </article>
 </main>
