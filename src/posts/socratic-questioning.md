@@ -1,7 +1,7 @@
 ---
 title: Using Socratic questioning and Feynman techique for learning
 tags: posts
-date: 2025-08-29T18:59
+date: 2025-10-05T18:59
 ---
 
 > Believe me or don't, but I dreamt about this, and then someone told me this exists

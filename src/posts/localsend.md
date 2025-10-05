@@ -3,7 +3,7 @@ title: "Send files locally with Localsend"
 tags: 
 - posts
 - tools
-date: 2025-08-29T19:11
+date: 2025-10-05T19:11
 ---
 
 [Localsend](https://localsend.org/) is a very useful tool to allow sending files in my local network, between Windows, Linux, Android, .... It just works. Magic! Wow!
