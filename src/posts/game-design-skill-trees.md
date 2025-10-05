@@ -1,5 +1,5 @@
 ---
-title: Game Design: About Skilltrees
+title: "Game Design: About Skilltrees"
 tags: en
 date: 2025-09-07
 ---
