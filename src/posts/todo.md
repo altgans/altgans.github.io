@@ -10,7 +10,7 @@ Nothing to see here, the website is perfect.
 - [ ] Typography, Inital letters, nice font
 - [ ] Change link colors
 - [ ] Improve my Neovim setup for Eleventy, Nunjuks, ...
-- [ ] Show link to home not on index page, 
+- [ ] Show link to home not on index page,
 - [ ] move the link to home to the heading?
 - [ ] add a button to go to the top of the page and/or next/prev post (on mobile?)
 - [ ] Add the 5 latest posts to the top of the index listing
@@ -27,4 +27,3 @@ Nothing to see here, the website is perfect.
 - [ ] Add targeted numbering to pin important posts to the top (contact, about, ..)
 
 ... create more content!
-
