@@ -6,7 +6,8 @@ date: 2025-08-29
 
 Nothing to see here, the website is perfect.
 
-- [ ] Wikilinks?
+- [x] Wikilinks? ==> [[eleventy-wikilinks]]
+- [ ] Backlinks? Not for now
 - [ ] Typography, Inital letters, nice font
 - [ ] Change link colors
 - [ ] Improve my Neovim setup for Eleventy, Nunjuks, ...

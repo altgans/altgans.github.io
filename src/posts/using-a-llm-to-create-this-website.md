@@ -4,6 +4,8 @@ tags: posts
 date: 2025-08-29
 ---
 
+todo: rewrite, edit, shorten URL
+
 > This will be fast, I thought. Boy was I wrong.
 
 ## The so very helpful LLM 
