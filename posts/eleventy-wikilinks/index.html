@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy v3.1.2">
   <link rel="stylesheet" href="/styles.css">
-<title>Altgans—Schreiben I - Be my boyfriend! [DE]</title>
+<title>Altgans—Adding wikilinks to Eleventy (this blog)</title>
 </head>
 <body class="w-full h-screen flex flex-col bg-gray-500">
 		
 <div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
 	<head >
-		<p class="text-gray-200 italic">2025-08-30 </p>
-		<h1 class="text-white text-4xl font-bold mb-2">Schreiben I - Be my boyfriend! [DE]</h1>
+		<p class="text-gray-200 italic">2025-10-08 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Adding wikilinks to Eleventy (this blog)</h1>
 	</head>
 	<main class="bg-gray-300 markdown p-4">
 
@@ -22,21 +22,55 @@
 			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
 		</p> 
 		<article>
-			<h4>Kurzfassung</h4>
-<blockquote>
-<p>Dämon schwimmt durch die primordiale Ewigkeit und wartet auf seine nächste Beschwörung. Denkt über seine bisherige Lebensleistung und Meisterwerke nach. Wird beschworen, von einer jungen Frau. Die Frau möchte, dass er ihr fester Freund wird. Romantikkomödie.</p>
-</blockquote>
-<p>...</p>
-<p>&quot;Sprich, Sterbliche, was ist dein Begehr?&quot;</p>
-<p>Sebas schaute sich im Raum herum. Die ersten Sekunden einer neuen Beschwörung waren immer die schwierigsten. Wer weiß, was einen erwartete? Ein Blutopfer? Schwierig. Eine Seelensuche? Noch schwieriger. Ein Altar der ewigen Dämmerung? Bitte nicht.</p>
-<p>Aber es war keine Gruft voller Kultisten in dunklen Roben. Auch kein Hügelgrab bei Mitternacht. Noch nicht einmal ein finsterer Wald. Es war ein Zimmer. Etwas unaufgeräumt, mit einem großen Bett in der Mitte. Links ein Nachttisch voller okulter Bücher, rechts eine Kommode mit einem Schminktisch und einem großen, rosanen Spiegel. Davor etliche Statullen, Kästchen, silberner Schmuck. Zwei große Kleiderschränke, einer davon offen und zum Bersten mit schwarzen Kleidern gefüllt. Am Boden lauter Zettel. Ein Bannkreis, und davor.. eine junge Frau.</p>
-<p>Sebas betrachtete die Frau. Lila Lippenstift, lila Nagellack und lila Haar. Fahle Haut, schwarze Augenringe. Der Duft von Zitronenshampoo und Erde. Die Frau schaute zurück, holte tief Luft und platzte mit ihrem Wunsch heraus.</p>
-<p>&quot;Be my boyfriend!&quot;</p>
-<p>&quot;Was?&quot;</p>
-<p>&quot;Du sollst mein fester Freund sein! Mit mir ins Kino gehen, Shoppen, Essen. Zusammen in den Urlaub fahren, romantisch am Strand spazieren gehen, in der Sonne liegen, mich einkremen. Du wirst mir Kürbis Matcha Latte bringen wenn es mir nicht gut geht, mir immer gut zuhören und alle meine Sorgen verstehen. Du wirst mir mit meiner Abschlussarbeit helfen, Bilder für mich aufhängen, meine Sachen tragen, für mich kochen, und abends werden wir zusammen auf der Couch liegen, Romantikkomödien schauen und..&quot; Die junge Frau errötete.</p>
-<p>Sebas nutzte die Gelegenheit um nachzuhaken.</p>
-<p>&quot;Ich soll dein Sklave sein?&quot;</p>
-<p>&quot;Nein, mein Boyfriend.&quot;</p>
+			<h2>Goal</h2>
+<p>I want to be able to use wikilinks (<code>[[</code> link <code>]]</code>) in my notes, and then have these wikilinks link properly on my hosted website, similar how it links locally.</p>
+<h2>Do it yourself (will do so in the future)</h2>
+<p>Works, but I ran into some small annoyances I didn't want to fix everything myself</p>
+<pre><code class="language-js">// Works, but ugly 
+// 	To improve:
+// 	- need to slugify all url links
+// 	- ensure that urls are short (two words)
+
+eleventyConfig.addFilter(&quot;wikify&quot;, (content = &quot;&quot;) =&gt;
+	content.replace(/\[\[([^\]|]+)(\|([^\]]+))?\]\]/g, (_, target, __, alias) =&gt; {
+		const slug = slugify(target, { lower: true, remove: /[*+~.()'&quot;!?:@]/g });
+		const text = alias || target;
+		const link = '&lt;a href=\&quot;../' + slug + &quot;\&quot;&gt;&quot; + text + &quot;&lt;/a&gt;&quot;;
+		// return `[${text}](./${slug})`;
+		return link
+	})
+);
+</code></pre>
+<p>This is then used as an eleventy filter in my templates: (<code>content | wikify | safe</code>).</p>
+<h2>Use a markdown-it plugin (didn't work)</h2>
+<p>Not sure what I did wrong; it compiles, but no changes happen.</p>
+<pre><code class="language-js">// Doesn't work
+eleventyConfig.amendLibrary(&quot;md&quot;, (mdLib) =&gt; mdLib.use(wikilinks, {
+	// Match [[Page]] or [[Page|Label]]
+	// baseURL: '/wiki/',           // Prefix for all wikilinks
+	// uriSuffix: '/',              // Add trailing slash
+	// makeAllLinksAbsolute: false, // If true, /wiki/Page instead of wiki/Page
+	htmlAttributes: {
+		class: 'wikilink',         // Add class to generated &lt;a&gt;
+	},
+	// postProcessPageName: (pageName) =&gt; {
+	//   // Convert to slug
+	//   return slugify(pageName, { lower: true, remove: /[*+~.()'&quot;!?:@]/g });
+	// }
+}));
+</code></pre>
+<h2>Use an eleventy plugin</h2>
+<p>Someone else had the same problem and fixed it -- why fix it myself?</p>
+<p><a href="https://github.com/photogabble/eleventy-plugin-interlinker">Link to plugin</a>. <a href="https://photogabble.co.uk/projects/eleventyjs-interlink-plugin/">Link to writeup</a>.</p>
+<pre><code class="language-js">eleventyConfig.addPlugin(interlinker, {
+	defaultLayout: &quot;_includes/markdown.njk&quot;,
+	deadLinkReport: &quot;console&quot;
+});
+</code></pre>
+<h2>Lessons learned</h2>
+<ul>
+<li>Slugify your links. <code>use-LLM</code> is different from <code>use-llm</code>..</li>
+</ul>
 
 		</article>
 	</main>
