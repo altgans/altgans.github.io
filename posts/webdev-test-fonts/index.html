@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy v3.1.2">
   <link rel="stylesheet" href="/styles.css">
-<title>Altgans—Schreiben I - Be my boyfriend! [DE]</title>
+<title>Altgans—Quickly test fonts on any website</title>
 </head>
 <body class="w-full h-screen flex flex-col bg-gray-500">
 		
 <div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
 	<head >
-		<p class="text-gray-200 italic">2025-08-30 </p>
-		<h1 class="text-white text-4xl font-bold mb-2">Schreiben I - Be my boyfriend! [DE]</h1>
+		<p class="text-gray-200 italic">2025-10-08 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Quickly test fonts on any website</h1>
 	</head>
 	<main class="bg-gray-300 markdown p-4">
 
@@ -22,21 +22,68 @@
 			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
 		</p> 
 		<article>
-			<h4>Kurzfassung</h4>
-<blockquote>
-<p>Dämon schwimmt durch die primordiale Ewigkeit und wartet auf seine nächste Beschwörung. Denkt über seine bisherige Lebensleistung und Meisterwerke nach. Wird beschworen, von einer jungen Frau. Die Frau möchte, dass er ihr fester Freund wird. Romantikkomödie.</p>
-</blockquote>
-<p>...</p>
-<p>&quot;Sprich, Sterbliche, was ist dein Begehr?&quot;</p>
-<p>Sebas schaute sich im Raum herum. Die ersten Sekunden einer neuen Beschwörung waren immer die schwierigsten. Wer weiß, was einen erwartete? Ein Blutopfer? Schwierig. Eine Seelensuche? Noch schwieriger. Ein Altar der ewigen Dämmerung? Bitte nicht.</p>
-<p>Aber es war keine Gruft voller Kultisten in dunklen Roben. Auch kein Hügelgrab bei Mitternacht. Noch nicht einmal ein finsterer Wald. Es war ein Zimmer. Etwas unaufgeräumt, mit einem großen Bett in der Mitte. Links ein Nachttisch voller okulter Bücher, rechts eine Kommode mit einem Schminktisch und einem großen, rosanen Spiegel. Davor etliche Statullen, Kästchen, silberner Schmuck. Zwei große Kleiderschränke, einer davon offen und zum Bersten mit schwarzen Kleidern gefüllt. Am Boden lauter Zettel. Ein Bannkreis, und davor.. eine junge Frau.</p>
-<p>Sebas betrachtete die Frau. Lila Lippenstift, lila Nagellack und lila Haar. Fahle Haut, schwarze Augenringe. Der Duft von Zitronenshampoo und Erde. Die Frau schaute zurück, holte tief Luft und platzte mit ihrem Wunsch heraus.</p>
-<p>&quot;Be my boyfriend!&quot;</p>
-<p>&quot;Was?&quot;</p>
-<p>&quot;Du sollst mein fester Freund sein! Mit mir ins Kino gehen, Shoppen, Essen. Zusammen in den Urlaub fahren, romantisch am Strand spazieren gehen, in der Sonne liegen, mich einkremen. Du wirst mir Kürbis Matcha Latte bringen wenn es mir nicht gut geht, mir immer gut zuhören und alle meine Sorgen verstehen. Du wirst mir mit meiner Abschlussarbeit helfen, Bilder für mich aufhängen, meine Sachen tragen, für mich kochen, und abends werden wir zusammen auf der Couch liegen, Romantikkomödien schauen und..&quot; Die junge Frau errötete.</p>
-<p>Sebas nutzte die Gelegenheit um nachzuhaken.</p>
-<p>&quot;Ich soll dein Sklave sein?&quot;</p>
-<p>&quot;Nein, mein Boyfriend.&quot;</p>
+			<p>I love fonts, and I spent way too much time finding the perfect font pair. One of my biggest annoyances and time wasters is the fact that I can't preview the fonts on a live website. But this is in the past!</p>
+<p>Paste below into the browser console and watch your font-stack magically change.</p>
+<pre><code class="language-js">
+let l=document.createElement('link');
+l.href='https://fonts.googleapis.com/css2?family=Inter&amp;display=swap';
+l.rel='stylesheet';
+document.head.appendChild(l);
+document.body.style.fontFamily=&quot;'Victor Mono', sans-serif&quot;;
+</code></pre>
+<h2>Improved version (thanks, LLM!)</h2>
+<ul>
+<li>Write (or find) a snippet that toggles between a pre-defined font stack</li>
+<li>Find a way to only style paragraphs and/or headers (likely using CSS selectors)</li>
+<li>stop font switching on key press</li>
+<li>Output current font into console</li>
+</ul>
+<pre><code class="language-js">
+const fonts = [
+  'Roboto',
+  'Lato',
+  'Montserrat',
+  'Oswald',
+  'Merriweather'
+];
+
+const targetSelector = 'h1,h2,h3,h4,h5,h6,p,a';
+let current = 0;
+let intervalId;
+
+function loadFont(font) {
+  const id = 'dynamic-google-font';
+  let link = document.getElementById(id);
+  if (link) link.remove();
+  link = document.createElement('link');
+  link.id = id;
+  link.rel = 'stylesheet';
+  link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/ /g,'+')}&amp;display=swap`;
+  document.head.appendChild(link);
+}
+
+function applyFont(font) {
+  document.querySelectorAll(targetSelector).forEach(el =&gt; {
+    el.style.fontFamily = `'${font}', sans-serif`;
+  });
+  console.log('Current font:', font);
+}
+
+// Start cycling fonts
+intervalId = setInterval(() =&gt; {
+  const font = fonts[current];
+  loadFont(font);
+  applyFont(font);
+  current = (current + 1) % fonts.length;
+}, 2000);
+
+// Stop cycling on any key press
+window.addEventListener('keydown', () =&gt; {
+  clearInterval(intervalId);
+  console.log('Font cycling stopped');
+});
+</code></pre>
+<p>Pretty magical that I was able to vibe-code this in 5 minutes, whereas I would have spent hours fine-tuning this before.</p>
 
 		</article>
 	</main>
