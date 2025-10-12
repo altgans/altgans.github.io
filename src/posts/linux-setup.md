@@ -46,3 +46,36 @@ Less of a guide and more of a dumping ground for ideas, todos and links
 - Scrollable WM
 	- Hypraland? :: I think this is too much of a _Gentoo uber-rice_ thing. I prefer simplicity and quiet
 	- [Niri](../niri)
+
+
+## Distro hopping 2025-10-12
+
+
+What i want: 
+- Arch-based
+- supports my use-cases, doesn't get in the way (Cough, Nixos, cough) 
+- stable 
+- pretty 
+
+What I cooked up 
+- EndeavourOS
+	- I use this container: https://hub.docker.com/r/alex5402/endeavouros
+	- `distrobox create -n my-endeavouros -i docker.io/alex5402/endeavouros:latest`
+	- `distrobox enter my-endeavouros`
+- Wayland
+- Niri
+	- reasoning
+	- Alternatives: hyprland, but looks less stable and I don't want too much rice in the system
+- Noctalia
+	- All in one swaybar replacement
+	- Alternatives: DankMaterialShell, but I don't like the name
+- GTK4
+
+How to migrate 
+- Test everything on distrobox first
+	- Need to figure out how to fix `Error: configure storage: kernel does not support overlay fs: 'overlay' is not supported over extfs at "/home/me/.local/share/containers/storage/overlay": backing file system is unsupported for this graph driver` first
+	- E: apparently installing `fuse-overlayfs` does the trick ([source](https://unix.stackexchange.com/questions/689181/error-kernel-does-not-support-overlay-fs-overlay-is-not-supported-over-extfs))
+- Locally backup everything
+	- figure out what needs to remain, then backup to my NAS? Or just to an usb stick. Probably both, to be safe
+- Wipe system
+	- ext4? btfs? zfs?
