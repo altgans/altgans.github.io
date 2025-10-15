@@ -15,3 +15,12 @@ Luckily, we can run either of these commands to find out. ([Source](https://www.
 - `hostnamectl`
 
 Alternatively, we can use a _fetching tool like [fastfetch](https://github.com/fastfetch-cli/fastfetch)
+
+
+## Which WindowManager
+
+`grep 'ExecStart=' /etc/systemd/system/display-manager.service`
+
+Desktop Manager:
+
+`printf 'Desktop: %s\nSession: %s\n' "$XDG_CURRENT_DESKTOP" "$GDMSESSION"`
