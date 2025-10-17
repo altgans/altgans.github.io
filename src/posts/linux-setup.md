@@ -130,6 +130,7 @@ After switching, I encountered these problems
 - limine bootloader? https://github.com/limine-bootloader/limine
 - mise :: [Installing Mise | mise-en-place](https://mise.jdx.dev/installing-mise.html)
 - gron https://github.com/adamritter/fastgron?tab=readme-ov-file
+- x command https://www.x-cmd.com/
 - ranger tui (or similar)
 - paperless or similar
 - syncthing
@@ -198,3 +199,56 @@ added tidal-hifi and enables scrobble to last.fm and musicbrainz DBs
 
 2025-10-15 23:15
 will look into `ghostty` as alternative to `kitty`
+there is also `wezterm`
+not sure I like `ghostty`, will stay with `kitty`
+e: convinced to give `ghostty` a try -- the theming preview convinced me :)
+
+```conf
+theme = Solarized Osaka Night
+background = 
+foreground = 
+background-image = 
+background-image-opacity = 
+background-opacity = 0.9
+background-blur = true
+#link
+link-url = 
+link-previews = true
+selection-background = 
+selection-foreground =
+# title =
+# class =
+window-inherit-working-directory = 
+window-decoration = false
+bell-features = no-audio
+```
+
+2025-10-16 17:32
+will replace `ranger` with `yazi` (skipping `lf`)
+looks great out of the box
+TODO: config `yazi`
+
+2025-10-16 17:38
+TODO: configure my `starship` shell prompt
+look at Geist font for terminal
+
+2025-10-17 17:16
+how to improve `ghostty` startup?
+it is way slower than `kitty`
+it is slow because of GTK; we can try to run an empty shell at startup, as subsequent `ghostty` windows are faster 
+```conf
+spawn-at-startup  "ghostty --gtk-single-instance=true --quit-after-last-window-closed=false --initial-window=false"
+```
+
+2025-10-17 17:27
+add a command-not-found hook to explain missing commands
+interesting packages: `pay-respects`, `filkoll`, `find-the-command`
+decided on `filkoll`, as `pay-respects` looks as if it does too much (and needs more config) and `find-the-command` looks abandoned
+enabled `filkoll` update-service: `sudo systemctl enable --now filkoll-update.timer`
+enabled `filkoll`: `source /usr/share/doc/filkoll/command-not-found.fish`
+
+2025-10-17 17:46
+I have to say I really like how crispy all the fonts look on `ghostty`
+
+2025-10-17 17:58
+choosing `starship` over `oh my posh`, as i value my time :)
