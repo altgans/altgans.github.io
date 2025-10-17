@@ -252,3 +252,29 @@ I have to say I really like how crispy all the fonts look on `ghostty`
 
 2025-10-17 17:58
 choosing `starship` over `oh my posh`, as i value my time :)
+TODO: choose sane PDF and document viewer (maybe steal from Omarchy)
+
+2025-10-17 20:52
+how to list user-installed packages? (so I know which PDF tools I have installed)
+TODO: agree on a single git gui (`lazygit`, `gitui`)
+TODO: use timeshift for backups (to external drive? stick?)
+TODO: vim-keys on zen-browser
+TODO: add niri hotkey to turn neovim into 80 chars width terminal (for better readability and line break)
+TODO: CLI reminder when not using the most fancy-rust tools (`ls` instead of `lsd`. Best to also add an alias)
+
+2025-10-17 21:52
+want to set up autosave for `nvim`
+find a plugin
+figure out how to install the plugin (auto-save.nvim)
+discover there are erros when autosave and autoformat are combined (endless loop)
+need to update lazyvin
+encounter more errors
+need to install luarocks to fix them
+install `mise` to set up my dev environments 
+remove `nvm` in favor of `mise`
+`nvm` installed via `fisher` (fish plugin manager)
+figure out how to remove `nvm-fish` and `fisher`
+`fisher list | fisher remove`
+TODO: does `mise` also means I can remove my python install?
+activate `mise` in fish: `echo 'mise activate fish | source' >> ~/.config/fish/config.fish`
+actually don't need to install luarocks..
