@@ -9,24 +9,24 @@ Less of a guide and more of a dumping ground for ideas, todos and links
 - Maybe change the shell? I use [kitty](https://sw.kovidgoyal.net/kitty/) (created by the same guy who also created [Calibre ❤️](https://calibre-ebook.com/)), but [ghostty](https://ghostty.org/) also looks promising.
 - It may be yet another opportunity to set up [espanso](https://espanso.org/).
 - [Fish](https://fishshell.com/)
-	- [starhip](https://starship.rs/) shell
-	- GPG keyring + SSH keys
+  - [starhip](https://starship.rs/) shell
+  - GPG keyring + SSH keys
 - unified password sync, backup and file sharing
-	- synology, borg, rsync
-	- KeepassXC, bitwarden, 1password?
+  - synology, borg, rsync
+  - KeepassXC, bitwarden, 1password?
 - better editor setup for blogging
-	- nvim, lazynvim
-	- Obsidian
+  - nvim, lazynvim
+  - Obsidian
 - coding setup
-	- manage environments with [nvm](https://github.com/nvm-sh/nvm), [mise-en-place](https://mise.jdx.dev/)
-	- VS Code, zed, emacs, kakoune, ... ?
+  - manage environments with [nvm](https://github.com/nvm-sh/nvm), [mise-en-place](https://mise.jdx.dev/)
+  - VS Code, zed, emacs, kakoune, ... ?
 - Other
-	- [localsend](../localsend)
-	- vlc, mpv
-	- calibre
-	- firefox!
-	- Mixxx
-	- Krita
+  - [localsend](../localsend)
+  - vlc, mpv
+  - calibre
+  - firefox!
+  - Mixxx
+  - Krita
 - see if I can remove manjaro-sway-settings, etc
 
 ## Network
@@ -40,97 +40,97 @@ Less of a guide and more of a dumping ground for ideas, todos and links
 
 - Change my wallpaper
 - Unify the system GUIs
-	- GTK4?
+  - GTK4?
 - [Quickshell](https://quickshell.org/)
-	- [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell)
-	- [Noctalia](https://docs.noctalia.dev/) :: has a better name than DankShell, will start with this
+  - [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell)
+  - [Noctalia](https://docs.noctalia.dev/) :: has a better name than DankShell, will start with this
 - Scrollable WM
-	- Hypraland? :: I think this is too much of a _Gentoo uber-rice_ thing. I prefer simplicity and quiet
-	- [Niri](../niri)
-
+  - Hypraland? :: I think this is too much of a _Gentoo uber-rice_ thing. I prefer simplicity and quiet
+  - [Niri](../niri)
 
 ## Distro hopping 2025-10-12
 
+What i want:
 
-What i want: 
 - Arch-based
-- supports my use-cases, doesn't get in the way (Cough, Nixos, cough) 
-- stable 
-- pretty 
+- supports my use-cases, doesn't get in the way (Cough, Nixos, cough)
+- stable
+- pretty
 
-What I cooked up 
+What I cooked up
+
 - EndeavourOS
-	- I use this container: https://hub.docker.com/r/alex5402/endeavouros
-	- `distrobox create -n my-endeavouros -i docker.io/alex5402/endeavouros:latest`
-	- `distrobox enter my-endeavouros`
-	- Actually, this is a too-deeply integrated way to test the distro. Should have used a VM instead.
+  - I use this container: <https://hub.docker.com/r/alex5402/endeavouros>
+  - `distrobox create -n my-endeavouros -i docker.io/alex5402/endeavouros:latest`
+  - `distrobox enter my-endeavouros`
+  - Actually, this is a too-deeply integrated way to test the distro. Should have used a VM instead.
 - Wayland
 - Niri
-	- reasoning
-	- Alternatives: hyprland, but looks less stable and I don't want too much rice in the system
+  - reasoning
+  - Alternatives: hyprland, but looks less stable and I don't want too much rice in the system
 - Noctalia
-	- All in one swaybar replacement
-	- Alternatives: DankMaterialShell, but I don't like the name
+  - All in one swaybar replacement
+  - Alternatives: DankMaterialShell, but I don't like the name
 - GTK4
 
-How to migrate 
+How to migrate
+
 - Test everything on distrobox first
-	- Need to figure out how to fix `Error: configure storage: kernel does not support overlay fs: 'overlay' is not supported over extfs at "/home/me/.local/share/containers/storage/overlay": backing file system is unsupported for this graph driver` first
-	- E: apparently installing `fuse-overlayfs` does the trick ([source](https://unix.stackexchange.com/questions/689181/error-kernel-does-not-support-overlay-fs-overlay-is-not-supported-over-extfs))
+  - Need to figure out how to fix `Error: configure storage: kernel does not support overlay fs: 'overlay' is not supported over extfs at "/home/me/.local/share/containers/storage/overlay": backing file system is unsupported for this graph driver` first
+  - E: apparently installing `fuse-overlayfs` does the trick ([source](https://unix.stackexchange.com/questions/689181/error-kernel-does-not-support-overlay-fs-overlay-is-not-supported-over-extfs))
 - Locally backup everything
-	- figure out what needs to remain, then backup to my NAS? Or just to an usb stick. Probably both, to be safe
+  - figure out what needs to remain, then backup to my NAS? Or just to an usb stick. Probably both, to be safe
 - Wipe system
-	- ext4? btfs? zfs?
+  - ext4? btfs? zfs?
 
 ## Switching
 
 Decided to just use my Manjaro, as it is stable :)
 
-I ran the following command 
+I ran the following command
 
 ```shell
 sudo pacman -S greetd greetd-tuigreet xdg-desktop-portal xdg-desktop-portal-wlr alacritty swaybg xwayland-satellite udiskie fuzzel xdg-desktop-portal-gtk xdg-desktop-portal-gnome gnome-keyring nautilus kanshi brightnessctl inter-font ttf-roboto
 ```
 
-After switching, I encountered these problems 
+After switching, I encountered these problems
 
 - black screen --> reboot
-	- hindsight: never switch your core WM/DMs without backup! very risky!
+  - hindsight: never switch your core WM/DMs without backup! very risky!
 - niri loads, I see an ugly status bar and randomly click it --> put laptop into flight-mode with no way to enable the internet again --> `rfkill unblock all` (I may have also pushed the wrong button/function-key on my keyboard..)
 - wrong terminal (alacritty) --> change in `.conf/niri`
 - wrong shell (zsh) --> `chsh` doesn't work --> for some reasone _zsh_ was set as default in `.profile`
 
-
 ## Shoppinglist / todos
 
- - understand whatever I just installed
-	- greetd?
- - customize quickshell
-	- change gtk theme
-	- change wallpaper
-	- autologin
- - customize niri hotkeys, appearance
-	- quick jump to window (alt+1 = firefox)
- - improve ssh, keyshell, gpg keys setup
- - go shopping for other cool applications
-	- zen browser
-		- zen-browser-bin is the binary version, ie. compiled
-	- dolphin filebrowser; or nemo? or midnight commander? or pcman fm?
+- understand whatever I just installed
+  - greetd?
+- customize quickshell
+  - change gtk theme
+  - change wallpaper
+  - autologin
+- customize niri hotkeys, appearance
+  - quick jump to window (alt+1 = firefox)
+- improve ssh, keyshell, gpg keys setup
+- go shopping for other cool applications
+  - zen browser
+    - zen-browser-bin is the binary version, ie. compiled
+  - dolphin filebrowser; or nemo? or midnight commander? or pcman fm?
 - improve manjaro setup
-	- doas
-	- pavu, yay, pacman?
-	- quick way to see and install software, maybe by opening an app launcher that runs `yay`
-	- fingerprint launcher revisited?
-	- system stats, disk space usage
+  - doas
+  - pavu, yay, pacman?
+  - quick way to see and install software, maybe by opening an app launcher that runs `yay`
+  - fingerprint launcher revisited?
+  - system stats, disk space usage
 - configure obsidian, nvim
 - font setup
 - password setup
 - backup
-- 'webapps' like in Omarchy that launch a website, ... (https://learn.omacom.io/2/the-omarchy-manual/63/web-apps)
-- limine bootloader? https://github.com/limine-bootloader/limine
+- 'webapps' like in Omarchy that launch a website, ... (<https://learn.omacom.io/2/the-omarchy-manual/63/web-apps>)
+- limine bootloader? <https://github.com/limine-bootloader/limine>
 - mise :: [Installing Mise | mise-en-place](https://mise.jdx.dev/installing-mise.html)
-- gron https://github.com/adamritter/fastgron?tab=readme-ov-file
-- x command https://www.x-cmd.com/
+- gron <https://github.com/adamritter/fastgron?tab=readme-ov-file>
+- x command <https://www.x-cmd.com/>
 - ranger tui (or similar)
 - paperless or similar
 - syncthing
@@ -147,7 +147,7 @@ After switching, I encountered these problems
 
 I like it when I can see the news/changelogs of packages. E: But it is damn annoying to see all of this on system update! (Pikaur)
 
-TODO: Look at https://github.com/topgrade-rs/topgrade aswell 
+TODO: Look at <https://github.com/topgrade-rs/topgrade> aswell
 
 `paru -Sua --upgrademenu`
 
@@ -166,9 +166,9 @@ HoldPkg     = pacman glibc <...system packages>
 VerbosePkgLists
 ```
 
-
 2025-10-15 22:03
 changed `paru.conf`
+
 ```conf
 # Paru conf
 # See paru.conf
@@ -188,10 +188,12 @@ FileManager = lf
 
 2025-10-15 22:24
 set up `doas` (OpenDoas)
+
 ```conf
 permit persist setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel
 ```
-2025-10-15 22:48 
+
+2025-10-15 22:48
 removed opendoas again, as it needs to be rebuilt to support fingerprint/PAM
 
 2025-10-15 23:02
@@ -235,7 +237,8 @@ look at Geist font for terminal
 2025-10-17 17:16
 how to improve `ghostty` startup?
 it is way slower than `kitty`
-it is slow because of GTK; we can try to run an empty shell at startup, as subsequent `ghostty` windows are faster 
+it is slow because of GTK; we can try to run an empty shell at startup, as subsequent `ghostty` windows are faster
+
 ```conf
 spawn-at-startup  "ghostty --gtk-single-instance=true --quit-after-last-window-closed=false --initial-window=false"
 ```
@@ -270,7 +273,7 @@ discover there are erros when autosave and autoformat are combined (endless loop
 need to update lazyvin
 encounter more errors
 need to install luarocks to fix them
-install `mise` to set up my dev environments 
+install `mise` to set up my dev environments
 remove `nvm` in favor of `mise`
 `nvm` installed via `fisher` (fish plugin manager)
 figure out how to remove `nvm-fish` and `fisher`
@@ -278,3 +281,181 @@ figure out how to remove `nvm-fish` and `fisher`
 TODO: does `mise` also means I can remove my python install?
 activate `mise` in fish: `echo 'mise activate fish | source' >> ~/.config/fish/config.fish`
 actually don't need to install luarocks..
+
+2025-10-17 22:43
+autosave set up!
+
+```lua
+local excluded_filetypes = {
+    -- this one is especially useful if you use neovim as a commit message editor
+    "gitcommit",
+    -- most of these are usually set to non-modifiable, which prevents autosaving
+    -- by default, but it doesn't hurt to be extra safe.
+    "NvimTree",
+    "Outline",
+    "TelescopePrompt",
+    "alpha",
+    "dashboard",
+    "lazygit",
+    "neo-tree",
+    "oil",
+    "prompt",
+    "toggleterm",
+}
+
+local excluded_filenames = {
+    -- "do-not-autosave-me.lua",
+}
+
+local function save_condition(buf)
+    if
+        vim.tbl_contains(excluded_filetypes, vim.fn.getbufvar(buf, "&filetype"))
+        or vim.tbl_contains(excluded_filenames, vim.fn.expand("%:t"))
+        -- don't save for special-buffers
+        or vim.fn.getbufvar(buf, "&buftype") ~= ""
+    then
+        return false
+    end
+    return true
+end
+
+return {
+    "okuuva/auto-save.nvim",
+    version = "^1.0.0", -- see https://devhints.io/semver, alternatively use '*' to use the latest tagged release
+    lazy = false,
+    cmd = "ASToggle", -- optional for lazy loading on command
+    -- event = { "InsertLeave", "TextChanged" },
+    opts = {
+        debounce_delay = 1000, -- ms delay before save
+        write_all_buffers = false, -- only save the current buffer
+        noautocmd = false, -- do not execute autocmds when saving
+        condition = save_condition,
+    },
+    keys = {
+        { "<leader>uv", "<cmd>ASToggle<CR>", desc = "Toggle autosave" },
+    },
+}
+```
+
+2025-10-17 22:44
+TODO: ghostty doesn't ready my SSH key for github pushes..
+setting up starship
+`mkdir -p ~/.config && touch ~/.config/starship.toml`
+by default, I prefer text over icons, as I don't know what the icons mean `starship preset plain-text-symbols -o ~/.config/starship.toml`
+changed a few icons (mainly OS symbols) to NerfFonts icons
+figuring out how to add support for TOML schemas to nvim
+thinking about adding yanky.nvim
+added `taplo` to `nvim`, but now I get _this file has been excluded_
+
+2025-10-17 23:41
+fixed it
+
+```lua
+-- File: lua/plugins/lsp-taplo.lua
+-- https://old.reddit.com/r/neovim/comments/1fkprp5/how_to_properly_setup_lspconfig_for_toml_files/
+return {
+    "neovim/nvim-lspconfig",
+    opts = {
+        servers = {
+            taplo = {
+                filetypes = { "toml" }, -- ensure it attaches to TOML files
+                root_dir = require("lspconfig.util").root_pattern("*.toml", ".git"),
+                settings = {
+                    evenBetterToml = {
+                        schema = {
+                            enabled = true,
+                        },
+                    },
+                },
+            },
+        },
+    },
+}
+```
+
+2025-10-17 23:42
+continuing on starship config
+how to insert emoji and unicode in linux with my system menu (`drun`?)
+TODO figure out which menu I run
+configuring `niri`
+I like centering containers, but then I can't edit side-by-side..
+TODO change screenlocker to quickshell/noctalia (away from `swaylock`)
+niri hotkeys seem like extremely sane defaults. Also, the variable names are sane, too!
+TODO change niri logout keybinds to trigger quickshell logout
+
+2025-10-18 00:16
+want to change my noctalia profile picture (`~/.face`)
+want to copy my profile pictyre via `yazi` as `.face`
+added a `yazi` shell wrapper to be able to change the dir
+
+```fish
+function y
+ set tmp (mktemp -t "yazi-cwd.XXXXXX")
+ yazi $argv --cwd-file="$tmp"
+ if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+  builtin cd -- "$cwd"
+ end
+ rm -f -- "$tmp"
+end
+```
+
+learned that you can press `F1` to display `yazi` keymaps
+move files via `x` (cut yank)
+
+2025-10-18 00:27
+found out how to quickshell IPC for logout from niri
+
+```toml
+Mod+Shift+E { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle";}``
+```
+
+still need to figure out how to insert unicode via my `fuzzel`
+TODO decide on `fuzzel`, `rofi`, `dmenu`, ... (bemenu, wofi, wmenu, ilia, ...) and configure them
+TODO save my dotfiles (don't want to lose them...)
+TODO look into yubikey for auth
+
+2025-10-18 00:48
+decided on `fuzzel`
+looking for unicode pickers, but this doesn't seem to be available. Closest is `bemoji` and `rofimoji` -- no unicode though?
+TODO remove `rofi`
+can also use `unipicker` and then add it to `fuzzel` (TODO)
+
+2025-10-18 01:06
+removed `sway`, `manjaro-sway-settings`, ..
+check if the following are needed/useful
+
+```text
+## The following packages are installed but not required (anymore):
+argagg
+bc
+bluetuith
+btop
+calcurse
+foot
+gdb
+grimshot
+gtklock
+idlehack
+kvantum-theme-matcha
+libappimage
+manjaro-base-skel
+matcha-gtk-theme
+nwg-wrapper
+papirus-maia-icon-theme
+pyalpm
+rofimoji
+smartmontools
+swappy
+swayidle
+swayr
+wf-recorder
+wl-clip-persist
+wlroots0.19
+wob
+xcursor-breeze
+xdg-terminal-exec
+
+```
+
+2025-10-18 01:11
+Added my preferred terminal char `↳`!
