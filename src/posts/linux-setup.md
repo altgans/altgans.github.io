@@ -29,6 +29,8 @@ Less of a guide and more of a dumping ground for ideas, todos and links
   - Krita
 - see if I can remove manjaro-sway-settings, etc
 
+RANDOM TODO I like the website style of <https://shinglyu.com/web/2024/09/17/my-wayland-adventure.html>
+
 ## Network
 
 - Tailscale to connect to my Synology NAS and to troubleshoot my family?
@@ -565,3 +567,31 @@ fixed `rofimoji --selector fuzzel` showing outline-only emojis by adding `font=H
 removed `swaylock`
 figured out that I can lock my screen by calling this quickshell IPC `qs -c noctalia-shell ipc call sessionMenu lockAndSuspend`
 TODO mediakyes for quickshell `qs -c noctalia-shell ipc call media next`
+
+2025-10-19 19:30
+looking to set up ssh and gpg, again
+goal: unlock the keyring until I lock the screen again (or am idle 15 min)
+grok seems more useful for tech support than chatGPT
+
+2025-10-19 20:27
+discovered some zsh and bash config files -- should I remove them?
+TODO notify my when I run a command for which I have a fish alias/function (like `yazi` instead of `y`)
+
+2025-10-19 20:43
+added a shortcut for opening my syncthing localhost url via `fuzzel` (by creating an .desktop file in `/home/jst/.local/share/applications`)
+I think this is a good way to remember localhost URLs (syncthing, paperless, synology-gui, gitea, pihole, ...)
+
+```desktop
+[Desktop Entry]
+Name=Syncthing Web UI
+Type=Application
+Exec=xdg-open http://127.0.0.1:8384/
+Icon=text-html
+Terminal=false
+```
+
+installed `cliphist`, need to figure out what it does -- just another `wl-copy`? E: requires `wl-clipboard`, so seems to sit 'above'
+we can run `cliphist list | fuzzel -d | cliphist decode | wl-copy` to have `fuzzel` show the last pastes
+TODO set a hotkey for this, and/or use the quickshell variant
+TODO check my screenshot setup and/or maybe set up `grim` and `slurp`
+removed `pnpm`
