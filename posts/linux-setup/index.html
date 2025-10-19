@@ -60,7 +60,9 @@
 <li>Krita</li>
 </ul>
 </li>
+<li>see if I can remove manjaro-sway-settings, etc</li>
 </ul>
+<p>RANDOM TODO I like the website style of <a href="https://shinglyu.com/web/2024/09/17/my-wayland-adventure.html">https://shinglyu.com/web/2024/09/17/my-wayland-adventure.html</a></p>
 <h2>Network</h2>
 <ul>
 <li>Tailscale to connect to my Synology NAS and to troubleshoot my family?
@@ -90,6 +92,513 @@
 </ul>
 </li>
 </ul>
+<h2>Distro hopping 2025-10-12</h2>
+<p>What i want:</p>
+<ul>
+<li>Arch-based</li>
+<li>supports my use-cases, doesn't get in the way (Cough, Nixos, cough)</li>
+<li>stable</li>
+<li>pretty</li>
+</ul>
+<p>What I cooked up</p>
+<ul>
+<li>EndeavourOS
+<ul>
+<li>I use this container: <a href="https://hub.docker.com/r/alex5402/endeavouros">https://hub.docker.com/r/alex5402/endeavouros</a></li>
+<li><code>distrobox create -n my-endeavouros -i docker.io/alex5402/endeavouros:latest</code></li>
+<li><code>distrobox enter my-endeavouros</code></li>
+<li>Actually, this is a too-deeply integrated way to test the distro. Should have used a VM instead.</li>
+</ul>
+</li>
+<li>Wayland</li>
+<li>Niri
+<ul>
+<li>reasoning</li>
+<li>Alternatives: hyprland, but looks less stable and I don't want too much rice in the system</li>
+</ul>
+</li>
+<li>Noctalia
+<ul>
+<li>All in one swaybar replacement</li>
+<li>Alternatives: DankMaterialShell, but I don't like the name</li>
+</ul>
+</li>
+<li>GTK4</li>
+</ul>
+<p>How to migrate</p>
+<ul>
+<li>Test everything on distrobox first
+<ul>
+<li>Need to figure out how to fix <code>Error: configure storage: kernel does not support overlay fs: 'overlay' is not supported over extfs at &quot;/home/me/.local/share/containers/storage/overlay&quot;: backing file system is unsupported for this graph driver</code> first</li>
+<li>E: apparently installing <code>fuse-overlayfs</code> does the trick (<a href="https://unix.stackexchange.com/questions/689181/error-kernel-does-not-support-overlay-fs-overlay-is-not-supported-over-extfs">source</a>)</li>
+</ul>
+</li>
+<li>Locally backup everything
+<ul>
+<li>figure out what needs to remain, then backup to my NAS? Or just to an usb stick. Probably both, to be safe</li>
+</ul>
+</li>
+<li>Wipe system
+<ul>
+<li>ext4? btfs? zfs?</li>
+</ul>
+</li>
+</ul>
+<h2>Switching</h2>
+<p>Decided to just use my Manjaro, as it is stable :)</p>
+<p>I ran the following command</p>
+<pre><code class="language-shell">sudo pacman -S greetd greetd-tuigreet xdg-desktop-portal xdg-desktop-portal-wlr alacritty swaybg xwayland-satellite udiskie fuzzel xdg-desktop-portal-gtk xdg-desktop-portal-gnome gnome-keyring nautilus kanshi brightnessctl inter-font ttf-roboto
+</code></pre>
+<p>After switching, I encountered these problems</p>
+<ul>
+<li>black screen --&gt; reboot
+<ul>
+<li>hindsight: never switch your core WM/DMs without backup! very risky!</li>
+</ul>
+</li>
+<li>niri loads, I see an ugly status bar and randomly click it --&gt; put laptop into flight-mode with no way to enable the internet again --&gt; <code>rfkill unblock all</code> (I may have also pushed the wrong button/function-key on my keyboard..)</li>
+<li>wrong terminal (alacritty) --&gt; change in <code>.conf/niri</code></li>
+<li>wrong shell (zsh) --&gt; <code>chsh</code> doesn't work --&gt; for some reasone <em>zsh</em> was set as default in <code>.profile</code></li>
+</ul>
+<h2>Shoppinglist / todos</h2>
+<ul>
+<li>understand whatever I just installed
+<ul>
+<li>greetd?</li>
+</ul>
+</li>
+<li>customize quickshell
+<ul>
+<li>change gtk theme</li>
+<li>change wallpaper</li>
+<li>autologin</li>
+</ul>
+</li>
+<li>customize niri hotkeys, appearance
+<ul>
+<li>quick jump to window (alt+1 = firefox)</li>
+</ul>
+</li>
+<li>improve ssh, keyshell, gpg keys setup</li>
+<li>go shopping for other cool applications
+<ul>
+<li>zen browser
+<ul>
+<li>zen-browser-bin is the binary version, ie. compiled</li>
+</ul>
+</li>
+<li>dolphin filebrowser; or nemo? or midnight commander? or pcman fm?</li>
+</ul>
+</li>
+<li>improve manjaro setup
+<ul>
+<li>doas</li>
+<li>pavu, yay, pacman?</li>
+<li>quick way to see and install software, maybe by opening an app launcher that runs <code>yay</code></li>
+<li>fingerprint launcher revisited?</li>
+<li>system stats, disk space usage</li>
+</ul>
+</li>
+<li>configure obsidian, nvim</li>
+<li>font setup</li>
+<li>password setup</li>
+<li>backup</li>
+<li>'webapps' like in Omarchy that launch a website, ... (<a href="https://learn.omacom.io/2/the-omarchy-manual/63/web-apps">https://learn.omacom.io/2/the-omarchy-manual/63/web-apps</a>)</li>
+<li>limine bootloader? <a href="https://github.com/limine-bootloader/limine">https://github.com/limine-bootloader/limine</a></li>
+<li>mise :: <a href="https://mise.jdx.dev/installing-mise.html">Installing Mise | mise-en-place</a></li>
+<li>gron <a href="https://github.com/adamritter/fastgron?tab=readme-ov-file">https://github.com/adamritter/fastgron?tab=readme-ov-file</a></li>
+<li>x command <a href="https://www.x-cmd.com/">https://www.x-cmd.com/</a></li>
+<li>ranger tui (or similar)</li>
+<li>paperless or similar</li>
+<li>syncthing</li>
+<li>firefox addons and block list to remove ai slob</li>
+</ul>
+<h2>Deciding on an <em>aur</em> helper</h2>
+<p><code>yay</code>, <code>paru</code>, <code>trizen</code> or <code>pikaur</code>?</p>
+<ul>
+<li>yay :: Go, default in Manjaro</li>
+<li>trizen :: Pearl, has some extra features. Didn't like the search interface</li>
+<li>pikaur :: Python. Asks all the questions <em>before</em> installation</li>
+<li>paru :: Rust. Asks to review packages by default, which is a good approach to AUR package security. May be annoying after some time</li>
+</ul>
+<p>I like it when I can see the news/changelogs of packages. E: But it is damn annoying to see all of this on system update! (Pikaur)</p>
+<p>TODO: Look at <a href="https://github.com/topgrade-rs/topgrade">https://github.com/topgrade-rs/topgrade</a> aswell</p>
+<p><code>paru -Sua --upgrademenu</code></p>
+<h2>log</h2>
+<p>2025-10-15
+changed <code>pacman.conf</code> to enable</p>
+<pre><code class="language-conf">Color
+ParallelDownloads = 5
+ILoveCandy
+Architecture = auto
+CheckSpace
+HoldPkg     = pacman glibc &lt;...system packages&gt;
+VerbosePkgLists
+</code></pre>
+<p>2025-10-15 22:03
+changed <code>paru.conf</code></p>
+<pre><code class="language-conf"># Paru conf
+# See paru.conf
+Include = /etc/paru.conf
+
+[options]
+BottomUp
+SudoLoop
+CleanAfter
+NewsOnUpgrade
+UpgradeMenu
+
+[bin]
+FileManager = lf
+#Sudo = doas
+</code></pre>
+<p>2025-10-15 22:24
+set up <code>doas</code> (OpenDoas)</p>
+<pre><code class="language-conf">permit persist setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel
+</code></pre>
+<p>2025-10-15 22:48
+removed opendoas again, as it needs to be rebuilt to support fingerprint/PAM</p>
+<p>2025-10-15 23:02
+added tidal-hifi and enables scrobble to last.fm and musicbrainz DBs</p>
+<p>2025-10-15 23:15
+will look into <code>ghostty</code> as alternative to <code>kitty</code>
+there is also <code>wezterm</code>
+not sure I like <code>ghostty</code>, will stay with <code>kitty</code>
+e: convinced to give <code>ghostty</code> a try -- the theming preview convinced me :)</p>
+<pre><code class="language-conf">theme = Solarized Osaka Night
+background = 
+foreground = 
+background-image = 
+background-image-opacity = 
+background-opacity = 0.9
+background-blur = true
+#link
+link-url = 
+link-previews = true
+selection-background = 
+selection-foreground =
+# title =
+# class =
+window-inherit-working-directory = 
+window-decoration = false
+bell-features = no-audio
+</code></pre>
+<p>2025-10-16 17:32
+will replace <code>ranger</code> with <code>yazi</code> (skipping <code>lf</code>)
+looks great out of the box
+DONE: config <code>yazi</code></p>
+<p>2025-10-16 17:38
+TODO: configure my <code>starship</code> shell prompt
+look at Geist font for terminal</p>
+<p>2025-10-17 17:16
+how to improve <code>ghostty</code> startup?
+it is way slower than <code>kitty</code>
+it is slow because of GTK; we can try to run an empty shell at startup, as subsequent <code>ghostty</code> windows are faster</p>
+<pre><code class="language-conf">spawn-at-startup  &quot;ghostty --gtk-single-instance=true --quit-after-last-window-closed=false --initial-window=false&quot;
+</code></pre>
+<p>2025-10-17 17:27
+add a command-not-found hook to explain missing commands
+interesting packages: <code>pay-respects</code>, <code>filkoll</code>, <code>find-the-command</code>
+decided on <code>filkoll</code>, as <code>pay-respects</code> looks as if it does too much (and needs more config) and <code>find-the-command</code> looks abandoned
+enabled <code>filkoll</code> update-service: <code>sudo systemctl enable --now filkoll-update.timer</code>
+enabled <code>filkoll</code>: <code>source /usr/share/doc/filkoll/command-not-found.fish</code></p>
+<p>2025-10-17 17:46
+I have to say I really like how crispy all the fonts look on <code>ghostty</code></p>
+<p>2025-10-17 17:58
+choosing <code>starship</code> over <code>oh my posh</code>, as i value my time :)
+TODO: choose sane PDF and document viewer (maybe steal from Omarchy)</p>
+<p>2025-10-17 20:52
+how to list user-installed packages? (so I know which PDF tools I have installed)
+TODO: agree on a single git gui (<code>lazygit</code>, <code>gitui</code>)
+TODO: use timeshift for backups (to external drive? stick?)
+TODO: vim-keys on zen-browser
+TODO: add niri hotkey to turn neovim into 80 chars width terminal (for better readability and line break)
+TODO: CLI reminder when not using the most fancy-rust tools (<code>ls</code> instead of <code>lsd</code>. Best to also add an alias)</p>
+<p>2025-10-17 21:52
+want to set up autosave for <code>nvim</code>
+find a plugin
+figure out how to install the plugin (auto-save.nvim)
+discover there are erros when autosave and autoformat are combined (endless loop)
+need to update lazyvin
+encounter more errors
+need to install luarocks to fix them
+install <code>mise</code> to set up my dev environments
+remove <code>nvm</code> in favor of <code>mise</code>
+<code>nvm</code> installed via <code>fisher</code> (fish plugin manager)
+figure out how to remove <code>nvm-fish</code> and <code>fisher</code>
+<code>fisher list | fisher remove</code>
+DONE: does <code>mise</code> also means I can remove my python install? (no, python is required for many applications..)
+activate <code>mise</code> in fish: <code>echo 'mise activate fish | source' &gt;&gt; ~/.config/fish/config.fish</code>
+actually don't need to install luarocks..</p>
+<p>2025-10-17 22:43
+autosave set up!</p>
+<pre><code class="language-lua">local excluded_filetypes = {
+    -- this one is especially useful if you use neovim as a commit message editor
+    &quot;gitcommit&quot;,
+    -- most of these are usually set to non-modifiable, which prevents autosaving
+    -- by default, but it doesn't hurt to be extra safe.
+    &quot;NvimTree&quot;,
+    &quot;Outline&quot;,
+    &quot;TelescopePrompt&quot;,
+    &quot;alpha&quot;,
+    &quot;dashboard&quot;,
+    &quot;lazygit&quot;,
+    &quot;neo-tree&quot;,
+    &quot;oil&quot;,
+    &quot;prompt&quot;,
+    &quot;toggleterm&quot;,
+}
+
+local excluded_filenames = {
+    -- &quot;do-not-autosave-me.lua&quot;,
+}
+
+local function save_condition(buf)
+    if
+        vim.tbl_contains(excluded_filetypes, vim.fn.getbufvar(buf, &quot;&amp;filetype&quot;))
+        or vim.tbl_contains(excluded_filenames, vim.fn.expand(&quot;%:t&quot;))
+        -- don't save for special-buffers
+        or vim.fn.getbufvar(buf, &quot;&amp;buftype&quot;) ~= &quot;&quot;
+    then
+        return false
+    end
+    return true
+end
+
+return {
+    &quot;okuuva/auto-save.nvim&quot;,
+    version = &quot;^1.0.0&quot;, -- see https://devhints.io/semver, alternatively use '*' to use the latest tagged release
+    lazy = false,
+    cmd = &quot;ASToggle&quot;, -- optional for lazy loading on command
+    -- event = { &quot;InsertLeave&quot;, &quot;TextChanged&quot; },
+    opts = {
+        debounce_delay = 1000, -- ms delay before save
+        write_all_buffers = false, -- only save the current buffer
+        noautocmd = false, -- do not execute autocmds when saving
+        condition = save_condition,
+    },
+    keys = {
+        { &quot;&lt;leader&gt;uv&quot;, &quot;&lt;cmd&gt;ASToggle&lt;CR&gt;&quot;, desc = &quot;Toggle autosave&quot; },
+    },
+}
+</code></pre>
+<p>2025-10-17 22:44
+TODO: ghostty doesn't ready my SSH key for github pushes..
+setting up starship
+<code>mkdir -p ~/.config &amp;&amp; touch ~/.config/starship.toml</code>
+by default, I prefer text over icons, as I don't know what the icons mean <code>starship preset plain-text-symbols -o ~/.config/starship.toml</code>
+changed a few icons (mainly OS symbols) to NerfFonts icons
+figuring out how to add support for TOML schemas to nvim
+thinking about adding yanky.nvim
+added <code>taplo</code> to <code>nvim</code>, but now I get <em>this file has been excluded</em></p>
+<p>2025-10-17 23:41
+fixed it</p>
+<pre><code class="language-lua">-- File: lua/plugins/lsp-taplo.lua
+-- https://old.reddit.com/r/neovim/comments/1fkprp5/how_to_properly_setup_lspconfig_for_toml_files/
+return {
+    &quot;neovim/nvim-lspconfig&quot;,
+    opts = {
+        servers = {
+            taplo = {
+                filetypes = { &quot;toml&quot; }, -- ensure it attaches to TOML files
+                root_dir = require(&quot;lspconfig.util&quot;).root_pattern(&quot;*.toml&quot;, &quot;.git&quot;),
+                settings = {
+                    evenBetterToml = {
+                        schema = {
+                            enabled = true,
+                        },
+                    },
+                },
+            },
+        },
+    },
+}
+</code></pre>
+<p>2025-10-17 23:42
+continuing on starship config
+how to insert emoji and unicode in linux with my system menu (<code>drun</code>?)
+DONE figure out which menu I run (fuzzel)
+configuring <code>niri</code>
+I like centering containers, but then I can't edit side-by-side..
+DONE change screenlocker to quickshell/noctalia (away from <code>swaylock</code>)
+niri hotkeys seem like extremely sane defaults. Also, the variable names are sane, too!
+DONE change niri logout keybinds to trigger quickshell logout</p>
+<p>2025-10-18 00:16
+want to change my noctalia profile picture (<code>~/.face</code>)
+want to copy my profile pictyre via <code>yazi</code> as <code>.face</code>
+added a <code>yazi</code> shell wrapper to be able to change the dir</p>
+<pre><code class="language-fish">function y
+ set tmp (mktemp -t &quot;yazi-cwd.XXXXXX&quot;)
+ yazi $argv --cwd-file=&quot;$tmp&quot;
+ if read -z cwd &lt; &quot;$tmp&quot;; and [ -n &quot;$cwd&quot; ]; and [ &quot;$cwd&quot; != &quot;$PWD&quot; ]
+  builtin cd -- &quot;$cwd&quot;
+ end
+ rm -f -- &quot;$tmp&quot;
+end
+</code></pre>
+<p>learned that you can press <code>F1</code> to display <code>yazi</code> keymaps
+move files via <code>x</code> (cut yank)</p>
+<p>2025-10-18 00:27
+found out how to quickshell IPC for logout from niri</p>
+<pre><code class="language-toml">Mod+Shift+E { spawn &quot;qs&quot; &quot;-c&quot; &quot;noctalia-shell&quot; &quot;ipc&quot; &quot;call&quot; &quot;sessionMenu&quot; &quot;toggle&quot;;}``
+</code></pre>
+<p>still need to figure out how to insert unicode via my <code>fuzzel</code>
+DONE decide on <code>fuzzel</code>, <code>rofi</code>, <code>dmenu</code>, ... (bemenu, wofi, wmenu, ilia, ...) and configure them
+TODO save my dotfiles (don't want to lose them...)
+TODO research yubikey for auth</p>
+<p>2025-10-18 00:48
+decided on <code>fuzzel</code>
+looking for unicode pickers, but this doesn't seem to be available. Closest is <code>bemoji</code> and <code>rofimoji</code> -- no unicode though?
+DONE remove <code>rofi</code>
+can also use <code>unipicker</code> and then add it to <code>fuzzel</code></p>
+<p>2025-10-18 01:06
+removed <code>sway</code>, <code>manjaro-sway-settings</code>, ..
+check if the following are needed/useful</p>
+<pre><code class="language-text">## The following packages are installed but not required (anymore):
+argagg
+bc
+bluetuith
+btop
+calcurse
+foot
+gdb
+grimshot
+gtklock
+idlehack
+kvantum-theme-matcha
+libappimage
+manjaro-base-skel
+matcha-gtk-theme
+nwg-wrapper
+papirus-maia-icon-theme
+pyalpm
+rofimoji
+smartmontools
+swappy
+swayidle
+swayr
+wf-recorder
+wl-clip-persist
+wlroots0.19
+wob
+xcursor-breeze
+xdg-terminal-exec
+
+</code></pre>
+<p>2025-10-18 01:11
+Added my preferred terminal char <code>↳</code>!</p>
+<p>2025-10-18 13:30
+<code>anyrun</code> seems as if it would do the perfect job for launching apps and searching for unicdoe <a href="https://github.com/anyrun-org/anyrun?tab=readme-ov-file">https://github.com/anyrun-org/anyrun?tab=readme-ov-file</a>
+<code>walker</code> is also a good contender
+THOUGHT a new file format that splits all TODO into separate 'threads', as these represent a decision-making fork; I can only do one thing at a time, and every additional TODO needs to be queued and done later. Having a journal that supports this mental model, where I select branches of TODO and journal down on them may also represent a true Zettelkasten approach</p>
+<p>2025-10-18 13:52
+Installed all of <code>walker</code>, <code>rofi</code>, <code>fuzzel</code> and <code>anyrun</code>
+don't like the <code>anyrun</code> symbols browser
+<code>walker</code> is the fastest, but needs to configure <code>elephant</code>
+decided to set up walker
+<code>elephant service enable</code> and <code>systemctl --user start elephant.service</code>
+TODO why is there not auto complete for <code>elephant</code> in <code>fish</code>?</p>
+<p>2025-10-18 14:28
+seems there is an OOO bug with walker
+trying to set a systemd service that restarts when hitting 500mb</p>
+<pre><code class="language-systemd">[Unit]
+Description=Walker GApplication Service
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/walker --gapplication-service
+Restart=always
+RestartSec=5
+MemoryMax=500M
+Environment=WAYLAND_DISPLAY=%EWAYLAND_DISPLAY%
+Environment=XDG_CURRENT_DESKTOP=niri
+Environment=GDK_BACKEND=wayland
+
+[Install]
+WantedBy=default.target
+</code></pre>
+<p>2025-10-18 14:37
+cleaning up old packages
+removed <code>emacs</code>, <code>alacritty</code>, <code>autotiling</code>, <code>pamac</code>, <code>yay</code>
+<code>walker</code> starts slow, is the service not running properly?</p>
+<p>2025-10-18 22:50
+how to copy to clipboard in wayland? <code>wl-copy</code>
+fixed <code>walker</code> service with the help of <em>grok</em></p>
+<pre><code class="language-systemd">[Unit]
+Description=Walker GApplication Service
+PartOf=graphical-session.target
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/walker --gapplication-service
+Restart=always
+RestartSec=5
+MemoryMax=500M
+Environment=WAYLAND_DISPLAY=wayland-1
+
+[Install]
+WantedBy=graphical-session.target
+</code></pre>
+<p>will change my <code>niri</code> conf to use <code>walker</code> now (but still keep <code>fuzzel</code> as backup :)
+DONE configure <code>walker</code>
+DONE use the faster launch command <code>nc -U /run/user/1000/walker/walker.sock</code> in my niri conf
+DONE walker directly closes and doesn't do anything..
+Not sure I want to continue struggling with <code>walker</code>...</p>
+<p>2025-10-19 00:05
+some more attempts at fixing walker, but it didn't work
+removed <code>walker</code> and <code>elephant</code>, waste of time</p>
+<p>2025-10-19 01:01
+played around with <code>anyrun</code>, but I don't like the visual style. it is very annoying to style, and the gtk4 css doesn't work as expected</p>
+<p>2025-10-19 14:35
+snooping around <code>anyrun</code> directory but gave up styling it
+let's just stick with <code>fuzzel</code>
+DONE investigate how to open dedicated emoji/unicode picker (maybe via ghostty?)
+set up <code>tidal-hifi</code>
+looking around neovim plugin management and zen-mode. I don't want to open a terminal and then navigate to specific dotfiles over again, I just want to navigate to a saved folder location from within my terminal.
+THOUGHT maybe make my <em>.dirinfo</em> spec come true? Place a .dirinfo into targeted dirs, which serves as readme and description. It can also be used with a picker to directly jump into that dir
+DONE set up lazy snacks zen for nvim
+actually, it's already set up by default :)
+DONE set up MPRIS keybinds to skip a song (can be done via quickshell)</p>
+<p>2025-10-19 15:36
+installed <code>dolphin</code>
+notice that all it's styling is broken (black white, invisible fonts, ..)
+removed <code>dolphin</code>
+fixed <code>yazi</code> change-directory-on-exit wrapper</p>
+<p>2025-10-19 16:53
+reading up on <code>bemoji</code>, don't like that they don't include full unicode
+configured <code>fuzzel</code> defaults, really like the man-page
+removed <code>bemoji</code>, <code>rofi</code>
+settled on <code>rofimoji</code>, which can also use <code>fuzzel</code>
+DONE figure out why rofimoji-fuzzel shows weird emoji chars (maybe because of the font?)</p>
+<p>2025-10-19 18:53
+fixed <code>rofimoji --selector fuzzel</code> showing outline-only emojis by adding <code>font=Hack:weight=medium:size=20,Noto Emoji:size=22</code> into my <code>fuzzel</code> config
+removed <code>swaylock</code>
+figured out that I can lock my screen by calling this quickshell IPC <code>qs -c noctalia-shell ipc call sessionMenu lockAndSuspend</code>
+TODO mediakyes for quickshell <code>qs -c noctalia-shell ipc call media next</code></p>
+<p>2025-10-19 19:30
+looking to set up ssh and gpg, again
+goal: unlock the keyring until I lock the screen again (or am idle 15 min)
+grok seems more useful for tech support than chatGPT</p>
+<p>2025-10-19 20:27
+discovered some zsh and bash config files -- should I remove them?
+TODO notify my when I run a command for which I have a fish alias/function (like <code>yazi</code> instead of <code>y</code>)</p>
+<p>2025-10-19 20:43
+added a shortcut for opening my syncthing localhost url via <code>fuzzel</code> (by creating an .desktop file in <code>/home/jst/.local/share/applications</code>)
+I think this is a good way to remember localhost URLs (syncthing, paperless, synology-gui, gitea, pihole, ...)</p>
+<pre><code class="language-desktop">[Desktop Entry]
+Name=Syncthing Web UI
+Type=Application
+Exec=xdg-open http://127.0.0.1:8384/
+Icon=text-html
+Terminal=false
+</code></pre>
+<p>installed <code>cliphist</code>, need to figure out what it does -- just another <code>wl-copy</code>? E: requires <code>wl-clipboard</code>, so seems to sit 'above'
+we can run <code>cliphist list | fuzzel -d | cliphist decode | wl-copy</code> to have <code>fuzzel</code> show the last pastes
+TODO set a hotkey for this, and/or use the quickshell variant
+TODO check my screenshot setup and/or maybe set up <code>grim</code> and <code>slurp</code>
+removed <code>pnpm</code></p>
 
 		</article>
 	</main>
@@ -183,6 +692,10 @@
 			
 			<li>
 				<a href="/posts/webdev-test-fonts/" class="text-blue-600 underline">Quickly test fonts on any website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/about-nixos/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
 			</li>
 			
 		</ol>

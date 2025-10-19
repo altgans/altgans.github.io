@@ -30,6 +30,10 @@
 <li><code>hostnamectl</code></li>
 </ul>
 <p>Alternatively, we can use a _fetching tool like <a href="https://github.com/fastfetch-cli/fastfetch">fastfetch</a></p>
+<h2>Which WindowManager</h2>
+<p><code>grep 'ExecStart=' /etc/systemd/system/display-manager.service</code></p>
+<p>Desktop Manager:</p>
+<p><code>printf 'Desktop: %s\nSession: %s\n' &quot;$XDG_CURRENT_DESKTOP&quot; &quot;$GDMSESSION&quot;</code></p>
 
 		</article>
 	</main>
@@ -123,6 +127,10 @@
 			
 			<li>
 				<a href="/posts/webdev-test-fonts/" class="text-blue-600 underline">Quickly test fonts on any website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/about-nixos/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
 			</li>
 			
 		</ol>
