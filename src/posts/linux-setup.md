@@ -228,7 +228,7 @@ bell-features = no-audio
 2025-10-16 17:32
 will replace `ranger` with `yazi` (skipping `lf`)
 looks great out of the box
-TODO: config `yazi`
+DONE: config `yazi`
 
 2025-10-16 17:38
 TODO: configure my `starship` shell prompt
@@ -278,7 +278,7 @@ remove `nvm` in favor of `mise`
 `nvm` installed via `fisher` (fish plugin manager)
 figure out how to remove `nvm-fish` and `fisher`
 `fisher list | fisher remove`
-TODO: does `mise` also means I can remove my python install?
+DONE: does `mise` also means I can remove my python install? (no, python is required for many applications..)
 activate `mise` in fish: `echo 'mise activate fish | source' >> ~/.config/fish/config.fish`
 actually don't need to install luarocks..
 
@@ -376,12 +376,12 @@ return {
 2025-10-17 23:42
 continuing on starship config
 how to insert emoji and unicode in linux with my system menu (`drun`?)
-TODO figure out which menu I run
+DONE figure out which menu I run (fuzzel)
 configuring `niri`
 I like centering containers, but then I can't edit side-by-side..
-TODO change screenlocker to quickshell/noctalia (away from `swaylock`)
+DONE change screenlocker to quickshell/noctalia (away from `swaylock`)
 niri hotkeys seem like extremely sane defaults. Also, the variable names are sane, too!
-TODO change niri logout keybinds to trigger quickshell logout
+DONE change niri logout keybinds to trigger quickshell logout
 
 2025-10-18 00:16
 want to change my noctalia profile picture (`~/.face`)
@@ -410,15 +410,15 @@ Mod+Shift+E { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggl
 ```
 
 still need to figure out how to insert unicode via my `fuzzel`
-TODO decide on `fuzzel`, `rofi`, `dmenu`, ... (bemenu, wofi, wmenu, ilia, ...) and configure them
+DONE decide on `fuzzel`, `rofi`, `dmenu`, ... (bemenu, wofi, wmenu, ilia, ...) and configure them
 TODO save my dotfiles (don't want to lose them...)
-TODO look into yubikey for auth
+TODO research yubikey for auth
 
 2025-10-18 00:48
 decided on `fuzzel`
 looking for unicode pickers, but this doesn't seem to be available. Closest is `bemoji` and `rofimoji` -- no unicode though?
-TODO remove `rofi`
-can also use `unipicker` and then add it to `fuzzel` (TODO)
+DONE remove `rofi`
+can also use `unipicker` and then add it to `fuzzel`
 
 2025-10-18 01:06
 removed `sway`, `manjaro-sway-settings`, ..
@@ -459,3 +459,109 @@ xdg-terminal-exec
 
 2025-10-18 01:11
 Added my preferred terminal char `↳`!
+
+2025-10-18 13:30
+`anyrun` seems as if it would do the perfect job for launching apps and searching for unicdoe <https://github.com/anyrun-org/anyrun?tab=readme-ov-file>
+`walker` is also a good contender
+THOUGHT a new file format that splits all TODO into separate 'threads', as these represent a decision-making fork; I can only do one thing at a time, and every additional TODO needs to be queued and done later. Having a journal that supports this mental model, where I select branches of TODO and journal down on them may also represent a true Zettelkasten approach
+
+2025-10-18 13:52
+Installed all of `walker`, `rofi`, `fuzzel` and `anyrun`
+don't like the `anyrun` symbols browser
+`walker` is the fastest, but needs to configure `elephant`
+decided to set up walker
+`elephant service enable` and `systemctl --user start elephant.service`
+TODO why is there not auto complete for `elephant` in `fish`?
+
+2025-10-18 14:28
+seems there is an OOO bug with walker
+trying to set a systemd service that restarts when hitting 500mb
+
+```systemd
+[Unit]
+Description=Walker GApplication Service
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/walker --gapplication-service
+Restart=always
+RestartSec=5
+MemoryMax=500M
+Environment=WAYLAND_DISPLAY=%EWAYLAND_DISPLAY%
+Environment=XDG_CURRENT_DESKTOP=niri
+Environment=GDK_BACKEND=wayland
+
+[Install]
+WantedBy=default.target
+```
+
+2025-10-18 14:37
+cleaning up old packages
+removed `emacs`, `alacritty`, `autotiling`, `pamac`, `yay`
+`walker` starts slow, is the service not running properly?
+
+2025-10-18 22:50
+how to copy to clipboard in wayland? `wl-copy`
+fixed `walker` service with the help of _grok_
+
+```systemd
+[Unit]
+Description=Walker GApplication Service
+PartOf=graphical-session.target
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/walker --gapplication-service
+Restart=always
+RestartSec=5
+MemoryMax=500M
+Environment=WAYLAND_DISPLAY=wayland-1
+
+[Install]
+WantedBy=graphical-session.target
+```
+
+will change my `niri` conf to use `walker` now (but still keep `fuzzel` as backup :)
+DONE configure `walker`
+DONE use the faster launch command `nc -U /run/user/1000/walker/walker.sock` in my niri conf
+DONE walker directly closes and doesn't do anything..
+Not sure I want to continue struggling with `walker`...
+
+2025-10-19 00:05
+some more attempts at fixing walker, but it didn't work
+removed `walker` and `elephant`, waste of time
+
+2025-10-19 01:01
+played around with `anyrun`, but I don't like the visual style. it is very annoying to style, and the gtk4 css doesn't work as expected
+
+2025-10-19 14:35
+snooping around `anyrun` directory but gave up styling it
+let's just stick with `fuzzel`
+DONE investigate how to open dedicated emoji/unicode picker (maybe via ghostty?)
+set up `tidal-hifi`
+looking around neovim plugin management and zen-mode. I don't want to open a terminal and then navigate to specific dotfiles over again, I just want to navigate to a saved folder location from within my terminal.
+THOUGHT maybe make my _.dirinfo_ spec come true? Place a .dirinfo into targeted dirs, which serves as readme and description. It can also be used with a picker to directly jump into that dir
+DONE set up lazy snacks zen for nvim
+actually, it's already set up by default :)
+DONE set up MPRIS keybinds to skip a song (can be done via quickshell)
+
+2025-10-19 15:36
+installed `dolphin`
+notice that all it's styling is broken (black white, invisible fonts, ..)
+removed `dolphin`
+fixed `yazi` change-directory-on-exit wrapper
+
+2025-10-19 16:53
+reading up on `bemoji`, don't like that they don't include full unicode
+configured `fuzzel` defaults, really like the man-page
+removed `bemoji`, `rofi`
+settled on `rofimoji`, which can also use `fuzzel`
+DONE figure out why rofimoji-fuzzel shows weird emoji chars (maybe because of the font?)
+
+2025-10-19 18:53
+fixed `rofimoji --selector fuzzel` showing outline-only emojis by adding `font=Hack:weight=medium:size=20,Noto Emoji:size=22` into my `fuzzel` config
+removed `swaylock`
+figured out that I can lock my screen by calling this quickshell IPC `qs -c noctalia-shell ipc call sessionMenu lockAndSuspend`
+TODO mediakyes for quickshell `qs -c noctalia-shell ipc call media next`
