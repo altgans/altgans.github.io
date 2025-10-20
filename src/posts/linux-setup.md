@@ -595,3 +595,91 @@ we can run `cliphist list | fuzzel -d | cliphist decode | wl-copy` to have `fuzz
 TODO set a hotkey for this, and/or use the quickshell variant
 TODO check my screenshot setup and/or maybe set up `grim` and `slurp`
 removed `pnpm`
+added `keychain` to my fish.conf `eval (keychain --eval --quiet KEY_ID)` :: `gpg --list-secret-keys --keyid-format=long`, it's the part after `sec   rsa4096/`
+check agents: `ssh-add -l` (lists SSH keys) and `gpg --list-keys`
+TODO look into SSHFS for remote-mounting to/from synology
+TODO set up ssh aliases
+TODO set up hypralax
+
+2025-10-19 21:53
+installed `nemo`
+looks nice, very similar to `pcmanfm`
+TODO transform all my niri startups into systemd services, for better support
+setup `niriswitcher`, very nice, fills a gap to make `niri` more useful (don't have to scroll across thousands of windows..) -- <https://github.com/isaksamsten/niriswitcher?tab=readme-ov-file>
+TODO take a look at `nirius` (<https://sr.ht/~tsdh/nirius/>)
+TODO take a look at `stasis` for better idle handling (<https://github.com/saltnpepper97/stasis?tab=readme-ov-file>)
+
+2025-10-19 22:15
+I think I am mostly done configuring everything
+
+- niri and noctalia are configured
+- ghostty and fish work
+- i can switch and applications
+- i can search for emojis
+- i can enter my ssh password (not perfect yet)
+
+TODO
+
+- neovim config
+- obsidian config (same folder as neovim)
+- dotfiles backup
+- system backup!
+- transform this writeup and post it on my website
+- wallpapers and theming with mutagen
+
+2025-10-19 22:36
+More ricing? Instead of quickshell there is also aylur :)
+TODO also, i could check my icons and gtk theme
+DONE decrease `fuzzel` font size
+removed `google-chrome`
+set cool wallpaper
+TODO configure standard utils for opening images, pdf, ..
+TODO accidentally removed my gtk theme when cleaning unused packages :)
+fixed `nemo` not opening a terminal by calling `gsettings set org.cinnamon.desktop.default-applications.terminal exec ghostty`
+removed `etcher`
+set `nemo` as default file launcher `xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search`
+TODO `xdg-open` vs `gtk-launch`
+
+2025-10-20 20:38
+need to change gtk theme and everything... best if there is a way to write this to a config or have a gui?
+looking to install the _arc_ theme, but no idea how :)
+installed `gtk-tweaks`, but seems useless
+installed `gtk-engine-murrine`, `papirus-icon-theme` and `arc-gtk-theme`
+DONE how to copy from fish directly into system clipboard when using vim mode? found a script that makes use of the fish_killring. afterwards, just change the hotkeys to make use of this function afterwards (<https://joaocosta.dev/blog/17>>)
+
+```fish
+function yank_to_clipboard -d "Insert latest killring entry into the system clipboard"
+
+    printf "%s" "$fish_killring[1]" | fish_clipboard_copy
+
+end
+```
+
+2025-10-20 21:18
+check that themes are installed in `/usr/share/themes/Arc-Dark` and `/usr/share/icons/Papirus`
+it seems that `lxappearance` and `gnome-tweaks` are indeed the way to go.
+also check in `~/.config/gtk-3.0/settings.ini`, `~/.config/gtk-4.0/settings.ini`, `~/.config/environment.d/qt.conf`, `~/.config/Kvantum/kvantum.kvconfig` and `~/.config/qt5ct/qt5ct.conf` (5 and 6)
+I really like `Juno-Palenight` in combination with `Papirus-Dark`
+removed `pcmanfm-gtk3`
+
+2025-10-20 21:47
+figure out why `keychain` doesn't work properly -- should only store my auth when I need my ssh keys the first time, and not whenever I open `fish`...
+TODO can I see which package installed which?
+TODO show news in paru
+TODO figure out how to change cursor theme
+maybe this works better for `keychain` in my `fish` conf
+
+```fish
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+    keychain --quiet --nogui ~/.ssh/id_ed25519
+    if test -f ~/.keychain/$HOSTNAME-fish
+        source ~/.keychain/$HOSTNAME-fish
+    end
+end
+```
+
+2025-10-20 22:44
+added a desktop icon for fritz.box
+TODO look into pihole (+ hardware) >> Desktop Beelink GK35 maybe?
+TODO change firefox userchrome css to style the blank loading page to something dark (no more blinding white #fff) -- <https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load>
