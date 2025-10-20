@@ -598,7 +598,85 @@ Terminal=false
 we can run <code>cliphist list | fuzzel -d | cliphist decode | wl-copy</code> to have <code>fuzzel</code> show the last pastes
 TODO set a hotkey for this, and/or use the quickshell variant
 TODO check my screenshot setup and/or maybe set up <code>grim</code> and <code>slurp</code>
-removed <code>pnpm</code></p>
+removed <code>pnpm</code>
+added <code>keychain</code> to my fish.conf <code>eval (keychain --eval --quiet KEY_ID)</code> :: <code>gpg --list-secret-keys --keyid-format=long</code>, it's the part after <code>sec   rsa4096/</code>
+check agents: <code>ssh-add -l</code> (lists SSH keys) and <code>gpg --list-keys</code>
+TODO look into SSHFS for remote-mounting to/from synology
+TODO set up ssh aliases
+TODO set up hypralax</p>
+<p>2025-10-19 21:53
+installed <code>nemo</code>
+looks nice, very similar to <code>pcmanfm</code>
+TODO transform all my niri startups into systemd services, for better support
+setup <code>niriswitcher</code>, very nice, fills a gap to make <code>niri</code> more useful (don't have to scroll across thousands of windows..) -- <a href="https://github.com/isaksamsten/niriswitcher?tab=readme-ov-file">https://github.com/isaksamsten/niriswitcher?tab=readme-ov-file</a>
+TODO take a look at <code>nirius</code> (<a href="https://sr.ht/~tsdh/nirius/">https://sr.ht/~tsdh/nirius/</a>)
+TODO take a look at <code>stasis</code> for better idle handling (<a href="https://github.com/saltnpepper97/stasis?tab=readme-ov-file">https://github.com/saltnpepper97/stasis?tab=readme-ov-file</a>)</p>
+<p>2025-10-19 22:15
+I think I am mostly done configuring everything</p>
+<ul>
+<li>niri and noctalia are configured</li>
+<li>ghostty and fish work</li>
+<li>i can switch and applications</li>
+<li>i can search for emojis</li>
+<li>i can enter my ssh password (not perfect yet)</li>
+</ul>
+<p>TODO</p>
+<ul>
+<li>neovim config</li>
+<li>obsidian config (same folder as neovim)</li>
+<li>dotfiles backup</li>
+<li>system backup!</li>
+<li>transform this writeup and post it on my website</li>
+<li>wallpapers and theming with mutagen</li>
+</ul>
+<p>2025-10-19 22:36
+More ricing? Instead of quickshell there is also aylur :)
+TODO also, i could check my icons and gtk theme
+DONE decrease <code>fuzzel</code> font size
+removed <code>google-chrome</code>
+set cool wallpaper
+TODO configure standard utils for opening images, pdf, ..
+TODO accidentally removed my gtk theme when cleaning unused packages :)
+fixed <code>nemo</code> not opening a terminal by calling <code>gsettings set org.cinnamon.desktop.default-applications.terminal exec ghostty</code>
+removed <code>etcher</code>
+set <code>nemo</code> as default file launcher <code>xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search</code>
+TODO <code>xdg-open</code> vs <code>gtk-launch</code></p>
+<p>2025-10-20 20:38
+need to change gtk theme and everything... best if there is a way to write this to a config or have a gui?
+looking to install the <em>arc</em> theme, but no idea how :)
+installed <code>gtk-tweaks</code>, but seems useless
+installed <code>gtk-engine-murrine</code>, <code>papirus-icon-theme</code> and <code>arc-gtk-theme</code>
+DONE how to copy from fish directly into system clipboard when using vim mode? found a script that makes use of the fish_killring. afterwards, just change the hotkeys to make use of this function afterwards (<a href="https://joaocosta.dev/blog/17">https://joaocosta.dev/blog/17</a>&gt;)</p>
+<pre><code class="language-fish">function yank_to_clipboard -d &quot;Insert latest killring entry into the system clipboard&quot;
+
+    printf &quot;%s&quot; &quot;$fish_killring[1]&quot; | fish_clipboard_copy
+
+end
+</code></pre>
+<p>2025-10-20 21:18
+check that themes are installed in <code>/usr/share/themes/Arc-Dark</code> and <code>/usr/share/icons/Papirus</code>
+it seems that <code>lxappearance</code> and <code>gnome-tweaks</code> are indeed the way to go.
+also check in <code>~/.config/gtk-3.0/settings.ini</code>, <code>~/.config/gtk-4.0/settings.ini</code>, <code>~/.config/environment.d/qt.conf</code>, <code>~/.config/Kvantum/kvantum.kvconfig</code> and <code>~/.config/qt5ct/qt5ct.conf</code> (5 and 6)
+I really like <code>Juno-Palenight</code> in combination with <code>Papirus-Dark</code>
+removed <code>pcmanfm-gtk3</code></p>
+<p>2025-10-20 21:47
+figure out why <code>keychain</code> doesn't work properly -- should only store my auth when I need my ssh keys the first time, and not whenever I open <code>fish</code>...
+TODO can I see which package installed which?
+TODO show news in paru
+TODO figure out how to change cursor theme
+maybe this works better for <code>keychain</code> in my <code>fish</code> conf</p>
+<pre><code class="language-fish">if status is-interactive
+    # Commands to run in interactive sessions can go here
+    keychain --quiet --nogui ~/.ssh/id_ed25519
+    if test -f ~/.keychain/$HOSTNAME-fish
+        source ~/.keychain/$HOSTNAME-fish
+    end
+end
+</code></pre>
+<p>2025-10-20 22:44
+added a desktop icon for fritz.box
+TODO look into pihole (+ hardware) &gt;&gt; Desktop Beelink GK35 maybe?
+TODO change firefox userchrome css to style the blank loading page to something dark (no more blinding white #fff) -- <a href="https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load">https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load</a></p>
 
 		</article>
 	</main>
