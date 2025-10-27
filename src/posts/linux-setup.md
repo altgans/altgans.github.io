@@ -1,5 +1,5 @@
 ---
-title: Linux setup and ricing
+title: Linux setup
 tags: posts
 date: 2025-10-05T21:40
 ---
@@ -578,7 +578,7 @@ discovered some zsh and bash config files -- should I remove them?
 TODO notify my when I run a command for which I have a fish alias/function (like `yazi` instead of `y`)
 
 2025-10-19 20:43
-added a shortcut for opening my syncthing localhost url via `fuzzel` (by creating an .desktop file in `/home/jst/.local/share/applications`)
+added a shortcut for opening my syncthing localhost url via `fuzzel` (by creating a .desktop file in `/home/jst/.local/share/applications`)
 I think this is a good way to remember localhost URLs (syncthing, paperless, synology-gui, gitea, pihole, ...)
 
 ```desktop
@@ -683,3 +683,134 @@ end
 added a desktop icon for fritz.box
 TODO look into pihole (+ hardware) >> Desktop Beelink GK35 maybe?
 TODO change firefox userchrome css to style the blank loading page to something dark (no more blinding white #fff) -- <https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load>
+
+2025-10-21 20:50
+figured out that my screenshots are saved in ~/Pictures/Screenshots/
+TODO configure image viewer and (maybe) screenshot tool
+installing a script engine to block _Login with Google_ prompts.
+it seems that tampermonkey is the up-to-date-one
+decided against installing tampermonkey, cause too much risk for someone random too update their script maliciously
+changed `fish` `keychain` command based on this answer: [how to run ssh-agent in fish shell? - Super User](https://superuser.com/questions/1727591/how-to-run-ssh-agent-in-fish-shell), which also mentions that `fish` support `keychain` since 2017
+
+```fish
+# To add new SSH key, use:
+set --universal --append SSH_KEYS_TO_AUTOLOAD ~/.ssh/id_ed25519
+# To remove a key, remove it from the list using its index:
+# set --universal --erase SSH_KEYS_TO_AUTOLOAD[index_of_key]
+# https://superuser.com/questions/1727591/how-to-run-ssh-agent-in-fish-shell
+if status is-login
+    and status is-interactive
+    keychain --eval $SSH_KEYS_TO_AUTOLOAD | source
+end
+```
+
+2025-10-21 21:14
+also added `AddKeysToAgent yes` to my `.ssh/config`
+TODO take a look at the `.XCompose` file
+removed `okular`
+installed `lightningview`, `okulante`. `viewskater` also looks good, but not on _aur_
+set niri to `prefer-no-csd`, to remove okulante window decorations
+DONE set alias for `fzf` to `ff` (follow omarchy?)
+DONE set alias for `zoxide` (follow omarchy to alias `cd`?)
+DONE set alias for `eza` (follow omarchy to alias `ls`, `lt`, ..?)
+removed `gitui` (`lazygit` is enough)
+installed `lazydocker`, `btop`, `fastfetch`, `impala` (and `iwd`)
+removed `impala` and `iwd`, as they cause problems with my wireless..
+NOTE when in doubt about packages that mess with internet, disable and restart before deleting, in case they are required to make the internet work on your machine ... :)
+installed `marktext` (for markdown writing; but could also configure nvim or Obsidian to do the job)
+thinking about `pinta`, but don't see the need (editing images, also have `krita`)
+TODO set up PDF viewer/editor (Document Viewer, Xournal, Firefox/Zen)
+TODO see if I want to switch to Cascadia font (interstingly also the default font choide of Omarchy.. :))
+TODO reinstall arch with disk encryption? :)
+
+2025-10-21 22:31
+set a few fish abbrevs and aliases
+
+```fish
+function zd
+    if test (count $argv) -eq 0
+        builtin cd ~
+        return
+    else if test -d $argv[1]
+        builtin cd $argv[1]
+    else
+        z $argv; and printf "\U000F17A9 "; and pwd; or echo "Error: Directory not found"
+    end
+end
+
+alias cd='zd'
+```
+
+```fish
+# opens neovim w/o args
+function n
+    if test (count $argv) -eq 0
+        nvim .
+    else
+        nvim $argv
+    end
+end
+```
+
+```fish
+alias ls='eza -lh --group-directories-first --icons=auto'
+alias lsa='ls -a'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+
+alias g='git'
+abbr --add gcm git commit -m
+abbr --add gcam git commit -a -m
+abbr --add gcad git commit -a --amend
+```
+
+also found out that `fish` provides `open` by default, so no need for `xdg-open`
+TODO backup my .dotfiles and version control them (stow?)
+
+2025-10-22 00:07
+I found the holy grail of dotfiles management -- [Dotfiles Management - mitxela.com](https://mitxela.com/projects/dotfiles_management)
+I created a .dotfiles folder in my home, did an init bare git on it, set to my root / and then add files to it via a helper function. No need for any other dotfiles management software! Universal git!
+TODO look into git/exclude
+
+2025-10-24 11:04
+set my ublock to follow the recommended filters -- <https://github.com/yokoffing/filterlists>
+DONE block youtube recommendations and shorts -- <https://github.com/gijsdev/ublock-hide-yt-shorts>
+TODO block 'login with google'
+DONE block youtube auto dub
+DONE see <https://old.reddit.com/r/uBlockOrigin/wiki/solutions/youtube#wiki_video_annotations> for all the above
+TODO highlight todos in markdown/neovim :)
+TODO look into fedora for thin client (for pihole)
+TODO set auto suspend on linux
+
+2025-10-24 13:11
+TODO allow to click on links in neovim
+E: works with `gx`, but not mapped in lazyvim
+TODO dump this link somewhere -- <https://scrollguard.app/>
+TODO get updates on new blogs (RSS)
+TODO set up Jujutsu (as git replacement)
+
+2025-10-24 14:00
+TODO look into fedora atomic images, they seem like another intersting alternative to `nix` and keeping an immutable system. maybe I could try to get this system working on fedora, and otherwise set up manjaro with file encryption?
+
+2025-10-24 16:05
+maybe change to rofi for a beautfiul fullscreen app launcher? (seen here -- <https://github.com/kianblakley/niri-land?tab=readme-ov-file>)
+TODO look into [Amberol – Apps for GNOME](https://apps.gnome.org/Amberol/) music player
+set music keys for niri on via ipc (Mod+Alt+567 inc dec mute; 890 prev next pause)
+decided to start 'my' keybinds with `my..` in the comment blocks, to better distinguish them from pre-set keybinds
+installed `paru`
+TODO improve bluetooth integration to allow to skip music (MPRIS?)
+TODO set up `espanso`?
+
+2025-10-26 22:29
+installed `logseq`, `treesheets`, `freeplane`
+i'd like to set up freeplane with markdown to have a markdown canvas
+
+2025-10-27 18:08
+installed `smark.nvim`
+looking to set up markdown indent via Tab and S-Tab in nvim (can do `>>` and `<<`)
+decided to split `nvim` related config into a dedicated file
+TODO neovim find a way to add auto-spacing between lines in markdown (the current file here shows everything inline)
+
+2025-10-27 21:30
+installed https://www.soimort.org/translate-shell/
