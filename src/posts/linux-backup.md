@@ -27,7 +27,15 @@ Synology seems to allow only admins to connect via SSH. Which is stupid and a se
 6. on desktop, can now clone repo with non-admin user `git clone ssh://gituser@192.168.178.30:223/volume1/git/dotfiles.git`
     1. needs password... >> any way to make this passwordless?
     
-### Remove MOTD on SSH
+
+### Push to git on Syno
+
+```git
+git remote add syno ssh://jst@192.168.178.30:223/volume1/git/altgans.git
+git push syno
+```
+
+## Remove MOTD on SSH
 
 Delete contents of `/etc/MOTD` file, but leave it there! 
 

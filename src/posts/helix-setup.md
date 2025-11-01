@@ -1,7 +1,7 @@
 ---
 title: Helix setup
 tags: posts
-date: 2025-10-29T19:r1
+date: 2025-10-29T19:41
 ---
 
 # Helix, who this?

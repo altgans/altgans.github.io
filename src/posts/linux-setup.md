@@ -898,3 +898,4 @@ it's saturday and I should find a strategy to backup my files to my NAS >> [[lin
 
 2025-11-01 21:04
 took a bit, but I finally managed it!
+Everything backuped (I hope) and also committed to my syno-git
