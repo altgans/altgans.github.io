@@ -34,7 +34,7 @@ RANDOM TODO I like the website style of <https://shinglyu.com/web/2024/09/17/my-
 ## Network
 
 - Tailscale to connect to my Synology NAS and to troubleshoot my family?
-- [pihole](https://pi-hole.net/)
+  - [pihole](https://pi-hole.net/)
 
 ## Ricing
 
@@ -209,20 +209,20 @@ e: convinced to give `ghostty` a try -- the theming preview convinced me :)
 
 ```conf
 theme = Solarized Osaka Night
-background = 
-foreground = 
-background-image = 
-background-image-opacity = 
+background =
+foreground =
+background-image =
+background-image-opacity =
 background-opacity = 0.9
 background-blur = true
 #link
-link-url = 
+link-url =
 link-previews = true
-selection-background = 
+selection-background =
 selection-foreground =
 # title =
 # class =
-window-inherit-working-directory = 
+window-inherit-working-directory =
 window-decoration = false
 bell-features = no-audio
 ```
@@ -814,3 +814,87 @@ TODO neovim find a way to add auto-spacing between lines in markdown (the curren
 
 2025-10-27 21:30
 installed https://www.soimort.org/translate-shell/
+
+2025-10-28 15:23
+could set a shell screensaver (and/or use it as desktop/lockscreen wallpaper) -- https://github.com/attogram/bash-screensavers?tab=readme-ov-file or https://github.com/abishekvashok/cmatrix
+it may make sense to use `alacritty` for these types of things, as it is featureless but fast
+TODO set up obsidian web clipper (or org-roam-protocol) -- https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian/ or https://github.com/deathau/markdownload
+
+2025-10-28 15:49
+think about multi-cursor in nvim
+
+2025-10-28 21:57
+DONE send audio alert when battery <10%
+
+```bash
+#!/bin/bash
+
+# Battery device (check with: ls /sys/class/power_supply/)
+BAT_DEVICE="BAT0"
+
+# Threshold
+THRESHOLD=15
+
+# Paths
+CAPACITY="/sys/class/power_supply/${BAT_DEVICE}/capacity"
+STATUS="/sys/class/power_supply/${BAT_DEVICE}/status"
+
+# Check if files exist
+if [[ ! -f "$CAPACITY" || ! -f "$STATUS" ]]; then
+	exit 1
+fi
+
+# Read values
+PERCENT=$(cat "$CAPACITY")
+BAT_STATUS=$(cat "$STATUS")
+
+# Trigger if discharging and below threshold
+if [[ "$BAT_STATUS" == "Discharging" && "$PERCENT" -lt "$THRESHOLD" ]]; then
+	# Play warning sound (adjust path/file if needed)
+	canberra-gtk-play --file=/usr/share/sounds/freedesktop/stereo/dialog-warning.ogg
+	# Alternative for MP3/WAV: paplay ~/sounds/warning.mp3  (install pulseaudio-utils if missing: sudo pacman -S pulseaudio)
+	notify-send -u critical "Low Battery!" "Charge now: ${PERCENT}% remaining!"
+fi
+```
+
+2025-10-29T19:34
+installed `helix` and ran the `:tutor`
+may actually be a really cool tool. need snippets though
+there is also `kakoune`, which uses the same command paradigm, but is too extensible
+[[helix-setup]]
+it seems that helix doesn't have a file picker?!
+everyone refers to the plugin system, which hasn't been set in place yet.
+need to use `yazi` as file picker/browser -- well, maybe this improves my workflows, or otherwise shows me the benefits of `nvim`
+alternative to `yazi`: `nnn`, `xplr`
+TODO: `yazi` inside of `nvim` -- [mikavilpas/yazi.nvim: A Neovim Plugin for the yazi terminal file manager](https://github.com/mikavilpas/yazi.nvim)
+set `helix` as default file editor in `yazi.toml`
+
+2025-10-29T20:53
+still configuring helix, set the initial config now
+came across this, which seems like yet another benefit of fedora immutable silverblue: https://docs.fedoraproject.org/en-US/fedora-silverblue/toolbox/
+want to install `hx-lsp` for helix via `mise`, but first need to install `mise use -g rust`: `mise use -g cargo:hx-lsp`
+
+2025-10-29T21:33
+Setting up `helix` with `marksman`, `prettier` and `ltex-ls-plus` (https://github.com/ltex-plus/ltex-ls-plus)
+TODO jsut found https://strudel.cc/ to make live music
+
+2025-10-30 13:46
+found https://github.com/ShawnMcCool/quickshell-cheatsheet, looks cool
+will change back from `hx` to `nvim`. looked at `kakoune`, but nope, seems like a mess.
+removed `marksman`, `mpls`, `ltex-ls-plus`, `prettier`, `mise uninstall cargo:hx-lsp@`
+
+2025-10-30 17:41
+TODO steal from this: a really cool digital garden -- https://meleu.dev/
+
+2025-10-31 13:27
+TODO improve browser search by blacklisting specific websites (pinterest, ...)
+TODO have a solution to manage photos on my NAS, sync with my phone, have albums
+
+2025-10-31 16:27
+TODO if i ever switch to fedora silverblue and then manage via distrobox, https://flathub.org/en/apps/com.ranfdev.DistroShelf looks useful
+
+2025-11-01 14:56
+it's saturday and I should find a strategy to backup my files to my NAS >> [[linux-backup]]
+
+2025-11-01 21:04
+took a bit, but I finally managed it!
