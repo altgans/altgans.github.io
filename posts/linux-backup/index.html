@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Eleventy v3.1.2">
+  <link rel="stylesheet" href="/styles.css">
+<title>Altgans—Linux backup</title>
+</head>
+<body class="w-full h-screen flex flex-col bg-gray-500">
+		
+<div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
+	<head >
+		<p class="text-gray-200 italic">2025-11-01 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Linux backup</h1>
+	</head>
+	<main class="bg-gray-300 markdown p-4">
+
+		<p>
+
+			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
+		</p> 
+		<article>
+			<h2>Goal</h2>
+<ul>
+<li>schedule a system backup to my NAS</li>
+<li>set up git server on my NAS</li>
+</ul>
+<h2>Synology NAS</h2>
+<p>Synology NAS DS220+. Added a desktop file to quickly open it.</p>
+<h3>Git-server on Synology</h3>
+<p>Synology seems to allow only admins to connect via SSH. Which is stupid and a security risk. And a reason for me to look for alternative NAS providers (OpenNAS), in case I ever need another one.</p>
+<ol>
+<li>login via existing SSH user</li>
+<li>become root via <code>sudo -i</code></li>
+<li>TODO when ssh'ing and then deleting text, the text doesn't get removed visually. find a way to fix that
+a. E: fixed it: <code>echo $TERM</code> shows <code>xterm-ghostty</code>, which Synology has troubles with the term sequences. Changing the <code>$TERM</code> variable to <code>TERM=xterm-256color ssh admin@your-nas</code> fixes the problems. This can be finalized in the ssh-config via <code>SendEnv TERM</code>. See also <a href="https://ghostty.org/docs/help/terminfo#ssh">ghostty terminfo help</a>
+b. also put the tic decompiled binary codes into <code>.terminfo/x/xterm-ghostty</code></li>
+<li>create 'gituser', give it access and permissons on Synology git-server</li>
+<li>create shared folder ('git'). give 'gituser' access to this folder. Create target git repo there (by logging-in via SSH with admin user..)</li>
+<li>on desktop, can now clone repo with non-admin user <code>git clone ssh://gituser@192.168.178.30:223/volume1/git/dotfiles.git</code>
+<ol>
+<li>needs password... &gt;&gt; any way to make this passwordless?</li>
+</ol>
+</li>
+</ol>
+<h3>Push to git on Syno</h3>
+<pre><code class="language-git">git remote add syno ssh://jst@192.168.178.30:223/volume1/git/altgans.git
+git push syno
+</code></pre>
+<h2>Remove MOTD on SSH</h2>
+<p>Delete contents of <code>/etc/MOTD</code> file, but leave it there!</p>
+<h2>One or multiple SSH keys?</h2>
+<p>As Synology requires all SSH-connecting accounts to be admin-privileged either way, it does not make sense to set up dedicated accounts. I will therefore stick with one master account that does everything (git, backup, ...) == my host machine. This also simplifies my config, although it may not be the most optimal approach from a devops perspective.</p>
+<p>2025-11-01 17:26 deleted git user and backup user</p>
+<h2>SSH</h2>
+<p>Enable ssh via <code>sudo vim /etc/ssh/sshd_config</code></p>
+<pre><code class="language-config">RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+</code></pre>
+<p>Change permissions of user .ssh folder</p>
+<pre><code class="language-sh">su – user
+mkdir ~/.ssh
+chmod 700 ~/.ssh
+touch ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+</code></pre>
+<p>Copy ssh file to authorized_keys <code>ssh user@ds &quot;/bin/cat &gt;&gt; ./.ssh/authorized_keys&quot; &lt; ~/.ssh/yourKey.pub</code></p>
+<p>Source: <a href="https://improveandrepeat.com/2016/09/passwordless-backup-with-synology-diskstation/">Passwordless Backup with Synology DiskStation - Improve &amp; Repeat</a></p>
+<h2>SSH Keychain</h2>
+<p>Store the SSH password across terminal sessions; only enter my password once</p>
+<p>I failed to set this up a few times, but who knows, maybe this time it works flawlessly :)</p>
+<pre><code class="language-fish"># https://superuser.com/questions/1727591/how-to-run-ssh-agent-in-fish-shell
+if status is-interactive
+    SHELL=/usr/bin/fish keychain --quiet --dir ~/.ssh id_ed25519
+    SHELL=/usr/bin/fish keychain --eval --quiet --dir ~/.ssh id_ed25519 | source
+end
+</code></pre>
+<h2>SSH into Synology to the git folder</h2>
+<p>Added an abbreviation to my fish.config. Running <code>synogit</code> will drop me into the respective folder. This also seems to use <code>fish</code> as my remote shell -- no idea how</p>
+<p><code>abbr --add synogit &quot;ssh -v syno-berlin -t 'cd /volume1/git &amp;&amp; ls -la; echo; exec bash -l'&quot;</code> (note: need to double escape)</p>
+<p>I tried to make this work via RemoteCommand in the ssh config, but failed for some reasons.</p>
+<h2>Backup script</h2>
+<p>To backup</p>
+<pre><code class="language-bash">#!/bin/bash
+
+rsync --recursive --copy-links --times --progress --exclude '.thumbnails' -e &quot;ssh -i ~/.ssh/yourKey&quot; /home/user user@ds:/vol1/_BACKUP/
+</code></pre>
+<h3>Fix permissions</h3>
+<p>On the first dry-run I got the following error. It means that I don't have the correct permissions</p>
+<pre><code class="language-bash">rsync --dry-run -avh --progress --delete --filter='merge /home/jst/rsync-ignore.txt' /home/jst/ syno-berlin:/volume1/backup/berlinbook
+sending incremental file list
+rsync: change_dir#1 &quot;/volume1/backup/berlinbook&quot; failed: Permission denied (13)
+rsync error: errors selecting input/output files, dirs (code 3) at main.c(648) [Receiver=3.1.2]
+</code></pre>
+<p>Check the folder permissions and fix them otherwise</p>
+<pre><code class="language-bash">ls -ld /volume1/backup
+ls -ld /volume1/backup/berlinbook
+sudo chown -R jst:users /volume1/backup/berlinbook
+sudo chmod -R 755 /volume1/backup/berlinbook
+</code></pre>
+<p>Note the <code>-R</code>, which runs these commands recursively. This is because I deleted the previous <em>backup</em> user, which messed with the permissions.. :)</p>
+<h3>Exclude from rsync</h3>
+<p>I exclude these files. Not sure about <code>.local/share</code>, as 95% of it is trash, but the other 5% are very important</p>
+<p>I have a file <code>.rsync-ignore</code>, which gets called via <code>rsync -avh --progress --delete --exclude-from=/home/jst/.rsync-ignore /home/jst/ syno-berlin:/volume1/backup/berlinbook</code></p>
+<pre><code class="language-conf"># ========================================
+# RSYNC IGNORE LIST FOR HOME DIRECTORY BACKUP
+# ========================================
+
+# 1. CACHES &amp; TEMPORARY DATA (safe to skip)
+.cache/
+.caches/
+.npm/_cacache/
+.pip/cache/
+.gradle/caches/
+.yarn/cache/
+.cargo/registry/cache/
+.vscode/extensions/.obsolete/
+**/node_modules/.cache/
+**/.cache/
+**/*cache*/
+**/Cache/
+**/Temporary Internet Files/
+**/temp/
+**/tmp/
+
+# 2. BROWSER &amp; APP CACHES
+.mozilla/firefox/*.default*/Cache/
+.mozilla/firefox/*.default*/cache2/
+.google-chrome/Default/Cache/
+.google-chrome/Default/Code Cache/
+.google-chrome/Default/GPUCache/
+.chromium/Default/Cache/
+.brave/Default/Cache/
+.vivaldi/Default/Cache/
+.opera/Cache/
+**/BraveSoftware/Brave-Browser/Default/Cache/
+**/Microsoft/Edge/User Data/Default/Cache/
+
+# 3. DOWNLOADS (optional — comment out if you want to back them up)
+#Downloads/
+#downloads/
+
+# 4. TRASH &amp; RECYCLE BIN
+.Trash/
+.Trash-*
+.trash/
+.Recycled/
+$RECYCLE.BIN/
+
+# 5. LARGE BUILD/DEV ARTIFACTS
+**/node_modules/
+**/venv/
+**/__pycache__/
+**/.venv/
+**/.env/
+**/.python_history
+**/env/
+**/build/
+**/dist/
+**/out/
+**/target/           # Rust/Cargo
+**/bin/
+**/obj/
+**/pkg/
+**/vendor/          # Go/PHP
+**/.git/
+**/.svn/
+**/.hg/
+
+# 6. MEDIA LIBRARIES &amp; INDEXES (regenerate on restore)
+.Spotify/
+.spotify/
+.Music/*.db
+.Music/*.ldb
+.Plex/
+.plex/
+.kodi/
+.steam/steamapps/
+.steam/steam/steamapps/
+.games/
+.Wine/
+.wine/
+.lutris/
+.heroic/
+.bottles/
+
+# 7. VIRTUAL MACHINES &amp; DISK IMAGES (back up separately!)
+*.vdi
+*.vmdk
+*.vhd
+*.vhdx
+*.ova
+*.ovf
+*.img
+*.iso
+VirtualBox VMs/
+.vagrant/
+.parallels/
+.vmware/
+VBoxManage.log*
+
+# 8. SYSTEM &amp; LOCK FILES
+.lock
+*.lock
+*.lck
+*.pid
+*.sock
+*.swp
+*.swo
+*~
+.#*
+.#*#
+*.bak
+*.tmp
+*.temp
+
+# 9. LARGE LOG FILES
+*.log
+*.log.*
+**/logs/
+**/log/
+.nohup.out
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 10. OS-SPECIFIC &amp; MOUNT POINTS
+/lost+found/
+/proc/
+/sys/
+/dev/
+/mnt/
+/media/
+/run/
+.snapshots/
+
+# 11. SNAP &amp; FLATPAK RUNTIMES (optional — large, regeneratable)
+~/snap/
+~/var/lib/snapd/
+~/.var/app/
+~/.local/share/flatpak/
+
+# 12. THUMBNAILS &amp; PREVIEWS
+.thumbnails/
+.Thumbnails/
+.eog/thumbs/
+.gwenview/
+.digikam/
+.pictures/thumbs/
+
+# 13. IDE &amp; EDITOR TEMP FILES
+.idea/
+.vscode/
+*.code-workspace
+*.sublime-workspace
+*.sublime-project
+*.project
+*.classpath
+*.settings/
+*.metadata/
+*.tmproj
+*.DS_Store
+._*
+
+# 14. CRYPTO &amp; KEYRING (security — don't back up encrypted keys)
+.gnupg/random_seed
+.gnupg/.#*
+.seahorse/
+.gnome-keyring*
+.kde/share/apps/kwallet/
+.wallet/
+.ssh
+
+# 15. BACKUP TOOLS &amp; SYNC FOLDERS (avoid loops)
+.backup/
+.backups/
+.rsync/
+.sync/
+.dropbox/
+.dropbox.cache/
+.mega/
+.nextcloud/
+.seafile/
+.spideroak/
+.insync/
+.google-drive/
+.one-drive/
+
+# 16. Custom
+.local/share/Steam/**
+.cargo
+.local/share/containers
+.local/share/zed
+.local/share/nvim/
+.mozilla/firefox/*/Cache
+</code></pre>
+<h3>Backup as systemd service</h3>
+<p>I want to backup when I log in, and on idle. After backup a notification should be sent.</p>
+<p>Gotchas: Even though I spent a long time above to set up my ssh and passwords, the service complains about wrong credentials. As a solution I could use something like <code>sshpass</code>, or a plaintext password. Instead, I created a passwordless key that I will use only for my NAS.</p>
+<p>Here, the terrible security practice of Synology with only-admin-ssh shows, as this means that whoever has access to my device also has root access to my NAS. Luckily my threat vector is small (holiday pictures and backups), so whoever has access to my machine already has all the information.. :)</p>
+<p>Service:</p>
+<pre><code class="language-sh">[Unit]
+Description=Opportunistic rsync backup to syno-berlin
+Wants=network-online.target
+After=network-online.target
+
+# Optional: Only run on AC power (laptop)
+ConditionACPower=true
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/rsync -e 'ssh -p 223' -avh --delete --exclude-from=/home/jst/.rsync-ignore /home/jst/ syno-berlin-rsync-backup:/volume1/backup/berlinbook
+Nice=19
+IOSchedulingClass=2
+IOSchedulingPriority=7
+
+# Prevent running if destination unreachable
+ExecStartPre=/usr/bin/ssh -o BatchMode=yes -o ConnectTimeout=5 syno-berlin-rsync-backup true
+
+# Notify
+ExecStartPost=/home/jst/.config/systemd/user/backup-notify.sh
+
+[Install]
+WantedBy=default.target
+</code></pre>
+<p>Timer</p>
+<pre><code class="language-sh">[Unit]
+Description=Run rsync backup after login and periodically
+Requires=rsync-backup.service
+
+[Timer]
+# Run 5 minutes after user login
+OnStartupSec=300
+
+# Then every 6 hours while session is active
+OnUnitActiveSec=6h
+
+# If missed (PC was off), run as soon as possible
+Persistent=true
+
+Unit=rsync-backup.service
+
+[Install]
+WantedBy=timers.target
+</code></pre>
+<p>Notification</p>
+<pre><code class="language-bash">#!/bin/bash
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+
+/usr/bin/notify-send &quot;Backup&quot; &quot;rsync to syno-berlin completed&quot; --icon=backup
+</code></pre>
+<p>Don't forget to restart the service!</p>
+<pre><code class="language-sh">systemctl --user daemon-reload
+systemctl --user restart rsync-backup.service
+systemctl --user restart rsync-backup.timer
+</code></pre>
+
+		</article>
+	</main>
+
+	<!-- <footer class="bg-gray-200 text-gray-800 p-6">
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline">Home</a></li>
+      
+    </ol>
+  </footer>
+
+
+ -->
+	<footer class="bg-gray-100 text-gray-800 p-4 markdown">
+		<h3> Index</h3>
+
+		<ol class="list-decimal list-inside space-y-1">
+			<li><a href="/index.html" class="text-blue-600 underline pl-1">Home</a></li>
+			
+			<li>
+				<a href="/posts/about/" class="text-blue-600 underline">About this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/test-post/" class="text-blue-600 underline">Test post</a>
+			</li>
+			
+			<li>
+				<a href="/posts/contact/" class="text-blue-600 underline">Contact / Impressum</a>
+			</li>
+			
+			<li>
+				<a href="/posts/todo/" class="text-blue-600 underline">Things to improve on this website (TODOs)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/using-a-llm-to-create-this-website/" class="text-blue-600 underline">Attempting to use a LLM to create this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/koffer/" class="text-blue-600 underline">About suitcases and sizes</a>
+			</li>
+			
+			<li>
+				<a href="/posts/office-chair/" class="text-blue-600 underline">About office chairs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-be-my-boyfriend/" class="text-blue-600 underline">Schreiben I - Be my boyfriend! [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-sugar/" class="text-blue-600 underline">Schreiben II - Sugar [EN]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/game-design-skill-trees/" class="text-blue-600 underline">Game Design: About Skilltrees</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-which-distro-do-i-use/" class="text-blue-600 underline">Linux: Which distro am I using?</a>
+			</li>
+			
+			<li>
+				<a href="/posts/ip-tools/" class="text-blue-600 underline">Internet privacy and IP tools</a>
+			</li>
+			
+			<li>
+				<a href="/posts/niri/" class="text-blue-600 underline">Linux, Niri and scrollable WMs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/socratic-questioning/" class="text-blue-600 underline">Using Socratic questioning and Feynman techique for learning</a>
+			</li>
+			
+			<li>
+				<a href="/posts/localsend/" class="text-blue-600 underline">Send files locally with Localsend</a>
+			</li>
+			
+			<li>
+				<a href="/posts/interesting-words/" class="text-blue-600 underline">Words I had to look up</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-setup/" class="text-blue-600 underline">Linux setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/eleventy-wikilinks/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/webdev-test-fonts/" class="text-blue-600 underline">Quickly test fonts on any website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/about-nixos/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/jj-dotfiles/" class="text-blue-600 underline">Dotfiles with Jujutsu (jj)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schallschutz-bilder/" class="text-blue-600 underline">Schallschutz Wandbilder [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/neovim-setup/" class="text-blue-600 underline">Neovim setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/helix-setup/" class="text-blue-600 underline">Helix setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-backup/" class="text-blue-600 underline">Linux backup</a>
+			</li>
+			
+		</ol>
+	</footer>
+</div>
+
+</body>
+</html>

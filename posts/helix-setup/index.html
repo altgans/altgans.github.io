@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Eleventy v3.1.2">
+  <link rel="stylesheet" href="/styles.css">
+<title>Altgans—Helix setup</title>
+</head>
+<body class="w-full h-screen flex flex-col bg-gray-500">
+		
+<div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
+	<head >
+		<p class="text-gray-200 italic">2025-10-29 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Helix setup</h1>
+	</head>
+	<main class="bg-gray-300 markdown p-4">
+
+		<p>
+
+			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
+		</p> 
+		<article>
+			<h1>Helix, who this?</h1>
+<p>Helix is a cool text editor, although I am not convinced that it's lack of plugins is a user benefit. Well, at least the choices I need to make are simplified, in comparison to [neovim-setup|nvim] :)</p>
+<h2>Other</h2>
+<p>One interesting idea is to use <code>hx</code> in a fullscreen terminal inside VSC, to have all the cool VSC project features available.</p>
+<h2>Goal</h2>
+<ul>
+<li>I want to set up helix as text editor
+<ul>
+<li>autosave</li>
+</ul>
+</li>
+<li>Set up Markdown editing
+<ul>
+<li>list formatting &amp; indenting</li>
+<li>wikilinks</li>
+<li>heading increase/decrease</li>
+<li>markdown preview/rendering</li>
+</ul>
+</li>
+</ul>
+<h2>File browsing</h2>
+<p>Not supported out of the box :+</p>
+<p>Will use the file picker <code>&lt;space&gt;f</code> and otherwise <code>yazi</code>.</p>
+<h2>Outdent with S-Tab</h2>
+<p>Indent works with <code>Tab</code>, but outdent doesn't...</p>
+<pre><code class="language-toml">[keys.insert]
+S-tab = &quot;unindent&quot;
+</code></pre>
+<p>See also <a href="https://docs.helix-editor.com/editor.html#editorsmart-tab-section">Editor smart-tab</a>, as some terminals don't support S-Tab.</p>
+<h2>Use system clipboard for pasting</h2>
+<p>Actually in-built. <code>&lt;space&gt;Y/P</code></p>
+<h2>Config</h2>
+<p>Can edit the config via <code>:edit-config</code>. It is located in <code>~/.config/helix/config.toml</code>.</p>
+<h2>Advanced functionality</h2>
+<p>It seems the <code>hx</code> way is to do configure keybinds to run arbitrary shell commands to achieve things</p>
+<pre><code class="language-toml">[keys.normal]
+&quot;C-p&quot; = &quot;:sh glow %&lt;cr&gt;&quot;  # Preview current file (% is filename)
+</code></pre>
+<h2>Theme</h2>
+<p>Change via <code>:theme &lt;tab&gt;</code>.</p>
+<p>I like</p>
+<ul>
+<li><code>flatwhite</code></li>
+<li><code>rosepine</code></li>
+<li><code>yo</code></li>
+<li><code>yellowed</code></li>
+<li><code>tokyonight</code></li>
+<li><code>peachpuff</code></li>
+<li><code>snazzy</code></li>
+<li><code>voxed</code></li>
+<li><code>starlight</code></li>
+<li><code>papercolor-dark</code></li>
+</ul>
+<h2>LSP Setup and Diagnostics</h2>
+<p>This requires all of these LSP-Servers to be installed. Ensure with <code>hx --health markdown</code>. Enable diagnostics in the config.</p>
+<pre><code class="language-toml">[[language]]
+name = &quot;markdown&quot;
+language-servers = [ &quot;marksman&quot;, &quot;prettier&quot;,  &quot;ltex&quot;, &quot;hx-lsp&quot;, &quot;mpls&quot; ]
+file-types = [&quot;md&quot;, &quot;txt&quot;]
+auto-format = true
+
+[language-server.marksman]
+command = &quot;marksman&quot;
+args = [&quot;server&quot;]
+
+[language-server.prettier]
+command = &quot;prettier&quot;
+args = [&quot;--parser&quot;, &quot;markdown&quot;]
+
+[language-server.ltex]
+command = &quot;ltex-ls-plus&quot;
+# config.ltex.dictionary.&quot;en-US&quot; = [&quot;custom&quot;, &quot;words&quot;]  # Add your dictionary
+# config.ltex.language = &quot;en-US&quot;  # Or auto-detect
+
+# https://github.com/erasin/hx-lsp?tab=readme-ov-file
+[language-server.hx-lsp]
+command = &quot;hx-lsp&quot;
+
+# https://github.com/mhersson/mpls
+[language-server.mpls]
+command = &quot;mpls&quot;
+args = [&quot;--dark-mode&quot;, &quot;--enable-emoji&quot;]
+</code></pre>
+<p>To see the LSP errors, open the diagnostics search via <code>&lt;spc&gt;d</code>.</p>
+<p>For Ltex, we can define the language in the markdown file -- <a href="https://ltex-plus.github.io/ltex-plus/advanced-usage.html#set-language-in-markdown-with-yaml-front-matter">https://ltex-plus.github.io/ltex-plus/advanced-usage.html#set-language-in-markdown-with-yaml-front-matter</a></p>
+<h2>Toggle Markdown checklists</h2>
+<h2>Follow weblink under cursor</h2>
+<h2>Markdown snippets</h2>
+<h2>Buffer Autocomplete</h2>
+<p>Should suggest words from the existing buffer. Should auto-complete and surround Markdown syntax, e.g. <strong>bold</strong>.</p>
+<h2>Colored Markdown headings by indention (h1-h6)</h2>
+<h2>Accept LSP commands</h2>
+<p>hello</p>
+<h2>Markdown conceal</h2>
+<h2>Not the holy grail (yet)</h2>
+<p>2025-10-30 12:58
+I give up.</p>
+<p>Helix is cool.</p>
+<p>Helix is fast.</p>
+<p>Helix is too annoying to configure.</p>
+<p>Well, 'configure' is the wrong word.</p>
+<p>There are some QOL features missing that I'd love to have for Markdown writing. And I can't set them up, because they need to be added via LSPs. I now need to set up 5-6 LSPs which all do things in parallel. Some of the LSPs even require client-side support, which <code>hx</code> is not willing to provide. Additionally, most of discussions from three (!) years ago are still open, or closed as <em>won't do</em>.</p>
+<p>It's a shame. I wish there was an editor that combines <code>helix</code> modal editing with vim's configurability. Something with batteries, not <code>kakoune</code>.</p>
+<p>Last words: Helix is awesome for quick editing, but everything that goes across the vision quickly turns into a fight against the system.</p>
+<p>Goto <a href="/posts/neovim-setup/">Neovim setup</a></p>
+<p>(This exercise was still beneficial, as it showed me a new editing paradigm, tought me some new editing modes that I will now add to nvim (surround), and also got me to play around with LSPs)</p>
+<p>E: Maybe my mental model is not correct; a lot of things (Toggle Todos, lists, ..) could also be done via macros and set as keyboard icon.</p>
+
+		</article>
+	</main>
+
+	<!-- <footer class="bg-gray-200 text-gray-800 p-6">
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline">Home</a></li>
+      
+    </ol>
+  </footer>
+
+
+ -->
+	<footer class="bg-gray-100 text-gray-800 p-4 markdown">
+		<h3> Index</h3>
+
+		<ol class="list-decimal list-inside space-y-1">
+			<li><a href="/index.html" class="text-blue-600 underline pl-1">Home</a></li>
+			
+			<li>
+				<a href="/posts/about/" class="text-blue-600 underline">About this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/test-post/" class="text-blue-600 underline">Test post</a>
+			</li>
+			
+			<li>
+				<a href="/posts/contact/" class="text-blue-600 underline">Contact / Impressum</a>
+			</li>
+			
+			<li>
+				<a href="/posts/todo/" class="text-blue-600 underline">Things to improve on this website (TODOs)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/using-a-llm-to-create-this-website/" class="text-blue-600 underline">Attempting to use a LLM to create this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/koffer/" class="text-blue-600 underline">About suitcases and sizes</a>
+			</li>
+			
+			<li>
+				<a href="/posts/office-chair/" class="text-blue-600 underline">About office chairs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-be-my-boyfriend/" class="text-blue-600 underline">Schreiben I - Be my boyfriend! [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-sugar/" class="text-blue-600 underline">Schreiben II - Sugar [EN]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/game-design-skill-trees/" class="text-blue-600 underline">Game Design: About Skilltrees</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-which-distro-do-i-use/" class="text-blue-600 underline">Linux: Which distro am I using?</a>
+			</li>
+			
+			<li>
+				<a href="/posts/ip-tools/" class="text-blue-600 underline">Internet privacy and IP tools</a>
+			</li>
+			
+			<li>
+				<a href="/posts/niri/" class="text-blue-600 underline">Linux, Niri and scrollable WMs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/socratic-questioning/" class="text-blue-600 underline">Using Socratic questioning and Feynman techique for learning</a>
+			</li>
+			
+			<li>
+				<a href="/posts/localsend/" class="text-blue-600 underline">Send files locally with Localsend</a>
+			</li>
+			
+			<li>
+				<a href="/posts/interesting-words/" class="text-blue-600 underline">Words I had to look up</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-setup/" class="text-blue-600 underline">Linux setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/eleventy-wikilinks/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/webdev-test-fonts/" class="text-blue-600 underline">Quickly test fonts on any website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/about-nixos/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/jj-dotfiles/" class="text-blue-600 underline">Dotfiles with Jujutsu (jj)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schallschutz-bilder/" class="text-blue-600 underline">Schallschutz Wandbilder [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/neovim-setup/" class="text-blue-600 underline">Neovim setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/helix-setup/" class="text-blue-600 underline">Helix setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-backup/" class="text-blue-600 underline">Linux backup</a>
+			</li>
+			
+		</ol>
+	</footer>
+</div>
+
+</body>
+</html>

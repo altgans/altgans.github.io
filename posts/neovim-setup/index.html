@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Eleventy v3.1.2">
+  <link rel="stylesheet" href="/styles.css">
+<title>Altgans—Neovim setup</title>
+</head>
+<body class="w-full h-screen flex flex-col bg-gray-500">
+		
+<div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
+	<head >
+		<p class="text-gray-200 italic">2025-10-27 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Neovim setup</h1>
+	</head>
+	<main class="bg-gray-300 markdown p-4">
+
+		<p>
+
+			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
+		</p> 
+		<article>
+			<h2>Intro</h2>
+<p>Not sure why I come back to <code>nvim</code> all the time, especially as there are new cool editors in 2025. Code, Zed, kakoune, helix... Maybe it is the config, or the fact that I didn't know how to quit <code>vim</code> for a long time 😁 (Tip: <code>:q</code> to quit and <code>:help</code> for help)</p>
+<h2>Goal</h2>
+<ul>
+<li>editor for quickly editing config files (--&gt; dotfiles)</li>
+<li>editor for coding</li>
+<li>editor for personal knowledge base with Markdown
+<ul>
+<li>Zettelkasten, interplay with Obsidian, ...</li>
+<li>able to sync/ingest markdown from my work laptop</li>
+<li>able to visualize (<code>markmap</code>?)</li>
+</ul>
+</li>
+<li>editor for writing novels and world-building</li>
+</ul>
+<h2>Batteries included</h2>
+<p>Lazyvim, cause the maintainer seems like a cool guy. There are some other projects, but they felt too complicated/complex/opinionated.</p>
+<p>Note: This means that I assume lazyvim-style config folder</p>
+<h2>Listing all the plugins installed</h2>
+<p>A list of installed plugins can be retrieved from the <code>lazy-lock.json</code> in the <em>nvim</em> folder.</p>
+<p>By default (including some extras), Lazy comes with these items installed</p>
+<h2>Change which-key description to name the plugin</h2>
+<p>Example: <code>&lt;spc&gt;sr</code> opens serach &amp; replace, which actually is <code>grug-far.nvim</code> under the hood. I want understand all of this, to better be able to find help and guidance.</p>
+<h2>How to collapse Markdown headings</h2>
+<p><code>zM</code> close all folds, <code>zR</code> open all folds</p>
+<p><code>za</code> toggle fold under cursor, <code>zi</code> toggle folding</p>
+<p><code>zv</code> show cursor line</p>
+<p>2025-10-30 17:38
+could set up <a href="https://github.com/kevinhwang91/nvim-ufo">kevinhwang91/nvim-ufo: Not UFO in the sky, but an ultra fold in Neovim.</a></p>
+<h2>Improve datetime macro and add it to headings (?)</h2>
+<h2>Multiple cursors</h2>
+<p>Apparently not supported, as it is not in line with the 'vim philosophy'. We can do <code>C-v</code> for visual block mode though, and/or do a regex search and replace.</p>
+<p>E: It seems the way to go is TreeSitter text objects manipulation with <code>mini.ai</code>?</p>
+<h2>Useful Markdown keybinds</h2>
+<p>N = normal mode, V = visual mode, I = insert mode</p>
+<ul>
+<li>
+<p><code>&gt;&gt;</code> and <code>&lt;&lt;</code> :: indent and outdent in N and V mode.</p>
+</li>
+<li>
+<p><code>C-t</code> and <code>C-d</code> :: indent and outdent in I mode</p>
+</li>
+<li>
+<p><code>[[</code> and <code>]]</code> :: go to next/prev section (Markdown headings)</p>
+</li>
+<li>
+<p><code>zj</code> and <code>zk</code> :: jump to next/prev fold</p>
+</li>
+<li>
+<p><code>&lt;leader&gt;ss</code> :: symbol picker (jump to markdown heading)</p>
+<ul>
+<li><code>&lt;leader&gt;sr</code> :: symbol picker across project root</li>
+<li><code>&lt;leader&gt;sb</code> :: buffer line search (find words/lines)</li>
+</ul>
+</li>
+<li>
+<p>sadf</p>
+</li>
+<li></li>
+<li>
+<p>asf</p>
+</li>
+<li>
+<p>asf</p>
+</li>
+</ul>
+<h2>Indent lists and text in Markdown files</h2>
+<ul>
+<li>smark.nvim :: better list handling</li>
+<li>markdown_indent.nvim :: indent markdown headings</li>
+</ul>
+<h3>Indent/outdent via Tab and S-Tab</h3>
+<p>In 'keymaps.lua',</p>
+<pre><code class="language-lua">-- Indent with Tab in normal mode
+vim.keymap.set(&quot;n&quot;, &quot;&lt;Tab&gt;&quot;, &quot;&gt;&gt;_&quot;, { noremap = true, silent = true, desc = &quot;Indent line&quot; })
+-- Unindent with Shift+Tab in normal mode
+vim.keymap.set(&quot;n&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;&lt;_&quot;, { noremap = true, silent = true, desc = &quot;Unindent line&quot; })
+-- Indent wjth Tab in visual mode
+vim.keymap.set(&quot;v&quot;, &quot;&lt;Tab&gt;&quot;, &quot;&gt;gv&quot;, { noremap = true, silent = true, desc = &quot;Indent selected lines&quot; })
+-- Unindent with Shift+Tab in visual mode
+vim.keymap.set(&quot;v&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;gv&quot;, { noremap = true, silent = true, desc = &quot;Unindent selected lines&quot; })
+
+</code></pre>
+<p>Check mappings with <code>:map &lt;Tab&gt;</code> for potential conflicts</p>
+<ul>
+<li>2025-10-28 16:05: Can use <code>markdown_indent</code> for this, no need for the keybinds!</li>
+<li>2025-10-28 16:05: using <code>markdown-plus</code>, which necessites to set up the hotkeys again
+<ul>
+<li>TODO check behaviour of Tab regarding indent and autocomplete; disable list indent in I mode via S-Tab?</li>
+</ul>
+</li>
+</ul>
+<h2>Disable markdown linter</h2>
+<p>Lazyvim uses <em>conform.nvim</em></p>
+<h2>Show outline for Markdown files</h2>
+<p>Can use the Telescope symbol picker. <code>&lt;leader&gt;ss</code> (local) or <code>&lt;leader&gt;sr</code> (across project root)</p>
+<h2>Disabling a plugin</h2>
+<p>We can do <code>enabled=false</code> in the config.</p>
+<pre><code class="language-lua">return {
+  -- disable trouble
+  { &quot;folke/trouble.nvim&quot;, enabled = false },
+}
+</code></pre>
+<p>Source: <a href="https://www.lazyvim.org/configuration/plugins#-disabling-plugins">Plugins | LazyVim</a></p>
+<h2>How to do surround</h2>
+<h2>How to do soft-wrap</h2>
+<h2>Display the keymap</h2>
+<p>Keymaps can be searched with <code>&lt;spc&gt;sk</code>.</p>
+<p>There is also <code>spc + ?</code></p>
+<h2>Advanced keymaps in Telescope picker</h2>
+<p>TODO I believe that the fuzzy search via Telescope allows more keys beyond just <code>tab</code> and <code>ret</code>. Which?</p>
+<h2>Other / Advanced</h2>
+<ul>
+<li>maybe set up https://github.com/seth-brown/formd as described in https://aliquote.org/post/neovim-markdown/ to collect inline-references at the bottom, instead of in the text.</li>
+<li>auto-translate with <code>translate-shell</code></li>
+<li>add <code>leader m i</code> to turn item into list item)
+<ul>
+<li>check emacs orgmode keybinds again!</li>
+</ul>
+</li>
+<li>change markdown symbols for headings and bullet items (visual)</li>
+<li>a way to visualize my keybinds (including leader-mapped sub menus)
+<ul>
+<li>https://github.com/jokajak/keyseer.nvim</li>
+</ul>
+</li>
+<li>paste screenshots (keep them in a folder? link them?)
+<ul>
+<li>https://github.com/TobinPalmer/pastify.nvim</li>
+</ul>
+</li>
+<li>wiki-link picker, similar to obsidian.nvim https://github.com/epwalsh/obsidian.nvim?tab=readme-ov-file</li>
+<li>pomodoro timer -- https://github.com/epwalsh/pomo.nvim
+<ul>
+<li>probably makes more sense to have this system wide &gt;&gt; <a href="/posts/linux-setup/">linux</a></li>
+</ul>
+</li>
+<li>markdown download -- <a href="https://github.com/deathau/markdownload">deathau/markdownload: A Firefox and Google Chrome extension to clip websites and download them into a readable markdown file.</a>
+<ul>
+<li>use emacs org-roam-protocol? for download?</li>
+</ul>
+</li>
+<li>undo history -- https://github.com/y3owk1n/time-machine.nvim</li>
+</ul>
+
+		</article>
+	</main>
+
+	<!-- <footer class="bg-gray-200 text-gray-800 p-6">
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline">Home</a></li>
+      
+    </ol>
+  </footer>
+
+
+ -->
+	<footer class="bg-gray-100 text-gray-800 p-4 markdown">
+		<h3> Index</h3>
+
+		<ol class="list-decimal list-inside space-y-1">
+			<li><a href="/index.html" class="text-blue-600 underline pl-1">Home</a></li>
+			
+			<li>
+				<a href="/posts/about/" class="text-blue-600 underline">About this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/test-post/" class="text-blue-600 underline">Test post</a>
+			</li>
+			
+			<li>
+				<a href="/posts/contact/" class="text-blue-600 underline">Contact / Impressum</a>
+			</li>
+			
+			<li>
+				<a href="/posts/todo/" class="text-blue-600 underline">Things to improve on this website (TODOs)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/using-a-llm-to-create-this-website/" class="text-blue-600 underline">Attempting to use a LLM to create this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/koffer/" class="text-blue-600 underline">About suitcases and sizes</a>
+			</li>
+			
+			<li>
+				<a href="/posts/office-chair/" class="text-blue-600 underline">About office chairs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-be-my-boyfriend/" class="text-blue-600 underline">Schreiben I - Be my boyfriend! [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-sugar/" class="text-blue-600 underline">Schreiben II - Sugar [EN]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/game-design-skill-trees/" class="text-blue-600 underline">Game Design: About Skilltrees</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-which-distro-do-i-use/" class="text-blue-600 underline">Linux: Which distro am I using?</a>
+			</li>
+			
+			<li>
+				<a href="/posts/ip-tools/" class="text-blue-600 underline">Internet privacy and IP tools</a>
+			</li>
+			
+			<li>
+				<a href="/posts/niri/" class="text-blue-600 underline">Linux, Niri and scrollable WMs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/socratic-questioning/" class="text-blue-600 underline">Using Socratic questioning and Feynman techique for learning</a>
+			</li>
+			
+			<li>
+				<a href="/posts/localsend/" class="text-blue-600 underline">Send files locally with Localsend</a>
+			</li>
+			
+			<li>
+				<a href="/posts/interesting-words/" class="text-blue-600 underline">Words I had to look up</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-setup/" class="text-blue-600 underline">Linux setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/eleventy-wikilinks/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/webdev-test-fonts/" class="text-blue-600 underline">Quickly test fonts on any website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/about-nixos/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/jj-dotfiles/" class="text-blue-600 underline">Dotfiles with Jujutsu (jj)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schallschutz-bilder/" class="text-blue-600 underline">Schallschutz Wandbilder [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/neovim-setup/" class="text-blue-600 underline">Neovim setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/helix-setup/" class="text-blue-600 underline">Helix setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-backup/" class="text-blue-600 underline">Linux backup</a>
+			</li>
+			
+		</ol>
+	</footer>
+</div>
+
+</body>
+</html>

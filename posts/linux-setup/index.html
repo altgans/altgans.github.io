@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy v3.1.2">
   <link rel="stylesheet" href="/styles.css">
-<title>Altgans—Linux setup and ricing</title>
+<title>Altgans—Linux setup</title>
 </head>
 <body class="w-full h-screen flex flex-col bg-gray-500">
 		
 <div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
 	<head >
 		<p class="text-gray-200 italic">2025-10-05 </p>
-		<h1 class="text-white text-4xl font-bold mb-2">Linux setup and ricing</h1>
+		<h1 class="text-white text-4xl font-bold mb-2">Linux setup</h1>
 	</head>
 	<main class="bg-gray-300 markdown p-4">
 
@@ -266,20 +266,20 @@ there is also <code>wezterm</code>
 not sure I like <code>ghostty</code>, will stay with <code>kitty</code>
 e: convinced to give <code>ghostty</code> a try -- the theming preview convinced me :)</p>
 <pre><code class="language-conf">theme = Solarized Osaka Night
-background = 
-foreground = 
-background-image = 
-background-image-opacity = 
+background =
+foreground =
+background-image =
+background-image-opacity =
 background-opacity = 0.9
 background-blur = true
 #link
-link-url = 
+link-url =
 link-previews = true
-selection-background = 
+selection-background =
 selection-foreground =
 # title =
 # class =
-window-inherit-working-directory = 
+window-inherit-working-directory =
 window-decoration = false
 bell-features = no-audio
 </code></pre>
@@ -585,7 +585,7 @@ grok seems more useful for tech support than chatGPT</p>
 discovered some zsh and bash config files -- should I remove them?
 TODO notify my when I run a command for which I have a fish alias/function (like <code>yazi</code> instead of <code>y</code>)</p>
 <p>2025-10-19 20:43
-added a shortcut for opening my syncthing localhost url via <code>fuzzel</code> (by creating an .desktop file in <code>/home/jst/.local/share/applications</code>)
+added a shortcut for opening my syncthing localhost url via <code>fuzzel</code> (by creating a .desktop file in <code>/home/jst/.local/share/applications</code>)
 I think this is a good way to remember localhost URLs (syncthing, paperless, synology-gui, gitea, pihole, ...)</p>
 <pre><code class="language-desktop">[Desktop Entry]
 Name=Syncthing Web UI
@@ -677,6 +677,188 @@ end
 added a desktop icon for fritz.box
 TODO look into pihole (+ hardware) &gt;&gt; Desktop Beelink GK35 maybe?
 TODO change firefox userchrome css to style the blank loading page to something dark (no more blinding white #fff) -- <a href="https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load">https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load</a></p>
+<p>2025-10-21 20:50
+figured out that my screenshots are saved in ~/Pictures/Screenshots/
+TODO configure image viewer and (maybe) screenshot tool
+installing a script engine to block <em>Login with Google</em> prompts.
+it seems that tampermonkey is the up-to-date-one
+decided against installing tampermonkey, cause too much risk for someone random too update their script maliciously
+changed <code>fish</code> <code>keychain</code> command based on this answer: <a href="https://superuser.com/questions/1727591/how-to-run-ssh-agent-in-fish-shell">how to run ssh-agent in fish shell? - Super User</a>, which also mentions that <code>fish</code> support <code>keychain</code> since 2017</p>
+<pre><code class="language-fish"># To add new SSH key, use:
+set --universal --append SSH_KEYS_TO_AUTOLOAD ~/.ssh/id_ed25519
+# To remove a key, remove it from the list using its index:
+# set --universal --erase SSH_KEYS_TO_AUTOLOAD[index_of_key]
+# https://superuser.com/questions/1727591/how-to-run-ssh-agent-in-fish-shell
+if status is-login
+    and status is-interactive
+    keychain --eval $SSH_KEYS_TO_AUTOLOAD | source
+end
+</code></pre>
+<p>2025-10-21 21:14
+also added <code>AddKeysToAgent yes</code> to my <code>.ssh/config</code>
+TODO take a look at the <code>.XCompose</code> file
+removed <code>okular</code>
+installed <code>lightningview</code>, <code>okulante</code>. <code>viewskater</code> also looks good, but not on <em>aur</em>
+set niri to <code>prefer-no-csd</code>, to remove okulante window decorations
+DONE set alias for <code>fzf</code> to <code>ff</code> (follow omarchy?)
+DONE set alias for <code>zoxide</code> (follow omarchy to alias <code>cd</code>?)
+DONE set alias for <code>eza</code> (follow omarchy to alias <code>ls</code>, <code>lt</code>, ..?)
+removed <code>gitui</code> (<code>lazygit</code> is enough)
+installed <code>lazydocker</code>, <code>btop</code>, <code>fastfetch</code>, <code>impala</code> (and <code>iwd</code>)
+removed <code>impala</code> and <code>iwd</code>, as they cause problems with my wireless..
+NOTE when in doubt about packages that mess with internet, disable and restart before deleting, in case they are required to make the internet work on your machine ... :)
+installed <code>marktext</code> (for markdown writing; but could also configure nvim or Obsidian to do the job)
+thinking about <code>pinta</code>, but don't see the need (editing images, also have <code>krita</code>)
+TODO set up PDF viewer/editor (Document Viewer, Xournal, Firefox/Zen)
+TODO see if I want to switch to Cascadia font (interstingly also the default font choide of Omarchy.. :))
+TODO reinstall arch with disk encryption? :)</p>
+<p>2025-10-21 22:31
+set a few fish abbrevs and aliases</p>
+<pre><code class="language-fish">function zd
+    if test (count $argv) -eq 0
+        builtin cd ~
+        return
+    else if test -d $argv[1]
+        builtin cd $argv[1]
+    else
+        z $argv; and printf &quot;\U000F17A9 &quot;; and pwd; or echo &quot;Error: Directory not found&quot;
+    end
+end
+
+alias cd='zd'
+</code></pre>
+<pre><code class="language-fish"># opens neovim w/o args
+function n
+    if test (count $argv) -eq 0
+        nvim .
+    else
+        nvim $argv
+    end
+end
+</code></pre>
+<pre><code class="language-fish">alias ls='eza -lh --group-directories-first --icons=auto'
+alias lsa='ls -a'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+alias ff=&quot;fzf --preview 'bat --style=numbers --color=always {}'&quot;
+
+alias g='git'
+abbr --add gcm git commit -m
+abbr --add gcam git commit -a -m
+abbr --add gcad git commit -a --amend
+</code></pre>
+<p>also found out that <code>fish</code> provides <code>open</code> by default, so no need for <code>xdg-open</code>
+TODO backup my .dotfiles and version control them (stow?)</p>
+<p>2025-10-22 00:07
+I found the holy grail of dotfiles management -- <a href="https://mitxela.com/projects/dotfiles_management">Dotfiles Management - mitxela.com</a>
+I created a .dotfiles folder in my home, did an init bare git on it, set to my root / and then add files to it via a helper function. No need for any other dotfiles management software! Universal git!
+TODO look into git/exclude</p>
+<p>2025-10-24 11:04
+set my ublock to follow the recommended filters -- <a href="https://github.com/yokoffing/filterlists">https://github.com/yokoffing/filterlists</a>
+DONE block youtube recommendations and shorts -- <a href="https://github.com/gijsdev/ublock-hide-yt-shorts">https://github.com/gijsdev/ublock-hide-yt-shorts</a>
+TODO block 'login with google'
+DONE block youtube auto dub
+DONE see <a href="https://old.reddit.com/r/uBlockOrigin/wiki/solutions/youtube#wiki_video_annotations">https://old.reddit.com/r/uBlockOrigin/wiki/solutions/youtube#wiki_video_annotations</a> for all the above
+TODO highlight todos in markdown/neovim :)
+TODO look into fedora for thin client (for pihole)
+TODO set auto suspend on linux</p>
+<p>2025-10-24 13:11
+TODO allow to click on links in neovim
+E: works with <code>gx</code>, but not mapped in lazyvim
+TODO dump this link somewhere -- <a href="https://scrollguard.app/">https://scrollguard.app/</a>
+TODO get updates on new blogs (RSS)
+TODO set up Jujutsu (as git replacement)</p>
+<p>2025-10-24 14:00
+TODO look into fedora atomic images, they seem like another intersting alternative to <code>nix</code> and keeping an immutable system. maybe I could try to get this system working on fedora, and otherwise set up manjaro with file encryption?</p>
+<p>2025-10-24 16:05
+maybe change to rofi for a beautfiul fullscreen app launcher? (seen here -- <a href="https://github.com/kianblakley/niri-land?tab=readme-ov-file">https://github.com/kianblakley/niri-land?tab=readme-ov-file</a>)
+TODO look into <a href="https://apps.gnome.org/Amberol/">Amberol – Apps for GNOME</a> music player
+set music keys for niri on via ipc (Mod+Alt+567 inc dec mute; 890 prev next pause)
+decided to start 'my' keybinds with <code>my..</code> in the comment blocks, to better distinguish them from pre-set keybinds
+installed <code>paru</code>
+TODO improve bluetooth integration to allow to skip music (MPRIS?)
+TODO set up <code>espanso</code>?</p>
+<p>2025-10-26 22:29
+installed <code>logseq</code>, <code>treesheets</code>, <code>freeplane</code>
+i'd like to set up freeplane with markdown to have a markdown canvas</p>
+<p>2025-10-27 18:08
+installed <code>smark.nvim</code>
+looking to set up markdown indent via Tab and S-Tab in nvim (can do <code>&gt;&gt;</code> and <code>&lt;&lt;</code>)
+decided to split <code>nvim</code> related config into a dedicated file
+TODO neovim find a way to add auto-spacing between lines in markdown (the current file here shows everything inline)</p>
+<p>2025-10-27 21:30
+installed https://www.soimort.org/translate-shell/</p>
+<p>2025-10-28 15:23
+could set a shell screensaver (and/or use it as desktop/lockscreen wallpaper) -- https://github.com/attogram/bash-screensavers?tab=readme-ov-file or https://github.com/abishekvashok/cmatrix
+it may make sense to use <code>alacritty</code> for these types of things, as it is featureless but fast
+TODO set up obsidian web clipper (or org-roam-protocol) -- https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian/ or https://github.com/deathau/markdownload</p>
+<p>2025-10-28 15:49
+think about multi-cursor in nvim</p>
+<p>2025-10-28 21:57
+DONE send audio alert when battery &lt;10%</p>
+<pre><code class="language-bash">#!/bin/bash
+
+# Battery device (check with: ls /sys/class/power_supply/)
+BAT_DEVICE=&quot;BAT0&quot;
+
+# Threshold
+THRESHOLD=15
+
+# Paths
+CAPACITY=&quot;/sys/class/power_supply/${BAT_DEVICE}/capacity&quot;
+STATUS=&quot;/sys/class/power_supply/${BAT_DEVICE}/status&quot;
+
+# Check if files exist
+if [[ ! -f &quot;$CAPACITY&quot; || ! -f &quot;$STATUS&quot; ]]; then
+	exit 1
+fi
+
+# Read values
+PERCENT=$(cat &quot;$CAPACITY&quot;)
+BAT_STATUS=$(cat &quot;$STATUS&quot;)
+
+# Trigger if discharging and below threshold
+if [[ &quot;$BAT_STATUS&quot; == &quot;Discharging&quot; &amp;&amp; &quot;$PERCENT&quot; -lt &quot;$THRESHOLD&quot; ]]; then
+	# Play warning sound (adjust path/file if needed)
+	canberra-gtk-play --file=/usr/share/sounds/freedesktop/stereo/dialog-warning.ogg
+	# Alternative for MP3/WAV: paplay ~/sounds/warning.mp3  (install pulseaudio-utils if missing: sudo pacman -S pulseaudio)
+	notify-send -u critical &quot;Low Battery!&quot; &quot;Charge now: ${PERCENT}% remaining!&quot;
+fi
+</code></pre>
+<p>2025-10-29T19:34
+installed <code>helix</code> and ran the <code>:tutor</code>
+may actually be a really cool tool. need snippets though
+there is also <code>kakoune</code>, which uses the same command paradigm, but is too extensible
+<a href="/posts/helix-setup/">Helix setup</a>
+it seems that helix doesn't have a file picker?!
+everyone refers to the plugin system, which hasn't been set in place yet.
+need to use <code>yazi</code> as file picker/browser -- well, maybe this improves my workflows, or otherwise shows me the benefits of <code>nvim</code>
+alternative to <code>yazi</code>: <code>nnn</code>, <code>xplr</code>
+TODO: <code>yazi</code> inside of <code>nvim</code> -- <a href="https://github.com/mikavilpas/yazi.nvim">mikavilpas/yazi.nvim: A Neovim Plugin for the yazi terminal file manager</a>
+set <code>helix</code> as default file editor in <code>yazi.toml</code></p>
+<p>2025-10-29T20:53
+still configuring helix, set the initial config now
+came across this, which seems like yet another benefit of fedora immutable silverblue: https://docs.fedoraproject.org/en-US/fedora-silverblue/toolbox/
+want to install <code>hx-lsp</code> for helix via <code>mise</code>, but first need to install <code>mise use -g rust</code>: <code>mise use -g cargo:hx-lsp</code></p>
+<p>2025-10-29T21:33
+Setting up <code>helix</code> with <code>marksman</code>, <code>prettier</code> and <code>ltex-ls-plus</code> (https://github.com/ltex-plus/ltex-ls-plus)
+TODO jsut found https://strudel.cc/ to make live music</p>
+<p>2025-10-30 13:46
+found https://github.com/ShawnMcCool/quickshell-cheatsheet, looks cool
+will change back from <code>hx</code> to <code>nvim</code>. looked at <code>kakoune</code>, but nope, seems like a mess.
+removed <code>marksman</code>, <code>mpls</code>, <code>ltex-ls-plus</code>, <code>prettier</code>, <code>mise uninstall cargo:hx-lsp@</code></p>
+<p>2025-10-30 17:41
+TODO steal from this: a really cool digital garden -- https://meleu.dev/</p>
+<p>2025-10-31 13:27
+TODO improve browser search by blacklisting specific websites (pinterest, ...)
+TODO have a solution to manage photos on my NAS, sync with my phone, have albums</p>
+<p>2025-10-31 16:27
+TODO if i ever switch to fedora silverblue and then manage via distrobox, https://flathub.org/en/apps/com.ranfdev.DistroShelf looks useful</p>
+<p>2025-11-01 14:56
+it's saturday and I should find a strategy to backup my files to my NAS &gt;&gt; <a href="/posts/linux-backup/">Linux backup</a></p>
+<p>2025-11-01 21:04
+took a bit, but I finally managed it!
+Everything backuped (I hope) and also committed to my syno-git</p>
 
 		</article>
 	</main>
@@ -761,7 +943,7 @@ TODO change firefox userchrome css to style the blank loading page to something 
 			</li>
 			
 			<li>
-				<a href="/posts/linux-setup/" class="text-blue-600 underline">Linux setup and ricing</a>
+				<a href="/posts/linux-setup/" class="text-blue-600 underline">Linux setup</a>
 			</li>
 			
 			<li>
@@ -774,6 +956,26 @@ TODO change firefox userchrome css to style the blank loading page to something 
 			
 			<li>
 				<a href="/posts/about-nixos/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/jj-dotfiles/" class="text-blue-600 underline">Dotfiles with Jujutsu (jj)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schallschutz-bilder/" class="text-blue-600 underline">Schallschutz Wandbilder [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/neovim-setup/" class="text-blue-600 underline">Neovim setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/helix-setup/" class="text-blue-600 underline">Helix setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-backup/" class="text-blue-600 underline">Linux backup</a>
 			</li>
 			
 		</ol>
