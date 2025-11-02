@@ -196,6 +196,9 @@
   .invisible {
     visibility: hidden;
   }
+  .absolute {
+    position: absolute;
+  }
   .fixed {
     position: fixed;
   }
@@ -240,6 +243,9 @@
   }
   .inline {
     display: inline;
+  }
+  .table {
+    display: table;
   }
   .h-screen {
     height: 100vh;
@@ -316,6 +322,9 @@
   }
   .text-white {
     color: var(--color-white);
+  }
+  .lowercase {
+    text-transform: lowercase;
   }
   .italic {
     font-style: italic;

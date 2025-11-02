@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Eleventy v3.1.2">
+  <link rel="stylesheet" href="/styles.css">
+<title>Altgans—Berlin nightlife</title>
+</head>
+<body class="w-full h-screen flex flex-col bg-gray-500">
+		
+<div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
+	<head >
+		<p class="text-gray-200 italic">2025-11-02 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Berlin nightlife</h1>
+	</head>
+	<main class="bg-gray-300 markdown p-4">
+
+		<p>
+
+			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
+		</p> 
+		<article>
+			<p>I wanted a function that splits markdown into one sentence per line,
+to support with academic writing and better diff'ing in <code>git</code>.</p>
+<p>Note: Vibe-coded -- I pasted here the explanation from Grok and ChatGPT.
+See the full code at the bottom.</p>
+<h2>Overview</h2>
+<p>This Neovim Lua module (<code>wrap_sentences.lua</code>) defines a <strong>custom command</strong> <code>:WrapSentences</code> that <strong>reformats selected Markdown paragraphs so that each sentence appears on its own line</strong>, while preserving structure (code blocks, lists, tables, etc.). It uses <strong>Tree-sitter</strong> for accurate parsing and <strong>smart sentence splitting</strong> to avoid breaking abbreviations.</p>
+<hr>
+<h2>Overview</h2>
+<ul>
+<li><strong>File</strong>: <code>~/.config/nvim/lua/wrap_sentences.lua</code></li>
+<li><strong>Purpose</strong>: Wrap Markdown sentences (one per line) in visually selected range or entire buffer.</li>
+<li><strong>Key Features</strong>:
+<ul>
+<li>Uses <strong>Tree-sitter</strong> to parse only real <code>paragraph</code> nodes.</li>
+<li><strong>Skips</strong> code blocks, lists, tables, frontmatter.</li>
+<li><strong>Smart sentence detection</strong> (handles abbreviations like &quot;Dr.&quot;, &quot;e.g.&quot;).</li>
+<li>Inserts <strong>blank lines between paragraphs</strong>.</li>
+<li>Works in <strong>visual mode</strong> or with <code>:%WrapSentences</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>Code Breakdown &amp; Explanation</h2>
+<pre><code class="language-lua">local M = {}
+local ts = vim.treesitter
+</code></pre>
+<ul>
+<li><code>M</code> is the module table (returned at the end).</li>
+<li><code>ts</code> is a local alias for <code>vim.treesitter</code>.</li>
+</ul>
+<hr>
+<h3>Parser Cache</h3>
+<pre><code class="language-lua">local parsers = {}
+local function get_parser(bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    if not parsers[bufnr] then
+        parsers[bufnr] = ts.get_parser(bufnr, &quot;markdown&quot;)
+    end
+    return parsers[bufnr]
+end
+</code></pre>
+<ul>
+<li><strong>Caches</strong> Tree-sitter parsers per buffer to avoid re-parsing.</li>
+<li>Always uses the <strong>Markdown parser</strong>.</li>
+</ul>
+<blockquote>
+<p>Efficient: reuses parser instead of recreating on every call.</p>
+</blockquote>
+<hr>
+<h3>Node Skipping Logic</h3>
+<pre><code class="language-lua">local skip_types = {
+    &quot;fenced_code_block&quot;, &quot;indented_code_block&quot;, &quot;code_fence_content&quot;,
+    &quot;list_item&quot;, &quot;task_list_item&quot;, &quot;ordered_list&quot;, &quot;bullet_list&quot;,
+    &quot;list_marker&quot;, &quot;frontmatter&quot;, &quot;yaml_frontmatter&quot;, &quot;toml_frontmatter&quot;,
+    &quot;pipe_table&quot;, &quot;inline&quot;,
+}
+</code></pre>
+<ul>
+<li>These node types <strong>should not be wrapped</strong> (code, lists, metadata, tables).</li>
+</ul>
+<pre><code class="language-lua">local function should_skip_node(node)
+    local cur = node
+    while cur do
+        if vim.tbl_contains(skip_types, cur:type()) then
+            return true
+        end
+        cur = cur:parent()
+    end
+    return false
+end
+</code></pre>
+<ul>
+<li>Walks up the syntax tree from a node.</li>
+<li>If <strong>any ancestor</strong> is in <code>skip_types</code>, skip processing.</li>
+</ul>
+<blockquote>
+<p>Prevents wrapping inside code blocks or list items.</p>
+</blockquote>
+<hr>
+<h3>Smart Sentence Splitting</h3>
+<pre><code class="language-lua">local function split_sentences(text)
+    local sentences = {}
+    local rest = text:gsub(&quot;^%s+&quot;, &quot;&quot;):gsub(&quot;%s+$&quot;, &quot;&quot;)  -- trim
+    while #rest &gt; 0 do
+        -- Try: &quot;content. Next&quot; → captures before &quot;.&quot;, space, and &quot;Next...&quot;
+        local before, punct, space, after = rest:match(&quot;^(.-)([.!?])(%s+)([A-Z].*)$&quot;)
+        if not before then
+            -- Fallback: allow lowercase after punctuation
+            before, punct, space, after = rest:match(&quot;^(.-)([.!?])(%s+)(.*)$&quot;)
+        end
+        if not before then
+            -- Last chunk: add remaining text as one sentence
+            local s = rest:gsub(&quot;%s+&quot;, &quot; &quot;):gsub(&quot;^%s+&quot;, &quot;&quot;):gsub(&quot;%s+$&quot;, &quot;&quot;)
+            if s ~= &quot;&quot; then table.insert(sentences, s) end
+            break
+        end
+
+        local candidate = (before .. punct):gsub(&quot;%s+&quot;, &quot; &quot;):gsub(&quot;^%s+&quot;, &quot;&quot;):gsub(&quot;%s+$&quot;, &quot;&quot;)
+        local last_word = candidate:match(&quot;(%S+)%s*$&quot;) or &quot;&quot;
+
+        -- Heuristic: if ends with &quot;word.&quot; and word is abbreviation → don't split
+        if punct == &quot;.&quot; and last_word:match(&quot;^[A-Za-z]%.?$&quot;) then
+            rest = rest:sub(#before + #punct + #space)
+        else
+            table.insert(sentences, candidate)
+            rest = after or &quot;&quot;
+        end
+    end
+    return sentences
+end
+</code></pre>
+<h4>Key Logic:</h4>
+<ol>
+<li><strong>Trim</strong> input.</li>
+<li><strong>Match</strong>: <code>text . Space CapitalLetter...</code></li>
+<li><strong>Fallback</strong>: allow lowercase after punctuation.</li>
+<li><strong>Avoid splitting abbreviations</strong>:
+<ul>
+<li>If sentence ends in <code>X.</code> where <code>X</code> is a single letter → treat as abbreviation.</li>
+<li>Example: <code>&quot;Dr. Smith&quot;</code> → not split.</li>
+</ul>
+</li>
+<li><strong>Collapse multiple spaces</strong> into one.</li>
+<li>Continue until all text is processed.</li>
+</ol>
+<blockquote>
+<p>Robust against common false splits (e.g., &quot;e.g.&quot;, &quot;Fig. 1&quot;, &quot;U.S.A.&quot;).</p>
+</blockquote>
+<hr>
+<h3>Main <code>wrap()</code> Function</h3>
+<pre><code class="language-lua">function M.wrap()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local start_line = vim.api.nvim_buf_get_mark(bufnr, &quot;&lt;&quot;)[1]
+    local end_line = vim.api.nvim_buf_get_mark(bufnr, &quot;&gt;&quot;)[1]
+    if start_line == 0 or end_line == 0 then
+        start_line, end_line = 1, vim.api.nvim_buf_line_count(bufnr)
+    end
+</code></pre>
+<ul>
+<li>Gets <strong>visual selection marks</strong> <code>&lt;</code> and <code>&gt;</code>.</li>
+<li>Falls back to <strong>entire buffer</strong> if not in visual mode.</li>
+</ul>
+<pre><code class="language-lua">    local parser = get_parser(bufnr)
+    local ok, root = pcall(function() return parser:parse()[1]:root() end)
+    if not ok then
+        vim.notify(&quot;Tree-sitter parse failed&quot;, vim.log.levels.ERROR)
+        return
+    end
+</code></pre>
+<ul>
+<li>Safely parse the buffer with Tree-sitter.</li>
+<li>Show error if parsing fails.</li>
+</ul>
+<pre><code class="language-lua">    local lines = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, end_line, false)
+    local new_lines = {}
+    local line_offset = start_line - 1
+    local query = ts.query.parse(&quot;markdown&quot;, [[ (paragraph) @para ]])
+</code></pre>
+<ul>
+<li>Fetch lines in range.</li>
+<li>Prepare output array.</li>
+<li>Define Tree-sitter <strong>query</strong> to capture only <code>(paragraph)</code> nodes.</li>
+</ul>
+<pre><code class="language-lua">    local last_end = 0
+    for _, node in query:iter_captures(root, bufnr, start_line - 1, end_line) do
+        local srow, _, erow, _ = node:range()
+        local para_start = srow - line_offset
+        local para_end = erow - line_offset
+</code></pre>
+<ul>
+<li>Iterate over <strong>all paragraph nodes</strong> in range.</li>
+<li>Convert absolute row numbers → indices in <code>lines</code> array.</li>
+</ul>
+<pre><code class="language-lua">        -- Preserve content between paragraphs (blank lines, headers, etc.)
+        for i = last_end + 1, para_start do
+            table.insert(new_lines, lines[i])
+        end
+</code></pre>
+<ul>
+<li>Copy <strong>non-paragraph lines</strong> (headings, blank lines, etc.) unchanged.</li>
+</ul>
+<pre><code class="language-lua">        if should_skip_node(node) then
+            -- Copy entire block as-is
+            for i = para_start + 1, para_end + 1 do
+                table.insert(new_lines, lines[i])
+            end
+        else
+            local para_text = ts.get_node_text(node, bufnr)
+            local sents = split_sentences(para_text)
+            for _, s in ipairs(sents) do
+                table.insert(new_lines, s)
+            end
+            -- Add blank line after paragraph (unless last)
+            if para_end &lt; #lines then
+                table.insert(new_lines, &quot;&quot;)
+            end
+        end
+        last_end = para_end
+    end
+</code></pre>
+<ul>
+<li><strong>Skip</strong> nodes inside code/lists/etc.</li>
+<li>Otherwise:
+<ul>
+<li>Extract paragraph text.</li>
+<li>Split into sentences.</li>
+<li>Write <strong>one sentence per line</strong>.</li>
+<li>Add <strong>blank line</strong> after (mimics Markdown paragraph spacing).</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-lua">    -- Add any trailing lines after last paragraph
+    for i = last_end + 1, #lines do
+        table.insert(new_lines, lines[i])
+    end
+
+    -- Replace selected range in buffer
+    vim.api.nvim_buf_set_lines(bufnr, start_line - 1, end_line, false, new_lines)
+end
+</code></pre>
+<hr>
+<h3>User Command Registration</h3>
+<pre><code class="language-lua">vim.api.nvim_create_user_command(&quot;WrapSentences&quot;, function(opts)
+    if opts.range == 2 then
+        M.wrap()
+    else
+        vim.notify(&quot;Use visual mode or :%WrapSentences&quot;, vim.log.levels.WARN)
+    end
+end, { range = true, desc = &quot;Wrap Markdown sentences (1 per line)&quot; })
+</code></pre>
+<ul>
+<li>Creates <code>:WrapSentences</code></li>
+<li>Only runs <code>M.wrap()</code> if called with a <strong>range</strong> (i.e., visual selection or <code>:%WrapSentences</code>)</li>
+<li>Otherwise shows helpful warning.</li>
+</ul>
+<hr>
+<h2>How to Use</h2>
+<ol>
+<li>
+<p><strong>Visual mode</strong>:</p>
+<pre><code class="language-vim">Vjjj:WrapSentences
+</code></pre>
+<p>→ Wraps selected lines.</p>
+</li>
+<li>
+<p><strong>Entire file</strong>:</p>
+<pre><code class="language-vim">:%WrapSentences
+</code></pre>
+</li>
+<li>
+<p><strong>Keymap example</strong> (add to your config):</p>
+<pre><code class="language-lua">vim.keymap.set('v', '&lt;leader&gt;w', ':WrapSentences&lt;CR&gt;', { desc = &quot;Wrap sentences&quot; })
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2>Example</h2>
+<p><strong>Before</strong>:</p>
+<pre><code class="language-markdown">This is a test. It has Dr. Smith and e.g. examples. Also Fig. 1.
+Another paragraph follows.
+</code></pre>
+<p><strong>After</strong>:</p>
+<pre><code class="language-markdown">This is a test.
+It has Dr. Smith and e.g. examples.
+Also Fig. 1.
+
+Another paragraph follows.
+</code></pre>
+<blockquote>
+<p>Code blocks, lists, tables untouched.</p>
+</blockquote>
+<h2>The code</h2>
+<p>Hey, it's me, your human again. This is the code I have in my lua config</p>
+<pre><code class="language-lua">-- ~/.config/nvim/lua/wrap_sentences.lua
+-- Wrap Markdown: one clause per line (split at . ! ? ,)
+-- • NO extra blank lines – original spacing preserved
+-- • Skips code, lists, tables, frontmatter
+-- • One `u` undoes everything
+-- • Smart: Dr., e.g., Fig. 1, U.S.A. not split
+
+local M = {}
+local ts = vim.treesitter
+
+-- Parser cache
+local parsers = {}
+local function get_parser(bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    if not parsers[bufnr] then
+        parsers[bufnr] = ts.get_parser(bufnr, &quot;markdown&quot;)
+    end
+    return parsers[bufnr]
+end
+
+-- Skip these node types
+local skip_types = {
+    &quot;fenced_code_block&quot;,
+    &quot;indented_code_block&quot;,
+    &quot;code_fence_content&quot;,
+    &quot;list_item&quot;,
+    &quot;task_list_item&quot;,
+    &quot;ordered_list&quot;,
+    &quot;bullet_list&quot;,
+    &quot;list_marker&quot;,
+    &quot;frontmatter&quot;,
+    &quot;yaml_frontmatter&quot;,
+    &quot;toml_frontmatter&quot;,
+    &quot;pipe_table&quot;,
+    &quot;inline&quot;,
+}
+local function should_skip_node(node)
+    local cur = node
+    while cur do
+        if vim.tbl_contains(skip_types, cur:type()) then
+            return true
+        end
+        cur = cur:parent()
+    end
+    return false
+end
+
+-- Split at . ! ? , — avoid abbreviations
+local function split_clauses(text)
+    local clauses = {}
+    local rest = text:gsub(&quot;^%s+&quot;, &quot;&quot;):gsub(&quot;%s+$&quot;, &quot;&quot;)
+
+    while #rest &gt; 0 do
+        local before, punct, space, after = rest:match(&quot;^(.-)([.!?,])(%s+)(.+)$&quot;)
+        if not before then
+            local final = rest:gsub(&quot;%s+&quot;, &quot; &quot;):gsub(&quot;^%s+&quot;, &quot;&quot;):gsub(&quot;%s+$&quot;, &quot;&quot;)
+            if final ~= &quot;&quot; then
+                table.insert(clauses, final)
+            end
+            break
+        end
+
+        local candidate = (before .. punct):gsub(&quot;%s+&quot;, &quot; &quot;):gsub(&quot;^%s+&quot;, &quot;&quot;):gsub(&quot;%s+$&quot;, &quot;&quot;)
+        local last_word = candidate:match(&quot;(%S+)%s*$&quot;) or &quot;&quot;
+
+        local is_abbrev = false
+        if punct == &quot;.&quot; then
+            if last_word:match(&quot;^[A-Za-z]%.?$&quot;) then -- Dr., A.
+                is_abbrev = true
+            elseif last_word:match(&quot;^%d+$&quot;) then -- Fig. 1
+                local next_word = after:match(&quot;^%s*(%S+)&quot;)
+                if next_word and next_word:match(&quot;^%d+$&quot;) then
+                    is_abbrev = true
+                end
+            end
+        end
+
+        if is_abbrev then
+            rest = rest:sub(#before + #punct + #space)
+        else
+            table.insert(clauses, candidate)
+            rest = after
+        end
+    end
+    return clauses
+end
+
+function M.wrap()
+    local bufnr = vim.api.nvim_get_current_buf()
+
+    -- Visual range or full buffer
+    local start_line = vim.api.nvim_buf_get_mark(bufnr, &quot;&lt;&quot;)[1]
+    local end_line = vim.api.nvim_buf_get_mark(bufnr, &quot;&gt;&quot;)[1]
+    if start_line == 0 or end_line == 0 then
+        start_line, end_line = 1, vim.api.nvim_buf_line_count(bufnr)
+    end
+
+    -- Parse
+    local parser = get_parser(bufnr)
+    local ok, root = pcall(function()
+        return parser:parse()[1]:root()
+    end)
+    if not ok then
+        vim.notify(&quot;Tree-sitter parse failed&quot;, vim.log.levels.ERROR)
+        return
+    end
+
+    local lines = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, end_line, false)
+    local new_lines = {}
+    local line_offset = start_line - 1
+    local query = ts.query.parse(&quot;markdown&quot;, [[ (paragraph) @para ]])
+    local last_end = 0
+
+    -- Process each paragraph
+    for _, node in query:iter_captures(root, bufnr, start_line - 1, end_line) do
+        local srow, _, erow, _ = node:range()
+        local para_start = srow - line_offset
+        local para_end = erow - line_offset
+
+        -- Copy gap between paragraphs (includes blank lines)
+        for i = last_end + 1, para_start do
+            table.insert(new_lines, lines[i])
+        end
+
+        if should_skip_node(node) then
+            for i = para_start + 1, para_end + 1 do
+                table.insert(new_lines, lines[i])
+            end
+        else
+            -- Preserve manual line breaks: process line-by-line
+            for line_idx = srow, erow - 1 do
+                local line_text = vim.api.nvim_buf_get_lines(bufnr, line_idx, line_idx + 1, false)[1] or &quot;&quot;
+                if line_text:match(&quot;^%s*$&quot;) then
+                    -- blank line: preserve exactly
+                    table.insert(new_lines, line_text)
+                else
+                    local clauses = split_clauses(line_text)
+                    if #clauses == 0 then
+                        table.insert(new_lines, line_text)
+                    else
+                        for _, clause in ipairs(clauses) do
+                            table.insert(new_lines, clause)
+                        end
+                    end
+                end
+            end
+			-- prev version, working
+            -- local para_text = ts.get_node_text(node, bufnr)
+            -- local clauses = split_clauses(para_text)
+            -- for _, clause in ipairs(clauses) do
+            --     table.insert(new_lines, clause)
+            -- end
+        end
+
+        last_end = para_end
+    end
+
+    -- Copy trailing lines
+    for i = last_end + 1, #lines do
+        table.insert(new_lines, lines[i])
+    end
+
+    -- === UNDO JOIN: safe, no-op first edit ===
+    local start_idx = start_line - 1
+    local end_idx = end_line
+
+    -- 1. Insert a dummy line → creates undo block
+    vim.api.nvim_buf_set_lines(bufnr, start_idx, start_idx, false, { &quot;&quot; })
+
+    -- 2. Immediately remove it → no visual change
+    vim.api.nvim_buf_set_lines(bufnr, start_idx, start_idx + 1, false, {})
+
+    -- 3. Now undojoin is safe
+    vim.cmd(&quot;undojoin&quot;)
+
+    -- 4. Final replacement
+    vim.api.nvim_buf_set_lines(bufnr, start_idx, end_idx, false, new_lines)
+end
+
+-- Command
+vim.api.nvim_create_user_command(&quot;WrapSentences&quot;, function(opts)
+    if opts.range == 2 then
+        M.wrap()
+    else
+        vim.notify(&quot;Use visual mode or :%WrapSentences&quot;, vim.log.levels.WARN)
+    end
+end, { range = true, desc = &quot;Wrap: one clause per line&quot; })
+
+return M
+</code></pre>
+
+		</article>
+	</main>
+
+	<!-- <footer class="bg-gray-200 text-gray-800 p-6">
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline">Home</a></li>
+      
+    </ol>
+  </footer>
+
+
+ -->
+	<footer class="bg-gray-100 text-gray-800 p-4 markdown">
+		<h3> Index</h3>
+
+		<ol class="list-decimal list-inside space-y-1">
+			<li><a href="/index.html" class="text-blue-600 underline pl-1">Home</a></li>
+			
+			<li>
+				<a href="/posts/about/" class="text-blue-600 underline">About this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/test-post/" class="text-blue-600 underline">Test post</a>
+			</li>
+			
+			<li>
+				<a href="/posts/contact/" class="text-blue-600 underline">Contact / Impressum</a>
+			</li>
+			
+			<li>
+				<a href="/posts/todo/" class="text-blue-600 underline">Things to improve on this website (TODOs)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/using-a-llm-to-create-this-website/" class="text-blue-600 underline">Attempting to use a LLM to create this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/koffer/" class="text-blue-600 underline">About suitcases and sizes</a>
+			</li>
+			
+			<li>
+				<a href="/posts/office-chair/" class="text-blue-600 underline">About office chairs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-be-my-boyfriend/" class="text-blue-600 underline">Schreiben I - Be my boyfriend! [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-sugar/" class="text-blue-600 underline">Schreiben II - Sugar [EN]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/game-design-skill-trees/" class="text-blue-600 underline">Game Design: About Skilltrees</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-which-distro-do-i-use/" class="text-blue-600 underline">Linux: Which distro am I using?</a>
+			</li>
+			
+			<li>
+				<a href="/posts/ip-tools/" class="text-blue-600 underline">Internet privacy and IP tools</a>
+			</li>
+			
+			<li>
+				<a href="/posts/niri/" class="text-blue-600 underline">Linux, Niri and scrollable WMs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/socratic-questioning/" class="text-blue-600 underline">Using Socratic questioning and Feynman techique for learning</a>
+			</li>
+			
+			<li>
+				<a href="/posts/localsend/" class="text-blue-600 underline">Send files locally with Localsend</a>
+			</li>
+			
+			<li>
+				<a href="/posts/interesting-words/" class="text-blue-600 underline">Words I had to look up</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-setup/" class="text-blue-600 underline">Linux setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/photography/" class="text-blue-600 underline">Photography</a>
+			</li>
+			
+			<li>
+				<a href="/posts/eleventy-wikilinks/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/webdev-test-fonts/" class="text-blue-600 underline">Quickly test fonts on any website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/about-nixos/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/jj-dotfiles/" class="text-blue-600 underline">Dotfiles with Jujutsu (jj)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schallschutz-bilder/" class="text-blue-600 underline">Schallschutz Wandbilder [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/neovim-setup/" class="text-blue-600 underline">Neovim setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/helix-setup/" class="text-blue-600 underline">Helix setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-backup/" class="text-blue-600 underline">Linux backup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/halloween-costume/" class="text-blue-600 underline">Halloween costume</a>
+			</li>
+			
+			<li>
+				<a href="/posts/berlin-nightlife/" class="text-blue-600 underline">Berlin nightlife</a>
+			</li>
+			
+			<li>
+				<a href="/posts/markdown-one-sentence-per-line/" class="text-blue-600 underline">Berlin nightlife</a>
+			</li>
+			
+		</ol>
+	</footer>
+</div>
+
+</body>
+</html>
