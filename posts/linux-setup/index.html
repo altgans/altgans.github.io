@@ -859,6 +859,50 @@ it's saturday and I should find a strategy to backup my files to my NAS &gt;&gt;
 <p>2025-11-01 21:04
 took a bit, but I finally managed it!
 Everything backuped (I hope) and also committed to my syno-git</p>
+<p>2025-11-02 11:39
+TODO change linux greeter setup
+DONE is there a way to color man pages? <code>navi</code>, <code>qman</code>, ..
+installed <code>bat-extras</code> and can now do <code>batman</code>.
+I prefer this over changing the <code>MANPAGER</code> to <code>most</code> or similar, because I want to keep my muscle-memory for <code>man</code> keybinds
+Just doing <code>export MANPAGER=&quot;sh -c 'col -bx | batcat -l man -p'&quot;</code> didn't work for me. It caused weird chars in the man pages
+TODO I'd like to know how to search with <code>fzf</code> in <code>batman</code>
+discovered <code>&amp;</code> in man pages which narrows to found lines</p>
+<p>2025-11-02 12:30
+installed <code>wikiman</code>
+removed <code>batman</code>
+now using <code>set -xU MANPAGER 'less -R --use-color -Dd+r -Du+b' set -xU MANROFFOPT '-P -c'</code>, as described in <a href="https://wiki.archlinux.org/title/Color_output_in_console#man">Color output in console - ArchWiki</a></p>
+<p>2025-11-02 14:18
+finally getting to set up a login manager (also called display manager)</p>
+<ul>
+<li>looks cool, but I want a wallpaper <a href="https://github.com/javalsai/lidm">javalsai/lidm: A ✨fully✨ colorful customizable TUI display manager made in C for simplicity.</a></li>
+<li>I think this one is it: https://github.com/rharish101/ReGreet
+<code>archlinux-tweak-tool</code> seems interesting</li>
+</ul>
+<p>2025-11-02 14:32
+did a system upgrade. Now I have an annoying bar at the bottom that shows my niri windows. Does it come from niri or niri-switcher?
+answer: this is the noctalia 'dock'
+TODO look into https://taskwarrior.org/
+gave <code>niri-switcher</code> a try, not much different from <code>niriswitcher</code>. GTK theming is cooler, but shows all windows from all screens by default. Don't see the benefit of configuring it</p>
+<p>2025-11-02 15:06
+not using regreet, as it requires a graphical session, and I don't want to mess with niri &gt; regreet &gt; niri loops. The setup is described in <a href="https://github.com/YaLTeR/niri/discussions/1276">Help with setting up with greetd greeter · YaLTeR/niri · Discussion #1276</a>, but I am afraid that a botched niri update prevents me from loggin in then
+I will use Tuigreet instead, as it doesn't require a graphical session
+E: it seems I already use <code>tuigreet</code> :)</p>
+<p>2025-11-02 15:38
+the config I use: <code>/etc/greetd/config.toml</code></p>
+<pre><code class="language-config">[terminal]
+vt = 1
+
+[default_session]
+command = &quot;tuigreet --time --cmd niri&quot;
+user = &quot;greeter&quot;
+
+[initial_session]
+command = &quot;niri&quot;
+user = &quot;jst&quot;
+</code></pre>
+<p>TODO The internet recommends to use <code>niri-session</code>, but then notify doesn't get styled anymore -- <code>niri</code> works.</p>
+<p>2025-11-02 16:53
+added time display in my starship config</p>
 
 		</article>
 	</main>
@@ -947,6 +991,10 @@ Everything backuped (I hope) and also committed to my syno-git</p>
 			</li>
 			
 			<li>
+				<a href="/posts/photography/" class="text-blue-600 underline">Photography</a>
+			</li>
+			
+			<li>
 				<a href="/posts/eleventy-wikilinks/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
 			</li>
 			
@@ -976,6 +1024,14 @@ Everything backuped (I hope) and also committed to my syno-git</p>
 			
 			<li>
 				<a href="/posts/linux-backup/" class="text-blue-600 underline">Linux backup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/halloween-costume/" class="text-blue-600 underline">Halloween costume</a>
+			</li>
+			
+			<li>
+				<a href="/posts/berlin-nightlife/" class="text-blue-600 underline">Berlin nightlife</a>
 			</li>
 			
 		</ol>
