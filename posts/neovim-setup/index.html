@@ -53,7 +53,9 @@ for d in */.git
     end
 end | sort
 </code></pre>
-<p>Here the output. Note: I removed the .git endings manually.</p>
+<p>Here the output.
+Note: I removed the .git endings manually.</p>
+<p>Press <code>gx</code> on a link to open it in the browser.</p>
 <pre><code class="language-fish">auto-save.nvim	https://github.com/okuuva/auto-save.nvim
 blink.cmp	https://github.com/saghen/blink.cmp
 bufferline.nvim	https://github.com/akinsho/bufferline.nvim
@@ -103,7 +105,50 @@ yanky.nvim	https://github.com/gbprod/yanky.nvim
 <p><code>zv</code> show cursor line</p>
 <p>2025-10-30 17:38
 could set up <a href="https://github.com/kevinhwang91/nvim-ufo">kevinhwang91/nvim-ufo: Not UFO in the sky, but an ultra fold in Neovim.</a></p>
-<h2>Improve datetime macro and add it to headings (?)</h2>
+<h2>Improve datetime snippet</h2>
+<p>LazyVim uses <code>blink.cmp</code> for code completions,
+including snippet insertion.
+Some snippets are included via <code>friendly-snippets</code>,
+but I'd like to define my own,
+for example to provide frontmatter and better timestamps.
+There is an explanation how to do so in <a href="https://cmp.saghen.dev/configuration/snippets">Snippets | Blink Completion (blink.cmp)</a></p>
+<p>I defined my custom snippets in <code>.conf/nvim/lua/snippets/package.json</code></p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;personal-snippets&quot;,
+  &quot;contributes&quot;: {
+    &quot;snippets&quot;: [
+      { &quot;language&quot;: &quot;all&quot;, &quot;path&quot;: &quot;./all.json&quot; }
+      { &quot;language&quot;: [&quot;markdown&quot;, &quot;md&quot;, &quot;plaintext&quot;, &quot;txt&quot;], &quot;path&quot;: &quot;./markdown.json&quot; }
+    ]
+  }
+}
+</code></pre>
+<p>To set the frontmatter,
+I can do the following in my `markdown.json':</p>
+<pre><code class="language-json">{
+	&quot;Insert DateTime&quot;: {
+		&quot;prefix&quot;: &quot;;dt&quot;,
+		&quot;body&quot;: [
+			&quot;${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}&quot;
+		],
+		&quot;description&quot;: &quot;Insert current date and time in specific format&quot;
+	},
+	&quot;YAML Front Matter&quot;: {
+		&quot;prefix&quot;: &quot;yamlFrontMatter&quot;,
+		&quot;body&quot;: [
+			&quot;---&quot;,
+			&quot;title: \&quot;$1\&quot;&quot;,
+			&quot;date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}&quot;,
+			&quot;tags: [$2]&quot;,
+			&quot;---&quot;,
+			&quot;$0&quot;
+		],
+		&quot;description&quot;: &quot;Insert YAML front matter&quot;
+	}
+}
+</code></pre>
+<p>TODO Additionally,
+I'd like to append the datetime snippet to markdown headings.</p>
 <h2>Multiple cursors</h2>
 <p>Apparently not supported, as it is not in line with the 'vim philosophy'. We can do <code>C-v</code> for visual block mode though, and/or do a regex search and replace.</p>
 <p>E: It seems the way to go is TreeSitter text objects manipulation with <code>mini.ai</code>?</p>
@@ -187,6 +232,20 @@ vim.keymap.set(&quot;v&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;gv&quot;, { n
 <p>TODO I believe that the fuzzy search via Telescope allows more keys beyond just <code>tab</code> and <code>ret</code>. Which?</p>
 <h2>Markdown One Sentence Per Line</h2>
 <p>Do I really have to do this manually?</p>
+<p>No.
+I wrote a function to do so.</p>
+<blockquote>
+<blockquote>
+<p><a href="/posts/markdown-one-sentence-per-line/">Markdown One Sentence Per Line</a>
+tet</p>
+</blockquote>
+</blockquote>
+<h2>Markdown Rendering</h2>
+<p>I like to use <em>&gt;&gt;</em> in my writings to refer to things.
+However,
+I noticed that <em>&gt;&gt;</em> got rendered as ▋ in some cases.
+After some digging,
+I found <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim?tab=readme-ov-file#block-quotes">the culprint</a>.</p>
 <h2>Other / Advanced</h2>
 <ul>
 <li>maybe set up https://github.com/seth-brown/formd as described in https://aliquote.org/post/neovim-markdown/ to collect inline-references at the bottom, instead of in the text.</li>
@@ -352,7 +411,7 @@ vim.keymap.set(&quot;v&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;gv&quot;, { n
 			</li>
 			
 			<li>
-				<a href="/posts/markdown-one-sentence-per-line/" class="text-blue-600 underline">Berlin nightlife</a>
+				<a href="/posts/markdown-one-sentence-per-line/" class="text-blue-600 underline">Markdown One Sentence Per Line</a>
 			</li>
 			
 		</ol>
