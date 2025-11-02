@@ -921,19 +921,19 @@ finally getting to set up a login manager (also called display manager)
 - I think this one is it: https://github.com/rharish101/ReGreet
 `archlinux-tweak-tool` seems interesting
 
-2025-11-02 14:32
-did a system upgrade. Now I have an annoying bar at the bottom that shows my niri windows. Does it come from niri or niri-switcher?
-answer: this is the noctalia 'dock'
-TODO look into https://taskwarrior.org/
-gave `niri-switcher` a try, not much different from `niriswitcher`. GTK theming is cooler, but shows all windows from all screens by default. Don't see the benefit of configuring it
+2025-11-02 14:32 did a system upgrade.
+Now I have an annoying bar at the bottom that shows my niri windows.
+Does it come from niri or niri-switcher? answer: this is the noctalia 'dock' TODO look into https://taskwarrior.org/ gave `niri-switcher` a try, not much different from `niriswitcher`.
+GTK theming is cooler, but shows all windows from all screens by default.
+Don't see the benefit of configuring it
 
-2025-11-02 15:06
-not using regreet, as it requires a graphical session, and I don't want to mess with niri > regreet > niri loops. The setup is described in [Help with setting up with greetd greeter · YaLTeR/niri · Discussion #1276](https://github.com/YaLTeR/niri/discussions/1276), but I am afraid that a botched niri update prevents me from loggin in then
-I will use Tuigreet instead, as it doesn't require a graphical session
-E: it seems I already use `tuigreet` :)
 
-2025-11-02 15:38
-the config I use: `/etc/greetd/config.toml`
+2025-11-02 15:06 not using regreet, as it requires a graphical session, and I don't want to mess with niri > regreet > niri loops.
+The setup is described in [Help with setting up with greetd greeter · YaLTeR/niri · Discussion #1276](https://github.com/YaLTeR/niri/discussions/1276), but I am afraid that a botched niri update prevents me from loggin in then I will use Tuigreet instead, as it doesn't require a graphical session E: it seems I already use `tuigreet` :)
+
+
+2025-11-02 15:38 the config I use: `/etc/greetd/config.toml`
+
 
 ```config
 [terminal]
