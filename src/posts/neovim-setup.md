@@ -26,9 +26,68 @@ Note: This means that I assume lazyvim-style config folder
 
 ## Listing all the plugins installed
 
-A list of installed plugins can be retrieved from the `lazy-lock.json` in the _nvim_ folder.
+A list of installed plugins can be retrieved from the `lazy-lock.json` in the _nvim_ folder. 
+These are the plugins that Lazy brings by default (including my enabled extras).
 
-By default (including some extras), Lazy comes with these items installed
+
+Installed plugins + URLs can also be retrieved with the following (fish) script
+
+
+```fish
+cd ~/.local/share/nvim/lazy
+for d in */.git
+    set -l plugin (path dirname $d | path basename)
+    set -l url (git -C (path dirname $d) remote get-url origin 2>/dev/null)
+    if test -n "$url"
+        echo -e "$plugin\t$url"
+    end
+end | sort
+```
+
+Here the output. Note: I removed the .git endings manually.
+
+```fish
+auto-save.nvim	https://github.com/okuuva/auto-save.nvim
+blink.cmp	https://github.com/saghen/blink.cmp
+bufferline.nvim	https://github.com/akinsho/bufferline.nvim
+catppuccin	https://github.com/catppuccin/nvim
+conform.nvim	https://github.com/stevearc/conform.nvim
+dial.nvim	https://github.com/monaqa/dial.nvim
+flash.nvim	https://github.com/folke/flash.nvim
+friendly-snippets	https://github.com/rafamadriz/friendly-snippets
+gitsigns.nvim	https://github.com/lewis6991/gitsigns.nvim
+grug-far.nvim	https://github.com/MagicDuck/grug-far.nvim
+lazydev.nvim	https://github.com/folke/lazydev.nvim
+lazy.nvim	https://github.com/folke/lazy.nvim
+LazyVim	https://github.com/LazyVim/LazyVim
+lualine.nvim	https://github.com/nvim-lualine/lualine.nvim
+markdown-plus.nvim	https://github.com/yousefhadder/markdown-plus.nvim
+markdown-preview.nvim	https://github.com/iamcco/markdown-preview.nvim
+mason-lspconfig.nvim	https://github.com/mason-org/mason-lspconfig.nvim
+mason.nvim	https://github.com/mason-org/mason.nvim
+mini.ai	https://github.com/nvim-mini/mini.ai
+mini.hipatterns	https://github.com/nvim-mini/mini.hipatterns
+mini.icons	https://github.com/nvim-mini/mini.icons
+mini.pairs	https://github.com/nvim-mini/mini.pairs
+noice.nvim	https://github.com/folke/noice.nvim
+nui.nvim	https://github.com/MunifTanjim/nui.nvim
+nvim-lint	https://github.com/mfussenegger/nvim-lint
+nvim-lspconfig	https://github.com/neovim/nvim-lspconfig
+nvim-treesitter	https://github.com/nvim-treesitter/nvim-treesitter
+nvim-treesitter-textobjects	https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+nvim-ts-autotag	https://github.com/windwp/nvim-ts-autotag
+persistence.nvim	https://github.com/folke/persistence.nvim
+plenary.nvim	https://github.com/nvim-lua/plenary.nvim
+render-markdown.nvim	https://github.com/MeanderingProgrammer/render-markdown.nvim
+snacks.nvim	https://github.com/folke/snacks.nvim
+todo-comments.nvim	https://github.com/folke/todo-comments.nvim
+tokyonight.nvim	https://github.com/folke/tokyonight.nvim
+trouble.nvim	https://github.com/folke/trouble.nvim
+ts-comments.nvim	https://github.com/folke/ts-comments.nvim
+venv-selector.nvim	https://github.com/linux-cultist/venv-selector.nvim
+which-key.nvim	https://github.com/folke/which-key.nvim
+yanky.nvim	https://github.com/gbprod/yanky.nvim
+```
 
 
 ## Change which-key description to name the plugin
@@ -136,6 +195,10 @@ There is also `spc + ?`
 
 TODO I believe that the fuzzy search via Telescope allows more keys beyond just `tab` and `ret`. Which?
 
+## Markdown One Sentence Per Line
+
+Do I really have to do this manually?
+
 ## Other / Advanced
 
 - maybe set up https://github.com/seth-brown/formd as described in https://aliquote.org/post/neovim-markdown/ to collect inline-references at the bottom, instead of in the text.
@@ -153,3 +216,4 @@ TODO I believe that the fuzzy search via Telescope allows more keys beyond just 
 - markdown download -- [deathau/markdownload: A Firefox and Google Chrome extension to clip websites and download them into a readable markdown file.](https://github.com/deathau/markdownload)
   - use emacs org-roam-protocol? for download?
 - undo history -- https://github.com/y3owk1n/time-machine.nvim
+

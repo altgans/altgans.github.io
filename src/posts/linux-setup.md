@@ -899,3 +899,56 @@ it's saturday and I should find a strategy to backup my files to my NAS >> [[lin
 2025-11-01 21:04
 took a bit, but I finally managed it!
 Everything backuped (I hope) and also committed to my syno-git
+
+2025-11-02 11:39
+TODO change linux greeter setup
+DONE is there a way to color man pages? `navi`, `qman`, ..
+installed `bat-extras` and can now do `batman`. 
+I prefer this over changing the `MANPAGER` to `most` or similar, because I want to keep my muscle-memory for `man` keybinds
+Just doing `export MANPAGER="sh -c 'col -bx | batcat -l man -p'"` didn't work for me. It caused weird chars in the man pages
+TODO I'd like to know how to search with `fzf` in `batman` 
+discovered `&` in man pages which narrows to found lines
+
+2025-11-02 12:30
+installed `wikiman`
+removed `batman`
+now using `set -xU MANPAGER 'less -R --use-color -Dd+r -Du+b'
+set -xU MANROFFOPT '-P -c'`, as described in [Color output in console - ArchWiki](https://wiki.archlinux.org/title/Color_output_in_console#man)
+
+2025-11-02 14:18
+finally getting to set up a login manager (also called display manager)
+- looks cool, but I want a wallpaper [javalsai/lidm: A ✨fully✨ colorful customizable TUI display manager made in C for simplicity.](https://github.com/javalsai/lidm)
+- I think this one is it: https://github.com/rharish101/ReGreet
+`archlinux-tweak-tool` seems interesting
+
+2025-11-02 14:32
+did a system upgrade. Now I have an annoying bar at the bottom that shows my niri windows. Does it come from niri or niri-switcher?
+answer: this is the noctalia 'dock'
+TODO look into https://taskwarrior.org/
+gave `niri-switcher` a try, not much different from `niriswitcher`. GTK theming is cooler, but shows all windows from all screens by default. Don't see the benefit of configuring it
+
+2025-11-02 15:06
+not using regreet, as it requires a graphical session, and I don't want to mess with niri > regreet > niri loops. The setup is described in [Help with setting up with greetd greeter · YaLTeR/niri · Discussion #1276](https://github.com/YaLTeR/niri/discussions/1276), but I am afraid that a botched niri update prevents me from loggin in then
+I will use Tuigreet instead, as it doesn't require a graphical session
+E: it seems I already use `tuigreet` :)
+
+2025-11-02 15:38
+the config I use: `/etc/greetd/config.toml`
+
+```config
+[terminal]
+vt = 1
+
+[default_session]
+command = "tuigreet --time --cmd niri"
+user = "greeter"
+
+[initial_session]
+command = "niri"
+user = "jst"
+```
+
+TODO The internet recommends to use `niri-session`, but then notify doesn't get styled anymore -- `niri` works.
+
+2025-11-02 16:53
+added time display in my starship config
