@@ -1,5 +1,5 @@
 ---
-title: Berlin nightlife
+title: Markdown One Sentence Per Line
 tags: 
 - posts
 - lua
@@ -12,7 +12,7 @@ date: 2025-11-02t18:35
 I wanted a function that splits markdown into one sentence per line,
 to support with academic writing and better diff'ing in `git`.
 
-Note: Vibe-coded -- I pasted here the explanation from Grok and ChatGPT.
+Note: Vibe-coded -- I pasted here the explanation from the LLM.
 See the full code at the bottom.
 
 

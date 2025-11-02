@@ -44,7 +44,10 @@ for d in */.git
 end | sort
 ```
 
-Here the output. Note: I removed the .git endings manually.
+Here the output. 
+Note: I removed the .git endings manually.
+
+Press `gx` on a link to open it in the browser.
 
 ```fish
 auto-save.nvim	https://github.com/okuuva/auto-save.nvim
@@ -105,9 +108,59 @@ Example: `<spc>sr` opens serach & replace, which actually is `grug-far.nvim` und
 2025-10-30 17:38 
 could set up [kevinhwang91/nvim-ufo: Not UFO in the sky, but an ultra fold in Neovim.](https://github.com/kevinhwang91/nvim-ufo)
 
-## Improve datetime macro and add it to headings (?)
+## Improve datetime snippet 
+
+LazyVim uses `blink.cmp` for code completions, 
+including snippet insertion.
+Some snippets are included via `friendly-snippets`, 
+but I'd like to define my own,
+for example to provide frontmatter and better timestamps.
+There is an explanation how to do so in [Snippets | Blink Completion (blink.cmp)](https://cmp.saghen.dev/configuration/snippets)
+
+I defined my custom snippets in `.conf/nvim/lua/snippets/package.json`
+
+```json
+{
+  "name": "personal-snippets",
+  "contributes": {
+    "snippets": [
+      { "language": "all", "path": "./all.json" }
+      { "language": ["markdown", "md", "plaintext", "txt"], "path": "./markdown.json" }
+    ]
+  }
+}
+```
+
+To set the frontmatter,
+I can do the following in my `markdown.json':
+
+```json
+{
+	"Insert DateTime": {
+		"prefix": ";dt",
+		"body": [
+			"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}"
+		],
+		"description": "Insert current date and time in specific format"
+	},
+	"YAML Front Matter": {
+		"prefix": "yamlFrontMatter",
+		"body": [
+			"---",
+			"title: \"$1\"",
+			"date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}",
+			"tags: [$2]",
+			"---",
+			"$0"
+		],
+		"description": "Insert YAML front matter"
+	}
+}
+```
 
 
+TODO Additionally,
+I'd like to append the datetime snippet to markdown headings.
 
 ## Multiple cursors
 
@@ -198,6 +251,19 @@ TODO I believe that the fuzzy search via Telescope allows more keys beyond just 
 ## Markdown One Sentence Per Line
 
 Do I really have to do this manually?
+
+No.
+ I wrote a function to do so.
+ >> [[markdown-one-sentence-per-line]]
+>> tet
+
+## Markdown Rendering
+
+I like to use _>>_ in my writings to refer to things.
+However,
+I noticed that _>>_ got rendered as ▋ in some cases.
+After some digging,
+I found [the culprint](https://github.com/MeanderingProgrammer/render-markdown.nvim?tab=readme-ov-file#block-quotes).
 
 ## Other / Advanced
 
