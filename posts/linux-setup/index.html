@@ -911,6 +911,34 @@ frontmatter and lists
 <p>2025-11-02 18:32
 to check the diff between before and after,
 I can do <code>git diff &lt;file&gt;</code></p>
+<p>2025-11-03 16:31
+just discovered <a href="https://github.com/9001/copyparty">9001/copyparty: Portable file server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++ all in one file, no deps</a>,
+which seems like the coolest webserver ever.
+TODO dedicated post -- <a href="https://www.youtube.com/watch?v=15_-hgsX2V0">introducing copyparty, the FOSS file server - YouTube</a></p>
+<p>2025-11-03 17:09
+DONE when connected via a bluetooth headset,
+allow to change volume and music
+this can be done via 'regular' media keys -- <a href="https://wiki.archlinux.org/title/Bluetooth_headset">Bluetooth headset - ArchWiki</a>
+a list can be found here -- <a href="https://wiki.linuxquestions.org/wiki/XF86_keyboard_symbols">XF86 keyboard symbols - LQWiki</a></p>
+<pre><code class="language-toml">XF86AudioRaiseVolume allow-when-locked=true { spawn-sh &quot;wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+&quot;; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh &quot;wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-&quot;; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh &quot;wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle&quot;; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh &quot;wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle&quot;; }
+
+	// custom
+	XF86AudioPrev allow-when-locked=true { spawn &quot;playerctl&quot; &quot;prev&quot;; }
+	XF86AudioNext allow-when-locked=true { spawn &quot;playerctl&quot; &quot;next&quot;; }
+	XF86AudioPlay allow-when-locked=true { spawn &quot;playerctl&quot; &quot;play&quot;; }
+	XF86AudioPause allow-when-locked=true { spawn &quot;playerctl&quot; &quot;pause&quot;; }
+
+	Mod+Alt+8 allow-when-locked=true { spawn &quot;playerctl&quot; &quot;prev&quot;; }
+	Mod+Alt+9 allow-when-locked=true { spawn &quot;playerctl&quot; &quot;next&quot;; }
+	Mod+Alt+0 allow-when-locked=true { spawn &quot;playerctl&quot; &quot;play-pause&quot;; }
+</code></pre>
+<p>2025-11-03 17:29
+MONITOR there was something weird with my bluetooth;
+it didn't start in quickshell.
+I needed to first toggle it a few times in <code>blueman</code>/<code>bluetoothctl</code></p>
 
 		</article>
 	</main>
@@ -1044,6 +1072,10 @@ I can do <code>git diff &lt;file&gt;</code></p>
 			
 			<li>
 				<a href="/posts/markdown-one-sentence-per-line/" class="text-blue-600 underline">Markdown One Sentence Per Line</a>
+			</li>
+			
+			<li>
+				<a href="/posts/texteditor-vs-markdown-editor/" class="text-blue-600 underline">Texteditor vs Markdown Editor vs IDEs</a>
 			</li>
 			
 		</ol>

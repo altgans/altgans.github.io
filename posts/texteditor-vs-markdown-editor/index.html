@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy v3.1.2">
   <link rel="stylesheet" href="/styles.css">
-<title>Altgans—Internet privacy and IP tools</title>
+<title>Altgans—Texteditor vs Markdown Editor vs IDEs</title>
 </head>
 <body class="w-full h-screen flex flex-col bg-gray-500">
 		
 <div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
 	<head >
-		<p class="text-gray-200 italic">2025-10-05 </p>
-		<h1 class="text-white text-4xl font-bold mb-2">Internet privacy and IP tools</h1>
+		<p class="text-gray-200 italic">2025-11-03 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Texteditor vs Markdown Editor vs IDEs</h1>
 	</head>
 	<main class="bg-gray-300 markdown p-4">
 
@@ -22,8 +22,109 @@
 			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
 		</p> 
 		<article>
-			<p>One nifty website I found it <a href="https://ipleak.net/">ipleak.net</a>, which shows a lot of information about your usage, including DNS, geolocation and torrent and VPN connections, amongst others.</p>
-<p>TODO: Expand on good choices for DNS</p>
+			<p>I gave <code>helix</code> a try and didn't like it</p>
+<blockquote>
+<blockquote>
+<p><a href="/stubs/">helix-who-this</a>.
+Why?</p>
+</blockquote>
+</blockquote>
+<p>Turns out,
+I was not looking for a text editor
+(of which helix is the best in class,
+hands down),
+but instead a Markdown editor.</p>
+<p>Which is a difference I want to explain in this post.</p>
+<h2>What is a text editor?</h2>
+<p>A text editor allows to edit text
+(d'oh),
+namely do different forms of text manipulations.
+Write,
+delete,
+cut,
+copy,
+paste,
+change,
+move lines,
+edit multiple lines at once,
+split lines,
+increment numbers,
+insert dates,
+quickly search and replace any word in the current file (the 'buffer').
+Do <em>everything</em> you want,
+bend <em>text</em> to your will.</p>
+<p>Be it <code>vim</code>,
+<code>helix</code>,
+<code>nano</code>,
+...,
+they are all really good at this.
+As claimed above,
+Helix is the best,
+but even <code>Notepad</code> will do.</p>
+<p>Why is <em>Helix</em> the best?
+Because <code>hx</code> uses a more powerful (and more sane) modular editing mode that beats every other text editor out there.
+Additionally,
+Helix comes with batteries included,
+which means that Helix doesn't need any configuration,
+has all the bells and whistles you may want
+-- including LSP, Treesitter-Grammars and Clippy! --
+and is just a joy to get started with.</p>
+<p><em>Tip: Use <code>:tutor</code> in Helix to use their in-built tutorial. Thank me later.</em></p>
+<p>However,
+text editors have one weakness.
+They are optimized for text,
+in all it's shapes and forms.</p>
+<p>Here is the catch -- to support text in all its shapes and forms,
+text editors can not provide (should not provide) opinionated editing features for <em>a specific type of text</em>.
+Like Markdown.</p>
+<p>Looking at Markdown,
+for a Markdown editor it is reasonable to expect that it highlights Markdown headings,
+auto-pairs '_' and '**' (italic and bold, respectively),
+can show an outline,
+...,
+and so forth.</p>
+<p>Helix supports some of this via LSP,
+but not all of it.
+Instead,
+Helix tries to be as universal as possible.
+No language specific features,
+only support for text editing in general.</p>
+<h2>Markdown editors and IDEs</h2>
+<p>Looking at Markdown editors,
+<a href="https://obsidian.md/">Obsidian</a> strikes as the most striking example.
+Obsidian is optimized for Markdown.
+It only ever supports features that are useful for someone writing Markdown.
+Insert a pile of Rust code and want to compile it?
+Though luck.</p>
+<p>I'd even go so far that Obsidian is a Markdown IDE.
+Markdown rendering,
+data tables,
+graph views,
+....
+All these are very niche and targeted features if looking at the whole wide world of text editing.
+If only ever editing Markdown files,
+why choose something like VS Code or Helix or Vim
+if you can just set up Obsidian?</p>
+<p>The only reason I can think of is that people prefer the vim/helix type of text editing to the WTSIWYG experience of VS Code and Obsidian.
+(I do!)</p>
+<h2>Entering Neovim</h2>
+<p>To hit the sweet spot between Markdown IDE and text editing,
+I believe that Neovim is the perfect candidate.</p>
+<p>Even though,
+from a text editing experience,
+it is not as great as Helix,
+and it is extremely annoying and time consuming to set up all it's features for Markdown editing,
+it is a rewarding editor to work in.</p>
+<p>Frameworks like <a href="https://www.lazyvim.org/">LazyVim</a> provide a great starting point,
+and there are crazy people like <a href="https://linkarzu.com/posts/neovim/markdown-setup-2025/">this guy</a> who make really helpful videos and guides.</p>
+<p>Or you can read my guide:
+I set out to create my personal perfect Markdown experience.
+It is described <a href="/posts/neovim-setup/">here</a>.
+My goals are academic writing,
+Zettelkasten-style note-taking and knowledge-sharing,
+storytelling,
+blogging,
+and general ease of use.</p>
 
 		</article>
 	</main>

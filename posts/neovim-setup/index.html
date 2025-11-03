@@ -98,7 +98,7 @@ which-key.nvim	https://github.com/folke/which-key.nvim
 yanky.nvim	https://github.com/gbprod/yanky.nvim
 </code></pre>
 <h2>Change which-key description to name the plugin</h2>
-<p>Example: <code>&lt;spc&gt;sr</code> opens serach &amp; replace, which actually is <code>grug-far.nvim</code> under the hood. I want understand all of this, to better be able to find help and guidance.</p>
+<p>Example: <code>&lt;spc&gt;sr</code> opens search &amp; replace, which actually is <code>grug-far.nvim</code> under the hood. I want understand all of this, to better be able to find help and guidance.</p>
 <h2>How to collapse Markdown headings</h2>
 <p><code>zM</code> close all folds, <code>zR</code> open all folds</p>
 <p><code>za</code> toggle fold under cursor, <code>zi</code> toggle folding</p>
@@ -211,10 +211,15 @@ vim.keymap.set(&quot;v&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;gv&quot;, { n
 </ul>
 </li>
 </ul>
-<h2>Disable markdown linter</h2>
-<p>Lazyvim uses <em>conform.nvim</em></p>
-<h2>Show outline for Markdown files</h2>
-<p>Can use the Telescope symbol picker. <code>&lt;leader&gt;ss</code> (local) or <code>&lt;leader&gt;sr</code> (across project root)</p>
+<h2>Show outline / list of Markdown headings and jump to them</h2>
+<p>One way I found is <code>&lt;spc&gt;cs</code>,
+which opens the LSP symbols reference.
+However,
+it doesn't directly jump there,
+which is a bit annoying.</p>
+<p><em>Hint: Switch to the newly opened window with <code>&lt;spc&gt;ww</code>.</em></p>
+<p>A better way is to use the Telescope symbol picker,
+<code>&lt;leader&gt;ss</code> (local) or <code>&lt;leader&gt;sS</code> (across project root).</p>
 <h2>Disabling a plugin</h2>
 <p>We can do <code>enabled=false</code> in the config.</p>
 <pre><code class="language-lua">return {
@@ -223,21 +228,60 @@ vim.keymap.set(&quot;v&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;gv&quot;, { n
 }
 </code></pre>
 <p>Source: <a href="https://www.lazyvim.org/configuration/plugins#-disabling-plugins">Plugins | LazyVim</a></p>
-<h2>How to do surround</h2>
+<h2>Text surround</h2>
+<p>Install <code>mini.surround</code>.
+Then select text (<code>viw</code>) and surround with <code>gsa</code>.</p>
+<p><em>Hint: Look up more keybinds with <code>&lt;spc&gt;sk 'surround'</code>.</em></p>
+<h2>How to autocomplete words from dictionary</h2>
+<h2>How to look up words in dictionary</h2>
+<h2>How to fix word under cursor</h2>
+<p>Some words are highlighted yellow or red,
+for example due to a misspell.
+How do I auto-fix them?
+And how do I disable this linting?</p>
+<p>TODO</p>
+<h2>How to disable markdown linter</h2>
+<p>Lazyvim uses <em>conform.nvim</em></p>
+<p>TODO</p>
+<h2>How to count words</h2>
+<p>Words are a terrible metric for writing productivity,
+but sometimes I just want to know.
+And the wordcount could also be used to calculate the reading time.
+FUTURE Maybe I will do this on my blog,
+although this may also be something I find annoying fast.</p>
+<p>To get the wordcount,
+run <code>:echo wordcount().words</code>.</p>
 <h2>How to do soft-wrap</h2>
+<h2>Add matching _* in Markdown buffers</h2>
+<p>It annoys me that <code>_</code> (<em>italic</em>) and <code>*</code> (<strong>bold</strong>))) don't auto-close.</p>
+<p>TODO left for the future.
+<code>mini.pairs</code> doesn't support per-filetype config,
+and I didn't feel like setting generic pairing rules and then needing to write autocommands.
+See <a href="https://github.com/nvim-mini/mini.nvim/discussions/805">How do I disable mini.pairs for markdown files? (My autocmd isn't working) · nvim-mini/mini.nvim · Discussion #805</a></p>
 <h2>Display the keymap</h2>
 <p>Keymaps can be searched with <code>&lt;spc&gt;sk</code>.</p>
 <p>There is also <code>spc + ?</code></p>
-<h2>Advanced keymaps in Telescope picker</h2>
-<p>TODO I believe that the fuzzy search via Telescope allows more keys beyond just <code>tab</code> and <code>ret</code>. Which?</p>
+<h2>Advanced keymaps in picker</h2>
+<p>I believe that the fuzzy search via Telescope allows more keys beyond just <code>tab</code> and <code>ret</code>.
+Which?
+E: It seems that LazyVim doesn't use Telescope anymore,
+but <code>snacks.nvim/picker</code>.</p>
+<p>Either way,
+there is a bunch of commands hidden.
+We can press <code>A-w</code> to switch the focus to the preview/list ('cycle win'),
+and then do <code>?</code> to show the help.
+Or we can simply press <code>Esc</code> to switch to <em>Normal mode</em>,
+and then explore the help from there.</p>
+<p><em>Tip: Cycle the window in reverse with <code>C-w</code>.</em></p>
+<p>The preview can be toggled with <code>A-p</code>.
+<code>C-r</code> can be used to insert something from a register.</p>
 <h2>Markdown One Sentence Per Line</h2>
 <p>Do I really have to do this manually?</p>
 <p>No.
 I wrote a function to do so.</p>
 <blockquote>
 <blockquote>
-<p><a href="/posts/markdown-one-sentence-per-line/">Markdown One Sentence Per Line</a>
-tet</p>
+<p><a href="/posts/markdown-one-sentence-per-line/">Markdown One Sentence Per Line</a></p>
 </blockquote>
 </blockquote>
 <h2>Markdown Rendering</h2>
@@ -412,6 +456,10 @@ I found <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim?ta
 			
 			<li>
 				<a href="/posts/markdown-one-sentence-per-line/" class="text-blue-600 underline">Markdown One Sentence Per Line</a>
+			</li>
+			
+			<li>
+				<a href="/posts/texteditor-vs-markdown-editor/" class="text-blue-600 underline">Texteditor vs Markdown Editor vs IDEs</a>
 			</li>
 			
 		</ol>
