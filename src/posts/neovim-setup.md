@@ -95,7 +95,7 @@ yanky.nvim	https://github.com/gbprod/yanky.nvim
 
 ## Change which-key description to name the plugin
 
-Example: `<spc>sr` opens serach & replace, which actually is `grug-far.nvim` under the hood. I want understand all of this, to better be able to find help and guidance.
+Example: `<spc>sr` opens search & replace, which actually is `grug-far.nvim` under the hood. I want understand all of this, to better be able to find help and guidance.
 
 ## How to collapse Markdown headings
 
@@ -213,13 +213,18 @@ Check mappings with `:map <Tab>` for potential conflicts
 - 2025-10-28 16:05: using `markdown-plus`, which necessites to set up the hotkeys again
   - TODO check behaviour of Tab regarding indent and autocomplete; disable list indent in I mode via S-Tab?
 
-## Disable markdown linter
+## Show outline / list of Markdown headings and jump to them
 
-Lazyvim uses _conform.nvim_
+One way I found is `<spc>cs`,
+which opens the LSP symbols reference.
+However,
+it doesn't directly jump there,
+which is a bit annoying.
 
-## Show outline for Markdown files
+_Hint: Switch to the newly opened window with `<spc>ww`._
 
-Can use the Telescope symbol picker. `<leader>ss` (local) or `<leader>sr` (across project root)
+A better way is to use the Telescope symbol picker,
+`<leader>ss` (local) or `<leader>sS` (across project root).
 
 ## Disabling a plugin
 
@@ -234,9 +239,52 @@ return {
 
 Source: [Plugins | LazyVim](https://www.lazyvim.org/configuration/plugins#-disabling-plugins)
 
-## How to do surround
+## Text surround
+
+
+Install `mini.surround`. 
+Then select text (`viw`) and surround with `gsa`.
+
+_Hint: Look up more keybinds with `<spc>sk 'surround'`._
+
+## How to autocomplete words from dictionary 
+## How to look up words in dictionary
+## How to fix word under cursor
+
+Some words are highlighted yellow or red,
+for example due to a misspell.
+How do I auto-fix them?
+And how do I disable this linting?
+
+TODO
+
+## How to disable markdown linter
+
+Lazyvim uses _conform.nvim_
+
+TODO
+
+
+## How to count words
+
+Words are a terrible metric for writing productivity,
+but sometimes I just want to know.
+And the wordcount could also be used to calculate the reading time.
+FUTURE Maybe I will do this on my blog,
+although this may also be something I find annoying fast.
+
+To get the wordcount,
+run `:echo wordcount().words`.
 
 ## How to do soft-wrap
+## Add matching _* in Markdown buffers
+
+It annoys me that `_` (_italic_) and `*` (**bold**))) don't auto-close.
+
+TODO left for the future.
+`mini.pairs` doesn't support per-filetype config,
+and I didn't feel like setting generic pairing rules and then needing to write autocommands.
+See [How do I disable mini.pairs for markdown files? (My autocmd isn't working) · nvim-mini/mini.nvim · Discussion #805](https://github.com/nvim-mini/mini.nvim/discussions/805)
 
 ## Display the keymap
 
@@ -244,9 +292,26 @@ Keymaps can be searched with `<spc>sk`.
 
 There is also `spc + ?`
 
-## Advanced keymaps in Telescope picker
+## Advanced keymaps in picker
 
-TODO I believe that the fuzzy search via Telescope allows more keys beyond just `tab` and `ret`. Which?
+I believe that the fuzzy search via Telescope allows more keys beyond just `tab` and `ret`. 
+Which?
+E: It seems that LazyVim doesn't use Telescope anymore,
+but `snacks.nvim/picker`.
+
+Either way,
+there is a bunch of commands hidden.
+We can press `A-w` to switch the focus to the preview/list ('cycle win'),
+and then do `?` to show the help.
+Or we can simply press `Esc` to switch to _Normal mode_,
+and then explore the help from there.
+
+_Tip: Cycle the window in reverse with `C-w`._
+
+The preview can be toggled with `A-p`.
+`C-r` can be used to insert something from a register.
+
+
 
 ## Markdown One Sentence Per Line
 
@@ -255,7 +320,6 @@ Do I really have to do this manually?
 No.
  I wrote a function to do so.
  >> [[markdown-one-sentence-per-line]]
->> tet
 
 ## Markdown Rendering
 

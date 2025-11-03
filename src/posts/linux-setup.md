@@ -966,4 +966,37 @@ frontmatter and lists
 to check the diff between before and after,
 I can do `git diff <file>`
 
+2025-11-03 16:31
+just discovered [9001/copyparty: Portable file server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++ all in one file, no deps](https://github.com/9001/copyparty),
+which seems like the coolest webserver ever.
+TODO dedicated post -- [introducing copyparty, the FOSS file server - YouTube](https://www.youtube.com/watch?v=15_-hgsX2V0)
+
+2025-11-03 17:09
+DONE when connected via a bluetooth headset,
+allow to change volume and music
+this can be done via 'regular' media keys -- [Bluetooth headset - ArchWiki](https://wiki.archlinux.org/title/Bluetooth_headset)
+a list can be found here -- [XF86 keyboard symbols - LQWiki](https://wiki.linuxquestions.org/wiki/XF86_keyboard_symbols)
+
+```toml
+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+	// custom
+	XF86AudioPrev allow-when-locked=true { spawn "playerctl" "prev"; }
+	XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+	XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play"; }
+	XF86AudioPause allow-when-locked=true { spawn "playerctl" "pause"; }
+
+	Mod+Alt+8 allow-when-locked=true { spawn "playerctl" "prev"; }
+	Mod+Alt+9 allow-when-locked=true { spawn "playerctl" "next"; }
+	Mod+Alt+0 allow-when-locked=true { spawn "playerctl" "play-pause"; }
+```
+
+2025-11-03 17:29
+MONITOR there was something weird with my bluetooth;
+it didn't start in quickshell.
+I needed to first toggle it a few times in `blueman`/`bluetoothctl`
+
 
