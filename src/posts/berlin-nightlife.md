@@ -36,3 +36,5 @@ often I'm proved wrong,
 but black boots/shoes just better fit the scene.
 
 Always be friendly to the staff and bouncers; also wish them a great night when leaving.
+
+

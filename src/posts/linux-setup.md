@@ -999,4 +999,6 @@ MONITOR there was something weird with my bluetooth;
 it didn't start in quickshell.
 I needed to first toggle it a few times in `blueman`/`bluetoothctl`
 
-
+2025-11-03 21:00
+Wrote a bit more about my editor setup and choice >> [[texteditor-vs-markdown-editor]]
+TODO set up [Sioyek](https://sioyek.info/) as PDF viewr

@@ -265,6 +265,12 @@ Lazyvim uses _conform.nvim_
 TODO
 
 
+## How to preview Markdown
+
+There is a Markdown preview configured via `<spc>cp`.
+
+FIXME running the preview breaks completions.
+
 ## How to count words
 
 Words are a terrible metric for writing productivity,
