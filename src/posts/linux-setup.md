@@ -1002,3 +1002,10 @@ I needed to first toggle it a few times in `blueman`/`bluetoothctl`
 2025-11-03 21:00
 Wrote a bit more about my editor setup and choice >> [[texteditor-vs-markdown-editor]]
 TODO set up [Sioyek](https://sioyek.info/) as PDF viewr
+
+2025-11-06 15:44
+looking into local LLMs
+`ollama`, `golama` and `LM studio`
+TODO set up photo management and tagging for my holiday pictures and snapshots
+TODO set up a document management (paperless?)
+removed `marketext`, as I use `nvim` exclusively now
