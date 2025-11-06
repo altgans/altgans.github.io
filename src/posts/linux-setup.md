@@ -1005,7 +1005,11 @@ TODO set up [Sioyek](https://sioyek.info/) as PDF viewr
 
 2025-11-06 15:44
 looking into local LLMs
-`ollama`, `golama` and `LM studio`
+installed `ollama`, `golama` and `LM studio`
 TODO set up photo management and tagging for my holiday pictures and snapshots
 TODO set up a document management (paperless?)
 removed `marketext`, as I use `nvim` exclusively now
+DONE also install whisperAI -- `vibe transcribe`, `whisper-gui` or `handy tts`?
+installed `vibe`
+downloading AI models
+TODO AI TTS -- `chatterbox`, `tortoise tts`?

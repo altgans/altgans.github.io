@@ -4,6 +4,10 @@ date: 2025-11-06T15:51
 tags: ["posts", "linux"]
 ---
 
+This is a more readable and opinionated version of my [[linux-setup]] logbook.
+Where the former describes the journey,
+this post only has the results.
+
 # New Linux setup, who this?
 
 When setting up a new _rice_, there are three separate modules that interchangeably sit on top of each other.

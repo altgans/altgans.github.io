@@ -65,4 +65,7 @@ will take some time
 ### Database
 ### Binary
 
+### Speech Synthesis
 
+- https://github.com/espeak-ng/espeak-ng
+- https://github.com/vndee/local-talking-llm
