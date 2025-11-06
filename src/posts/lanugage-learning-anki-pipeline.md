@@ -62,6 +62,11 @@ WIP,
 will take some time
 
 ### Date sources
+
+- https://www.datamuse.com/api/
+- [tatuylonen/wiktextract: Wiktionary dump file parser and multilingual data extractor](https://github.com/tatuylonen/wiktextract)
+- https://github.com/freedict/fd-dictionaries/wiki/Import-Centre
+- 
 ### Database
 ### Binary
 

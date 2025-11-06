@@ -181,11 +181,8 @@ N = normal mode, V = visual mode, I = insert mode
   - `<leader>sr` :: symbol picker across project root
   - `<leader>sb` :: buffer line search (find words/lines)
 
-- sadf
--
-- asf
-- asf
 
+## Navigate with Markdown Treesitter Textobjects
 ## Indent lists and text in Markdown files
 
 - smark.nvim :: better list handling
@@ -200,7 +197,7 @@ In 'keymaps.lua',
 vim.keymap.set("n", "<Tab>", ">>_", { noremap = true, silent = true, desc = "Indent line" })
 -- Unindent with Shift+Tab in normal mode
 vim.keymap.set("n", "<S-Tab>", "<<_", { noremap = true, silent = true, desc = "Unindent line" })
--- Indent wjth Tab in visual mode
+-- Indent with Tab in visual mode
 vim.keymap.set("v", "<Tab>", ">gv", { noremap = true, silent = true, desc = "Indent selected lines" })
 -- Unindent with Shift+Tab in visual mode
 vim.keymap.set("v", "<S-Tab>", "<gv", { noremap = true, silent = true, desc = "Unindent selected lines" })
@@ -210,7 +207,7 @@ vim.keymap.set("v", "<S-Tab>", "<gv", { noremap = true, silent = true, desc = "U
 Check mappings with `:map <Tab>` for potential conflicts
 
 - 2025-10-28 16:05: Can use `markdown_indent` for this, no need for the keybinds!
-- 2025-10-28 16:05: using `markdown-plus`, which necessites to set up the hotkeys again
+- 2025-10-28 16:05: using `markdown-plus`, which necessities to set up the hotkeys again
   - TODO check behaviour of Tab regarding indent and autocomplete; disable list indent in I mode via S-Tab?
 
 ## Show outline / list of Markdown headings and jump to them
@@ -239,6 +236,14 @@ return {
 
 Source: [Plugins | LazyVim](https://www.lazyvim.org/configuration/plugins#-disabling-plugins)
 
+## Jump to visible word
+
+Press `s` in Normal mode, 
+followed by the first char of the word you want to jump to,
+followed by the auto-generated jump mark. 
+
+This uses [folke/flash.nvim](https://github.com/folke/flash.nvim?tab=readme-ov-file)
+
 ## Text surround
 
 
@@ -247,8 +252,31 @@ Then select text (`viw`) and surround with `gsa`.
 
 _Hint: Look up more keybinds with `<spc>sk 'surround'`._
 
-## How to autocomplete words from dictionary 
-## How to look up words in dictionary
+## Look up words in dictionary
+
+1. Set up `dict` in Linux
+2. Install `dict.nvim`
+
+```lua
+-- ~/.config/nvim/lua/plugins/dict.lua
+return {
+    {
+        "jalvesaq/dict.nvim",
+        ft = "markdown", -- Only load in Markdown buffers
+        lazy = true, -- optional: load lazily
+        keys = {
+            vim.keymap.set(
+                "n",
+                "<leader>mk",
+                '<Cmd>lua require("dict").lookup()<CR>',
+                { noremap = true, silent = true, desc = "Indent line" }
+            ),
+        },
+        -- config = function() end,
+    },
+}
+```
+
 ## How to fix word under cursor
 
 Some words are highlighted yellow or red,
@@ -256,20 +284,14 @@ for example due to a misspell.
 How do I auto-fix them?
 And how do I disable this linting?
 
-TODO
-
-## How to disable markdown linter
-
-Lazyvim uses _conform.nvim_
-
-TODO
-
-
-## How to preview Markdown
-
-There is a Markdown preview configured via `<spc>cp`.
-
-FIXME running the preview breaks completions.
+E: It seems that the linting does not come from the markdown linter,
+but instead the vim-native `:h spell` checker.
+We control it with `z<key>`.
+To get spelling suggestions,
+we can do `z=`.
+To add a word to our wordlist (`spellfile`),
+i.e. notifying the program that it is spelled correctly,
+we do `zg`.
 
 ## How to count words
 
@@ -283,22 +305,13 @@ To get the wordcount,
 run `:echo wordcount().words`.
 
 ## How to do soft-wrap
-## Add matching _* in Markdown buffers
-
-It annoys me that `_` (_italic_) and `*` (**bold**))) don't auto-close.
-
-TODO left for the future.
-`mini.pairs` doesn't support per-filetype config,
-and I didn't feel like setting generic pairing rules and then needing to write autocommands.
-See [How do I disable mini.pairs for markdown files? (My autocmd isn't working) · nvim-mini/mini.nvim · Discussion #805](https://github.com/nvim-mini/mini.nvim/discussions/805)
-
 ## Display the keymap
 
 Keymaps can be searched with `<spc>sk`.
+Additionally,
+there is also `spc + ?`.
 
-There is also `spc + ?`
-
-## Advanced keymaps in picker
+## Are there any keybinds in the Picker dialogue? 
 
 I believe that the fuzzy search via Telescope allows more keys beyond just `tab` and `ret`. 
 Which?
@@ -318,6 +331,30 @@ The preview can be toggled with `A-p`.
 `C-r` can be used to insert something from a register.
 
 
+## Markdown disable the Markdown linter
+
+LazyVim uses _conform.nvim_.
+
+I want to disable this.
+Or alternatively be able to look up and understand why a word gets highlighted.
+
+E: It seems we can disable it explicitly by setting the markdown option to empty brackets in the Lazy config. 
+
+```lua
+{
+        "mfussenegger/nvim-lint",
+        enabled = true,
+        opts = {
+            linters_by_ft = {
+                markdown = {},
+            },
+        },
+    }
+```
+
+MAYBE understand how to do a more granular configuration of the linting rules
+
+
 
 ## Markdown One Sentence Per Line
 
@@ -327,13 +364,49 @@ No.
  I wrote a function to do so.
  >> [[markdown-one-sentence-per-line]]
 
-## Markdown Rendering
+## Markdown Preview In Browser
+
+There is a Markdown preview configured via `<spc>cp`.
+
+DONE running the preview breaks completions.
+This was a bug in the `markdown-plus` plugin.
+
+
+## Markdown Rendering In The Neovim Buffer
 
 I like to use _>>_ in my writings to refer to things.
 However,
 I noticed that _>>_ got rendered as ▋ in some cases.
 After some digging,
 I found [the culprint](https://github.com/MeanderingProgrammer/render-markdown.nvim?tab=readme-ov-file#block-quotes).
+
+## Markdown Image Preview
+## Markdown Paste Image 
+## Markdown Add Matching _* in Markdown buffers
+
+It annoys me that `_` (_italic_) and `*` (**bold**))) don't auto-close.
+
+TODO left for the future.
+`mini.pairs` doesn't support per-filetype config,
+and I didn't feel like setting generic pairing rules and then needing to write autocommands.
+See [How do I disable mini.pairs for markdown files? (My autocmd isn't working) · nvim-mini/mini.nvim · Discussion #805](https://github.com/nvim-mini/mini.nvim/discussions/805)
+Another approach would be to _surround_ the word with aforementioned characters.
+This works for `_`,
+but not for double `**`.
+
+TODO find a way to repeat the first surround (`gsa`),
+so that the 2nd `*` is added.
+
+## Send Links From Browser To Markdown
+
+Likely more of a Linux integration,
+but I want to emulate _org-roam-capture_.
+
+## Markdown Insert Event from iCal/Calendar
+
+This could be useful,
+for example for a weekly summary of my week,
+where I insert the preview of that weeks calendar.
 
 ## Other / Advanced
 

@@ -1013,3 +1013,71 @@ DONE also install whisperAI -- `vibe transcribe`, `whisper-gui` or `handy tts`?
 installed `vibe`
 downloading AI models
 TODO AI TTS -- `chatterbox`, `tortoise tts`?
+
+2025-11-06 16:31
+change from `pip` to `uv`
+all the LLM tools make it necessary to have a more robust python setup
+The OSS 20B-ChatGPT is pretty useless :)
+
+2025-11-06 17:46
+added `~/.lmstudio/models` to my rysnc-ignore, so I don't backup 20 GB+ files
+
+2025-11-06 19:14
+DONE set up local CLI dictionary
+`dict` is the way to go,
+although there is also `stardict`
+unfortunately not all the [dictionaries](https://download.freedict.org/dictionaries/) are available in the AUR
+
+2025-11-06 20:34
+set up `sdcv`/`stardict` by downloading a bunch of dictionaries into my `set -xU STARDICT_DATA_DIR /home/<user>/.stardict/` folder
+needed to untar them: `for file in *.tar.xz; tar -xf $file; end`
+the output is ugly and contains HTML tags..
+
+2025-11-06 21:24
+downloaded a bunch more dictionary files from FreeDict
+find all `.dict.dz` and `.index` files in current dir and move them to parent
+```fish
+find . -type f \( -name "*.dict.dz" -o -name "*.index" \) | while read -l f
+	# dry run
+	echo mv $f (dirname (dirname $f))/
+	# set parent (dirname (dirname $f))
+	# sudo mv $f $parent/
+end
+```
+list all folders in current dir: `ls -d */`
+delete all folders in current dir: `sudo trash */`
+
+2025-11-06 21:29
+I also installed the `devil` dictionary, lol
+
+2025-11-06 21:45
+needed to collect all the .dict.dz and .index files in `/usr/share/dictd` and write them to `/etc/dict/dict.conf`.
+```fish
+#!/usr/bin/env fish
+
+# Directory containing the dict files
+set dictdir "/usr/share/dictd"
+
+# Output file
+set outfile "dictd.conf"
+
+# Clear or create the output file
+echo "" > $outfile
+
+# Loop over all *.dict.dz files in the directory
+for datafile in (ls $dictdir/*.dict.dz)
+    # Extract the base name without extension (e.g., ara-eng)
+    set basename (basename $datafile .dict.dz)
+
+    # Write the config block
+    echo "database $basename {" >> $outfile
+    echo "	data $dictdir/$basename.dict.dz" >> $outfile
+    echo "	index $dictdir/$basename.index" >> $outfile
+    echo "}" >> $outfile
+    echo "" >> $outfile
+end
+
+echo "Generated $outfile"
+```
+it would be nice to have the phonetics for both languages, but who am I to complain?
+
