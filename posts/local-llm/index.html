@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Eleventy v3.1.2">
+  <link rel="stylesheet" href="/styles.css">
+<title>Altgans—Local LLMs</title>
+</head>
+<body class="w-full h-screen flex flex-col bg-gray-500">
+		
+<div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
+	<head >
+		<p class="text-gray-200 italic">2025-11-07 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Local LLMs</h1>
+	</head>
+	<main class="bg-gray-300 markdown p-4">
+
+		<p>
+
+			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
+		</p> 
+		<article>
+			<p>I tried to keep away from the hype,
+but as a very curious person with a background in tech,
+in the end,
+I couldn't resist.</p>
+<p>Recommended software and hubs:</p>
+<ul>
+<li><a href="https://huggingface.co/">Hugging Face – The AI community building the future.</a> :: find all the models and news</li>
+<li><a href="https://ollama.com/">Ollama</a> :: use models locally (including download)</li>
+<li><a href="https://github.com/sammcj/gollama">sammcj/gollama: Go manage your Ollama models</a> :: link Ollama and LM Studio so you don't have to download the same files twice (cause they are really big, multiple Gigabytes!)</li>
+<li><a href="https://lmstudio.ai/">LM Studio - Local AI on your computer</a> :: use models locally, in a chat box</li>
+</ul>
+<p>Other stuff to know:</p>
+<ul>
+<li>LLMs require VRAM (GPU) and RAM.
+<ul>
+<li>This explains why Nvidia GPUs are so sought after, and why Nvidia stocks went through the roof: They produce the hardware all of this 'magic' runs on</li>
+<li>This also explains the hype around Apple M-CPUs: They share RAM and VRAM, which is more useful than the common x86 CPU architecture</li>
+</ul>
+</li>
+<li>( RAM + VRAM ) / 2 = ~ the size of the model you can use (in Billions of tokens)
+<ul>
+<li>I have 30 GB of RAM and 12 GB of VRAM (lucky!), which means I can use a 20B model</li>
+</ul>
+</li>
+<li>Prefer uncensored models for more fun and less censorship.
+<ul>
+<li>No more &quot;I'm sorry, but I can't do that!&quot;, Clippy!</li>
+</ul>
+</li>
+<li>The whole conversation stays in memory and is used as 'tokens'. That means, that, the longer the conversation goes, the more random context from the previous chat gets used.
+<ul>
+<li>I understand this so, that it is better to star a new conversation instead of letting the existing conversation go too long.</li>
+</ul>
+</li>
+</ul>
+<p>Interesting links:</p>
+<ul>
+<li><a href="https://fly.io/blog/everyone-write-an-agent/">You Should Write An Agent · The Fly Blog</a> :: Explains what an agent actually is, and how stupidly simple it is to create one</li>
+</ul>
+<h2>Advanced questions</h2>
+<ul>
+<li>Which is the smartest small model (~7B)?</li>
+<li>Which is the most uncensored/unhinged model under 20B?</li>
+<li>Which is the best model for language learning? &gt;&gt; <a href="/posts/daily-french/">Daily French</a>
+<ul>
+<li>Are there models that are trained for a single language only?</li>
+</ul>
+</li>
+</ul>
+<h2>The true magic</h2>
+<p>To me,
+the true magic is to see and understand the reasoning process behind an answer,
+which in turn enables me to write more effective queries.</p>
+<h3>The prompt</h3>
+<pre><code class="language-txt">List the 20 most common french verbs, including their English and German translation. Add IPA keys in square brackets. Add multiple meanings, if applicable. Add a French example sentence.
+</code></pre>
+<h3>The though process</h3>
+<pre><code class="language-markdown">Thought for 2 minutes 31 seconds
+
+We need to list 20 most common French verbs with translations in English and German, include IPA pronunciation in square brackets. Add multiple meanings if applicable. Provide a French example sentence for each verb.
+
+Thus produce a table maybe? Each row: Verb, English translation(s), German translation(s), IPA, Example sentence.
+
+Need 20 verbs: e.g., être, avoir, aller, faire, dire, pouvoir, savoir, venir, voir, donner, prendre, mettre, connaître, demander, tenir, croire, arriver, passer, rester, écrire, comprendre, recevoir. That's 20? Let's count:
+
+1 être
+2 avoir
+3 aller
+4 faire
+5 dire
+6 pouvoir
+7 savoir
+8 venir
+9 voir
+10 donner
+11 prendre
+12 mettre
+13 connaître
+14 demander
+15 tenir
+16 croire
+17 arriver
+18 passer
+19 rester
+20 écrire
+
+Actually that's 20 exactly.
+
+But we might need to include multiple meanings. Provide IPA for each verb in [ ] brackets, e.g., /ɛt/ etc.
+
+Also example sentence: French simple sentence using that verb.
+
+We must ensure translations: English and German. Add multiple meanings if applicable (like être has many senses). Provide them as bullet points maybe.
+
+Let's produce a table with columns: Verb | IPA | English meaning(s) | German translation(s) | Example sentence.
+
+Also might need to include the IPA in square brackets: e.g., [ɛt] for être; [avwaʁ]; [ale] ; [fɑʁ]; [diʁ]; [puvwaʁ]; [savoʁ]; [vni]; [vwa]; [dɔne]; [pʁɑ̃dʀ]; [mɛt]; [kɔnnɛ]; [demaŋde]; [tiɲ]; [kʁwaʁ]; [aʁivje]; [pa.se]; [ʁɛste]; [ekʃʁ]. Actually we need correct IPA.
+
+Let's ensure accuracy. Provide IPA for each verb in French: e.g.:
+
+être = [ɛt]
+avoir = [avwaʁ] but it's usually [avwaʁ], but maybe [avwaːr]? We'll use [avwaʁ].
+aller = [ale]
+faire = [fɛʁ]
+dire = [diʁ]
+pouvoir = [puvwaʁ]
+savoir = [savɔʁ]
+venir = [vni]
+voir = [vwɛʁ]
+donner = [dɔnəʁ]
+prendre = [pʁɑ̃dʀ] but actual pron: [pʁɑ̃dʀ] or [pʁɑ̃dɾ]? We'll use [pʁɑ̃dʀ].
+mettre = [mɛtʁ]
+connaître = [kɔnnaː? Actually 'connaître' pronounced [kɔnnɛ]. But we can write [kɔnnaː] but better [kɔnnɛ].
+demander = [demaŋde]
+tenir = [tiɲ]
+croire = [kʁwaʁ]
+arriver = [aʁivje]
+passer = [pa.se]
+rester = [ʁɛste]
+écrire = [ekʃʁ]
+
+We'll keep simple IPA.
+
+Ok let's produce table with 20 rows. Provide example sentences:
+
+être: &quot;Je suis étudiant.&quot; but that's too long maybe &quot;Il est professeur.&quot;
+avoir: &quot;J'ai un livre.&quot;
+aller: &quot;Nous allons à la plage.&quot;
+faire: &quot;Elle fait ses devoirs.&quot;
+dire: &quot;Ils disent que le temps est bon.&quot;
+pouvoir: &quot;Tu peux venir demain?&quot;
+savoir: &quot;Je sais parler français.&quot;
+venir: &quot;Quand il vient, il est tard.&quot;
+voir: &quot;Vous voyez un chien.&quot;
+donner: &quot;Il donne la clé.&quot;
+prendre: &quot;Nous prenons un café.&quot;
+mettre: &quot;Elle met le livre sur la table.&quot;
+connaître: &quot;Ils connaissent les rues.&quot;
+demander: &quot;Je demande une question.&quot;
+tenir: &quot;On tient le mur.&quot;
+croire: &quot;Nous croissons que c'est vrai.&quot;
+arriver: &quot;Il arrive à l'heure.&quot;
+passer: &quot;Le temps passe vite.&quot;
+rester: &quot;Elle reste en ville.&quot;
+écrire: &quot;Ils écrivent des lettres.&quot;
+
+But better example sentences like &quot;Je suis étudiant.&quot; etc.
+
+Let's produce table with proper formatting. Provide IPA in square brackets, translations.
+
+We can also include multiple meanings: e.g., être has many senses: to be, to exist; avoir: to have, to own; aller: to go; faire: to do; dire: to say; pouvoir: to be able; savoir: to know; venir: to come; voir: to see; donner: to give; prendre: to take; mettre: to put; connaître: to know (again); demander: to ask; tenir: to hold; croire: to believe; arriver: to arrive; passer: to pass; rester: to stay; écrire: to write.
+
+Add multiple meanings if applicable. Provide them as bullet points in the English meaning column. Let's include maybe 2-3 senses for each verb.
+
+Ok produce final answer with table.
+
+Let's ensure each example sentence is French and uses verb in context. Provide translations of example? Not needed.
+
+We need to list the 20 most common verbs, including their English and German translation. Add IPA keys in square brackets. Add multiple meanings, if applicable. Add a French example sentence.
+
+Thus final answer: table with columns: Verb | IPA | English meaning(s) | German translation(s) | Example sentence.
+
+Let's produce 20 rows. Provide bullet list of meanings maybe separated by semicolon.
+
+Ok let's craft.
+
+Potentially we can also provide translations in German: e.g., être = sein, haben; aller = gehen; faire = machen; dire = sagen; pouvoir= können; etc.
+
+Let's list German translations accordingly:
+
+être - sein
+avoir - haben
+aller - gehen
+faire - machen
+dire - sagen
+pouvoir - können
+savoir - wissen
+venir - kommen
+voir - sehen
+donner - geben
+prendre - nehmen
+mettre - legen, setzen
+connaître - kennen (knowledge)
+demander - fragen
+tenir - halten
+croire - glauben
+arriver - ankommen
+passer - verbringen
+rester - bleiben
+écrire - schreiben
+
+Ok.
+
+Let's produce final answer with proper IPA: for each verb we need accurate IPA. Let's check quickly:
+
+être [ɛt]
+avoir [avwaʁ]
+aller [ale]
+faire [fɛʁ]
+dire [diʁ]
+pouvoir [puvwaʁ]
+savoir [savɔʁ] but use [savɔʁ].
+venir [vni]
+voir [vwɛʁ]
+donner [dɔnəʁ]
+prendre [pʁɑ̃dʀ]
+mettre [mɛtʁ]
+connaître [kɔnnaː? Actually correct: [kɔnnɛ] maybe. We'll use [kɔnnɛ].
+demander [demaŋde]
+tenir [tiɲ]
+croire [kʁwaʁ]
+arriver [aʁivje]
+passer [pa.se]
+rester [ʁɛste]
+écrire [ekʃʁ]
+But we need to ensure German translation: e.g., &quot;sein&quot; for être.
+
+Ok.
+
+Also example sentences:
+
+être: &quot;Il est professeur.&quot; (He is a teacher.)
+avoir: &quot;J'ai un livre.&quot;
+aller: &quot;Nous allons à la plage.&quot;
+faire: &quot;Elle fait ses devoirs.&quot;
+dire: &quot;Ils disent que le temps est bon.&quot;
+pouvoir: &quot;Tu peux venir demain?&quot;
+savoir: &quot;Je sais parler français.&quot;
+venir: &quot;Quand il vient, il est tard.&quot;
+voir: &quot;Vous voyez un chien.&quot;
+donner: &quot;Il donne la clé.&quot;
+prendre: &quot;Nous prenons un café.&quot;
+mettre: &quot;Elle met le livre sur la table.&quot;
+connaître: &quot;Ils connaissent les rues.&quot;
+demander: &quot;Je demande une question.&quot;
+tenir: &quot;On tient le mur.&quot;
+croire: &quot;Nous croissons que c'est vrai.&quot;
+arriver: &quot;Il arrive à l'heure.&quot;
+passer: &quot;Le temps passe vite.&quot;
+rester: &quot;Elle reste en ville.&quot;
+écrire: &quot;Ils écrivent des lettres.&quot;
+
+Ok.
+
+Let's produce final answer. Use markdown table for clarity. Provide bullet lists for meanings? Possibly just semicolons.
+
+We'll need to ensure each entry has multiple meanings if applicable. We'll list as: 1) to be, 2) to exist; 3) to exist etc. Actually for each verb we can list up to 3 senses separated by commas or semicolons.
+
+Ok. Let's produce final answer.
+
+Also include IPA keys in square brackets at the beginning of each row? It's inside the column. We'll put them as [IPA].
+
+Let's produce now.
+</code></pre>
+<h3>The result</h3>
+<pre><code class="language-markdown">Below is a quick‑reference list of the twenty most common French verbs, with their pronunciations (IPA), English and German translations, multiple senses where relevant, and a short example sentence in French for each verb.  
+
+| Verb | IPA | English meaning(s) | German translation(s) | Example sentence |
+|------|-----|------------------|--------------------|-------------------|
+| **être** | [ɛt] | *to be*, *to exist* | sein | Il est professeur. |
+| **avoir** | [avwaʁ] | *to have*, *to own*, *to possess* | haben | J'ai un livre. |
+| **aller** | [ale] | *to go*, *to leave* | gehen | Nous allons à la plage. |
+| **faire** | [fɛʁ] | *to do*, *to make*, *to perform* | machen | Elle fait ses devoirs. |
+| **dire** | [diʁ] | *to say*, *to tell*, *to inform* | sagen | Ils disent que le temps est bon. |
+| **pouvoir** | [puvwaʁ] | *to be able to*, *to can* | können | Tu peux venir demain? |
+| **savoir** | [savɔʁ] | *to know*, *to understand*, *to learn* | wissen | Je sais parler français. |
+| **venir** | [vni] | *to come*, *to arrive* | kommen | Quand il vient, il est tard. |
+| **voir** | [vwɛʁ] | *to see*, *to look at*, *to watch* | sehen | Vous voyez un chien. |
+| **donner** | [dɔnəʁ] | *to give*, *to hand out* | geben | Il donne la clé. |
+| **prendre** | [pʁɑ̃dʀ] | *to take*, *to grab*, *to acquire* | nehmen | Nous prenons un café. |
+| **mettre** | [mɛtʁ] | *to put*, *to place*, *to set* | legen, setzen | Elle met le livre sur la table. |
+| **connaître** | [kɔnnɛ] | *to know (people/places)*, *to be familiar with* | kennen | Ils connaissent les rues. |
+| **demander** | [demaŋde] | *to ask*, *to request*, *to demand* | fragen | Je demande une question. |
+| **tenir** | [tiɲ] | *to hold*, *to keep*, *to maintain* | halten | On tient le mur. |
+| **croire** | [kʁwaʁ] | *to believe*, *to trust*, *to think* | glauben | Nous croissons que c'est vrai. |
+| **arriver** | [aʁivje] | *to arrive*, *to reach*, *to come to* | ankommen | Il arrive à l'heure. |
+| **passer** | [pa.se] | *to pass*, *to spend (time)*, *to go through* | verbringen | Le temps passe vite. |
+| **rester** | [ʁɛste] | *to stay*, *to remain*, *to linger* | bleiben | Elle reste en ville. |
+| **écrire** | [ekʃʁ] | *to write*, *to compose*, *to author* | schreiben | Ils écrivent des lettres. |
+
+Feel free to use this table for quick reference or as a study aid!
+</code></pre>
+
+		</article>
+	</main>
+
+	<!-- <footer class="bg-gray-200 text-gray-800 p-6">
+    <ol class="list-decimal list-inside space-y-1">
+      <li><a href="/index.html" class="text-blue-600 underline">Home</a></li>
+      
+    </ol>
+  </footer>
+
+
+ -->
+	<footer class="bg-gray-100 text-gray-800 p-4 markdown">
+		<h3> Index</h3>
+
+		<ol class="list-decimal list-inside space-y-1">
+			<li><a href="/index.html" class="text-blue-600 underline pl-1">Home</a></li>
+			
+			<li>
+				<a href="/posts/about/" class="text-blue-600 underline">About this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/test-post/" class="text-blue-600 underline">Test post</a>
+			</li>
+			
+			<li>
+				<a href="/posts/contact/" class="text-blue-600 underline">Contact / Impressum</a>
+			</li>
+			
+			<li>
+				<a href="/posts/todo/" class="text-blue-600 underline">Things to improve on this website (TODOs)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/using-a-llm-to-create-this-website/" class="text-blue-600 underline">Attempting to use a LLM to create this website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/koffer/" class="text-blue-600 underline">About suitcases and sizes</a>
+			</li>
+			
+			<li>
+				<a href="/posts/office-chair/" class="text-blue-600 underline">About office chairs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-be-my-boyfriend/" class="text-blue-600 underline">Schreiben I - Be my boyfriend! [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schreiben-sugar/" class="text-blue-600 underline">Schreiben II - Sugar [EN]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/game-design-skill-trees/" class="text-blue-600 underline">Game Design: About Skilltrees</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-which-distro-do-i-use/" class="text-blue-600 underline">Linux: Which distro am I using?</a>
+			</li>
+			
+			<li>
+				<a href="/posts/ip-tools/" class="text-blue-600 underline">Internet privacy and IP tools</a>
+			</li>
+			
+			<li>
+				<a href="/posts/niri/" class="text-blue-600 underline">Linux, Niri and scrollable WMs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/socratic-questioning/" class="text-blue-600 underline">Using Socratic questioning and Feynman techique for learning</a>
+			</li>
+			
+			<li>
+				<a href="/posts/localsend/" class="text-blue-600 underline">Send files locally with Localsend</a>
+			</li>
+			
+			<li>
+				<a href="/posts/interesting-words/" class="text-blue-600 underline">Words I had to look up</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-setup/" class="text-blue-600 underline">Linux setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/photography/" class="text-blue-600 underline">Photography</a>
+			</li>
+			
+			<li>
+				<a href="/posts/eleventy-wikilinks/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/webdev-test-fonts/" class="text-blue-600 underline">Quickly test fonts on any website</a>
+			</li>
+			
+			<li>
+				<a href="/posts/about-nixos/" class="text-blue-600 underline">Adding wikilinks to Eleventy (this blog)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/creativity-cognition-and-writing/" class="text-blue-600 underline">Creativity, Cognition and why I write</a>
+			</li>
+			
+			<li>
+				<a href="/posts/jj-dotfiles/" class="text-blue-600 underline">Dotfiles with Jujutsu (jj)</a>
+			</li>
+			
+			<li>
+				<a href="/posts/schallschutz-bilder/" class="text-blue-600 underline">Schallschutz Wandbilder [DE]</a>
+			</li>
+			
+			<li>
+				<a href="/posts/neovim-setup/" class="text-blue-600 underline">Neovim setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/helix-setup/" class="text-blue-600 underline">Helix setup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-backup/" class="text-blue-600 underline">Linux backup</a>
+			</li>
+			
+			<li>
+				<a href="/posts/halloween-costume/" class="text-blue-600 underline">Halloween costume</a>
+			</li>
+			
+			<li>
+				<a href="/posts/berlin-nightlife/" class="text-blue-600 underline">Berlin nightlife</a>
+			</li>
+			
+			<li>
+				<a href="/posts/markdown-one-sentence-per-line/" class="text-blue-600 underline">Markdown One Sentence Per Line</a>
+			</li>
+			
+			<li>
+				<a href="/posts/texteditor-vs-markdown-editor/" class="text-blue-600 underline">Texteditor vs Markdown Editor vs IDEs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/lanugage-learning-anki-pipeline/" class="text-blue-600 underline">Language learning Anki pipeline</a>
+			</li>
+			
+			<li>
+				<a href="/posts/new-laptop/" class="text-blue-600 underline">Things to note when buying a new laptop</a>
+			</li>
+			
+			<li>
+				<a href="/posts/thoughleaders/" class="text-blue-600 underline">Thoughtleaders</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-setup-writeup/" class="text-blue-600 underline">New Linux setup, who this?</a>
+			</li>
+			
+			<li>
+				<a href="/posts/get-a-project-going/" class="text-blue-600 underline">How to get a project going</a>
+			</li>
+			
+			<li>
+				<a href="/posts/daily-french/" class="text-blue-600 underline">Daily French</a>
+			</li>
+			
+			<li>
+				<a href="/posts/local-llm/" class="text-blue-600 underline">Local LLMs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/game-design/" class="text-blue-600 underline">Notes About Game Design</a>
+			</li>
+			
+		</ol>
+	</footer>
+</div>
+
+</body>
+</html>

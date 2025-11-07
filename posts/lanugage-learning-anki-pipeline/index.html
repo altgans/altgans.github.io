@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy v3.1.2">
   <link rel="stylesheet" href="/styles.css">
-<title>Altgans—Schreiben I - Be my boyfriend! [DE]</title>
+<title>Altgans—Language learning Anki pipeline</title>
 </head>
 <body class="w-full h-screen flex flex-col bg-gray-500">
 		
 <div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
 	<head >
-		<p class="text-gray-200 italic">2025-08-30 </p>
-		<h1 class="text-white text-4xl font-bold mb-2">Schreiben I - Be my boyfriend! [DE]</h1>
+		<p class="text-gray-200 italic">2025-11-05 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">Language learning Anki pipeline</h1>
 	</head>
 	<main class="bg-gray-300 markdown p-4">
 
@@ -22,21 +22,72 @@
 			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
 		</p> 
 		<article>
-			<h4>Kurzfassung</h4>
-<blockquote>
-<p>Dämon schwimmt durch die primordiale Ewigkeit und wartet auf seine nächste Beschwörung. Denkt über seine bisherige Lebensleistung und Meisterwerke nach. Wird beschworen, von einer jungen Frau. Die Frau möchte, dass er ihr fester Freund wird. Romantikkomödie.</p>
-</blockquote>
-<p>...</p>
-<p>&quot;Sprich, Sterbliche, was ist dein Begehr?&quot;</p>
-<p>Sebas schaute sich im Raum herum. Die ersten Sekunden einer neuen Beschwörung waren immer die schwierigsten. Wer weiß, was einen erwartete? Ein Blutopfer? Schwierig. Eine Seelensuche? Noch schwieriger. Ein Altar der ewigen Dämmerung? Bitte nicht.</p>
-<p>Aber es war keine Gruft voller Kultisten in dunklen Roben. Auch kein Hügelgrab bei Mitternacht. Noch nicht einmal ein finsterer Wald. Es war ein Zimmer. Etwas unaufgeräumt, mit einem großen Bett in der Mitte. Links ein Nachttisch voller okulter Bücher, rechts eine Kommode mit einem Schminktisch und einem großen, rosanen Spiegel. Davor etliche Statullen, Kästchen, silberner Schmuck. Zwei große Kleiderschränke, einer davon offen und zum Bersten mit schwarzen Kleidern gefüllt. Am Boden lauter Zettel. Ein Bannkreis, und davor.. eine junge Frau.</p>
-<p>Sebas betrachtete die Frau. Lila Lippenstift, lila Nagellack und lila Haar. Fahle Haut, schwarze Augenringe. Der Duft von Zitronenshampoo und Erde. Die Frau schaute zurück, holte tief Luft und platzte mit ihrem Wunsch heraus.</p>
-<p>&quot;Be my boyfriend!&quot;</p>
-<p>&quot;Was?&quot;</p>
-<p>&quot;Du sollst mein fester Freund sein! Mit mir ins Kino gehen, Shoppen, Essen. Zusammen in den Urlaub fahren, romantisch am Strand spazieren gehen, in der Sonne liegen, mich einkremen. Du wirst mir Kürbis Matcha Latte bringen wenn es mir nicht gut geht, mir immer gut zuhören und alle meine Sorgen verstehen. Du wirst mir mit meiner Abschlussarbeit helfen, Bilder für mich aufhängen, meine Sachen tragen, für mich kochen, und abends werden wir zusammen auf der Couch liegen, Romantikkomödien schauen und..&quot; Die junge Frau errötete.</p>
-<p>Sebas nutzte die Gelegenheit um nachzuhaken.</p>
-<p>&quot;Ich soll dein Sklave sein?&quot;</p>
-<p>&quot;Nein, mein Boyfriend.&quot;</p>
+			<p>WIP,
+not sure I described this somewhere else.</p>
+<p>I like learning languages.
+French,
+Dutch,
+Turkish,
+....</p>
+<p>I use Anki for remembering vocabulary and grammar.
+However,
+for some languages,
+it is difficult to create the right cards.
+For example,
+for learning French,
+I want to learn the word,
+have an example sentence (ideally from a song) that contains the word,
+and also be provided with the phonetics (IPA) and a native speaker giving an example.</p>
+<p>This is not easily accomplished by hand.</p>
+<p>Using an LLM is the next step,
+but here,
+we quickly face hallucinations and unusable output.
+(I failed to generate an Anki-compatible list of the 500 most common French words including multiple translations and phonetics).</p>
+<p>It seems I need to build a solution to my problem from the ground up.</p>
+<h2>Idea</h2>
+<ul>
+<li>have a script and/or binary
+<ul>
+<li>TODO evaluate <a href="https://tauri.app/">Tauri</a> as application framework; can use this to learn Rust</li>
+<li>could be the browser for the DB</li>
+</ul>
+</li>
+<li>create a squlite DB for words
+<ul>
+<li>sourcing word corpi, dictionaries and pronounciation (wiktionary?)</li>
+</ul>
+</li>
+<li>create machine-translated voice-overs for each word</li>
+<li>export all of this to Anki</li>
+</ul>
+<p>The benefit: I can use this for cross-vocabulary amongst all the languages I know.
+For example,
+some French words are close to German,
+and others close to English.
+Additionally,
+looking at Turkish vocabulary,
+we have overlap with French again.</p>
+<p>Wouldn't it be cool to have a modular cross-language dictionary and language tool?
+Something that can spit out words by theme? (food, doctor visit, body parts, ...)
+By opposites? (sweet--sour, thin--thick, small-big)
+By similarity? (big, grand, tall)</p>
+<h2>Project</h2>
+<p>WIP,
+will take some time</p>
+<h3>Date sources</h3>
+<ul>
+<li>https://www.datamuse.com/api/</li>
+<li><a href="https://github.com/tatuylonen/wiktextract">tatuylonen/wiktextract: Wiktionary dump file parser and multilingual data extractor</a></li>
+<li>https://github.com/freedict/fd-dictionaries/wiki/Import-Centre</li>
+<li></li>
+</ul>
+<h3>Database</h3>
+<h3>Binary</h3>
+<h3>Speech Synthesis</h3>
+<ul>
+<li>https://github.com/espeak-ng/espeak-ng</li>
+<li>https://github.com/vndee/local-talking-llm</li>
+</ul>
 
 		</article>
 	</main>

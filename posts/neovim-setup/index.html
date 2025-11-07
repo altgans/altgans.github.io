@@ -40,6 +40,28 @@
 <h2>Batteries included</h2>
 <p>Lazyvim, cause the maintainer seems like a cool guy. There are some other projects, but they felt too complicated/complex/opinionated.</p>
 <p>Note: This means that I assume lazyvim-style config folder</p>
+<h2>Some Vim Terminology</h2>
+<ul>
+<li>buffer :: the 'file', i.e. the text that you load and edit
+<ul>
+<li>there are also helper buffers that show something different, such as a file picker or side bar</li>
+</ul>
+</li>
+<li>window :: the pane where the buffer gets displayed in</li>
+<li>frame :: the big border around the application, where the <code>Minimize | Resize | Close</code> buttons are.
+<ul>
+<li>In windows, this is the 'Window'</li>
+</ul>
+</li>
+<li>bufferline :: the status bar at the bottom
+<ul>
+<li>most likely shows the editing mode, the row and column number, ...</li>
+</ul>
+</li>
+<li>tabline :: the status bar at the top, which shows the open buffers</li>
+<li>leader key :: most likely the space key, but can be configured</li>
+<li>yank / paste :: copy / paste</li>
+</ul>
 <h2>Listing all the plugins installed</h2>
 <p>A list of installed plugins can be retrieved from the <code>lazy-lock.json</code> in the <em>nvim</em> folder.
 These are the plugins that Lazy brings by default (including my enabled extras).</p>
@@ -97,8 +119,32 @@ venv-selector.nvim	https://github.com/linux-cultist/venv-selector.nvim
 which-key.nvim	https://github.com/folke/which-key.nvim
 yanky.nvim	https://github.com/gbprod/yanky.nvim
 </code></pre>
+<h2>Open the LazyVim config</h2>
+<p>When starting LazyVim,
+I can press <code>c</code> to jump to the config folder.
+But after I enter my project folder,
+I seem to lose this ability.
+How can I open the LazyVim config from anywhere?</p>
+<p>TODO maybe via <em>projects</em>?</p>
+<h2>How to apply config changes to my running buffer</h2>
+<p>After I change the config,
+I don't want to need to reload my current vim session,
+but instead be able to apply the config changes to the running session directly.</p>
+<p>Maybe 'sourcing' is the right term?</p>
+<h2>Disabling a plugin</h2>
+<p>We can do <code>enabled=false</code> in the config.</p>
+<pre><code class="language-lua">return {
+  -- disable trouble
+  { &quot;folke/trouble.nvim&quot;, enabled = false },
+}
+</code></pre>
+<p>Source: <a href="https://www.lazyvim.org/configuration/plugins#-disabling-plugins">Plugins | LazyVim</a></p>
 <h2>Change which-key description to name the plugin</h2>
-<p>Example: <code>&lt;spc&gt;sr</code> opens search &amp; replace, which actually is <code>grug-far.nvim</code> under the hood. I want understand all of this, to better be able to find help and guidance.</p>
+<p>Example: <code>&lt;spc&gt;sr</code> opens search &amp; replace,
+which actually is <code>grug-far.nvim</code> under the hood.
+I want understand all of this,
+to better be able to find help and guidance.</p>
+<p>TODO: change the keymap descriptions to also show the originating plugin</p>
 <h2>How to collapse Markdown headings</h2>
 <p><code>zM</code> close all folds, <code>zR</code> open all folds</p>
 <p><code>za</code> toggle fold under cursor, <code>zi</code> toggle folding</p>
@@ -155,34 +201,15 @@ I'd like to append the datetime snippet to markdown headings.</p>
 <h2>Useful Markdown keybinds</h2>
 <p>N = normal mode, V = visual mode, I = insert mode</p>
 <ul>
-<li>
-<p><code>&gt;&gt;</code> and <code>&lt;&lt;</code> :: indent and outdent in N and V mode.</p>
-</li>
-<li>
-<p><code>C-t</code> and <code>C-d</code> :: indent and outdent in I mode</p>
-</li>
-<li>
-<p><code>[[</code> and <code>]]</code> :: go to next/prev section (Markdown headings)</p>
-</li>
-<li>
-<p><code>zj</code> and <code>zk</code> :: jump to next/prev fold</p>
-</li>
-<li>
-<p><code>&lt;leader&gt;ss</code> :: symbol picker (jump to markdown heading)</p>
+<li><code>&gt;&gt;</code> and <code>&lt;&lt;</code> :: indent and outdent in N and V mode.</li>
+<li><code>C-t</code> and <code>C-d</code> :: indent and outdent in I mode</li>
+<li><code>[[</code> and <code>]]</code> :: go to next/prev section (Markdown headings)</li>
+<li><code>zj</code> and <code>zk</code> :: jump to next/prev fold</li>
+<li><code>&lt;leader&gt;ss</code> :: symbol picker (jump to markdown heading)
 <ul>
 <li><code>&lt;leader&gt;sr</code> :: symbol picker across project root</li>
 <li><code>&lt;leader&gt;sb</code> :: buffer line search (find words/lines)</li>
 </ul>
-</li>
-<li>
-<p>sadf</p>
-</li>
-<li></li>
-<li>
-<p>asf</p>
-</li>
-<li>
-<p>asf</p>
 </li>
 </ul>
 <h2>Indent lists and text in Markdown files</h2>
@@ -196,7 +223,7 @@ I'd like to append the datetime snippet to markdown headings.</p>
 vim.keymap.set(&quot;n&quot;, &quot;&lt;Tab&gt;&quot;, &quot;&gt;&gt;_&quot;, { noremap = true, silent = true, desc = &quot;Indent line&quot; })
 -- Unindent with Shift+Tab in normal mode
 vim.keymap.set(&quot;n&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;&lt;_&quot;, { noremap = true, silent = true, desc = &quot;Unindent line&quot; })
--- Indent wjth Tab in visual mode
+-- Indent with Tab in visual mode
 vim.keymap.set(&quot;v&quot;, &quot;&lt;Tab&gt;&quot;, &quot;&gt;gv&quot;, { noremap = true, silent = true, desc = &quot;Indent selected lines&quot; })
 -- Unindent with Shift+Tab in visual mode
 vim.keymap.set(&quot;v&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;gv&quot;, { noremap = true, silent = true, desc = &quot;Unindent selected lines&quot; })
@@ -205,7 +232,7 @@ vim.keymap.set(&quot;v&quot;, &quot;&lt;S-Tab&gt;&quot;, &quot;&lt;gv&quot;, { n
 <p>Check mappings with <code>:map &lt;Tab&gt;</code> for potential conflicts</p>
 <ul>
 <li>2025-10-28 16:05: Can use <code>markdown_indent</code> for this, no need for the keybinds!</li>
-<li>2025-10-28 16:05: using <code>markdown-plus</code>, which necessites to set up the hotkeys again
+<li>2025-10-28 16:05: using <code>markdown-plus</code>, which necessities to set up the hotkeys again
 <ul>
 <li>TODO check behaviour of Tab regarding indent and autocomplete; disable list indent in I mode via S-Tab?</li>
 </ul>
@@ -220,32 +247,117 @@ which is a bit annoying.</p>
 <p><em>Hint: Switch to the newly opened window with <code>&lt;spc&gt;ww</code>.</em></p>
 <p>A better way is to use the Telescope symbol picker,
 <code>&lt;leader&gt;ss</code> (local) or <code>&lt;leader&gt;sS</code> (across project root).</p>
-<h2>Disabling a plugin</h2>
-<p>We can do <code>enabled=false</code> in the config.</p>
-<pre><code class="language-lua">return {
-  -- disable trouble
-  { &quot;folke/trouble.nvim&quot;, enabled = false },
-}
-</code></pre>
-<p>Source: <a href="https://www.lazyvim.org/configuration/plugins#-disabling-plugins">Plugins | LazyVim</a></p>
+<p>Additionally,
+there is Aerial,
+which can be opened with <code>&lt;leader&gt;cs</code> to show an outline of LSP symbols in the current buffer.</p>
+<h2>Jump to visible word</h2>
+<p>Press <code>s</code> in Normal mode,
+followed by the first char of the word you want to jump to,
+followed by the auto-generated jump mark.</p>
+<p>This uses <a href="https://github.com/folke/flash.nvim?tab=readme-ov-file">folke/flash.nvim</a></p>
+<h2>Incremental selection</h2>
+<p>Found this in a <a href="https://www.josean.com/posts/nvim-treesitter-and-textobjects">random blog</a>;
+<code>C-spc</code> allows to incrementally select the current TS Node/block.</p>
+<p>TODO: Find more nifty tricks and keybinds for Treesitter selections.
+(Above blog is a good start).</p>
+<h2>Markdown Jump to start/end of code block</h2>
+<p>Not perfect,
+but <code>[i</code> and <code>]i</code> work to jump to <em>edge of scope</em>
+whatever that means.</p>
+<p>NOTE: doesn't always work..</p>
+<p>There is also <code>:InspectTree</code>,
+which shows all the symbols in a buffer.
+My guess is that we can write a function to target the start/end of code blocks here.</p>
+<h2>Navigate with Markdown Treesitter Textobjects</h2>
+<p>TODO I only found <code>]m</code> so far.
+I'd like to have a list of granular text objects I can jump to.</p>
+<p>Seems to be done with either
+<a href="https://github.com/nvim-treesitter/nvim-treesitter-textobjects">nvim-treesitter/nvim-treesitter-textobjects</a>
+or
+<a href="https://github.com/folke/flash.nvim?tab=readme-ov-file">folke/flash.nvim</a>.</p>
+<blockquote>
+<blockquote>
+<p><a href="/#Jump to visible word">Home</a></p>
+</blockquote>
+</blockquote>
+<h2>Highlight duplicate words under cursor</h2>
+<p>Useful for writing and editing,
+where I want to know if I already used the word in previous paragraphs.</p>
+<p>DONE Maybe with <a href="https://github.com/RRethy/vim-illuminate">RRethy/vim-illuminate</a></p>
+<h2>Markdown Move Headings up/down</h2>
+<p>Emacs Orgmode does this,
+and it is really useful.</p>
+<p>TODO Maybe with <a href="https://github.com/nvim-mini/mini.move">nvim-mini/mini.move</a>?</p>
+<h2>Jump to next/prev misspell</h2>
+<p>Jump with <code>]s</code> and <code>[s</code></p>
 <h2>Text surround</h2>
 <p>Install <code>mini.surround</code>.
 Then select text (<code>viw</code>) and surround with <code>gsa</code>.</p>
 <p><em>Hint: Look up more keybinds with <code>&lt;spc&gt;sk 'surround'</code>.</em></p>
-<h2>How to autocomplete words from dictionary</h2>
-<h2>How to look up words in dictionary</h2>
+<h2>Look up words in dictionary</h2>
+<ol>
+<li>Set up <code>dict</code> in Linux</li>
+<li>Install <code>dict.nvim</code></li>
+</ol>
+<pre><code class="language-lua">-- ~/.config/nvim/lua/plugins/dict.lua
+return {
+    {
+        &quot;jalvesaq/dict.nvim&quot;,
+        ft = &quot;markdown&quot;, -- Only load in Markdown buffers
+        lazy = true, -- optional: load lazily
+        keys = {
+            vim.keymap.set(
+                &quot;n&quot;,
+                &quot;&lt;leader&gt;mk&quot;,
+                '&lt;Cmd&gt;lua require(&quot;dict&quot;).lookup()&lt;CR&gt;',
+                { noremap = true, silent = true, desc = &quot;Indent line&quot; }
+            ),
+        },
+        -- config = function() end,
+    },
+}
+</code></pre>
 <h2>How to fix word under cursor</h2>
 <p>Some words are highlighted yellow or red,
 for example due to a misspell.
 How do I auto-fix them?
 And how do I disable this linting?</p>
+<p>E: It seems that the linting does not come from the markdown linter,
+but instead the vim-native <code>:h spell</code> checker.
+We control it with <code>z&lt;key&gt;</code>.
+To get spelling suggestions,
+we can do <code>z=</code>.
+To add a word to our wordlist (<code>spellfile</code>),
+i.e. notifying the program that it is spelled correctly,
+we do <code>zg</code>.</p>
+<h2>Neovim Multiple Dictionaries</h2>
+<p>For the spell checker,
+it is set to EN by default.
+I write in multiple languages though,
+and would like to check all of them (or at least switch amongst them).</p>
 <p>TODO</p>
-<h2>How to disable markdown linter</h2>
-<p>Lazyvim uses <em>conform.nvim</em></p>
+<h2>Neovim Make Upper/Lowercase</h2>
+<p>Use <code>gU</code> for UPPERCASE and <code>gu</code> for <em>lowercase</em>.</p>
+<h2>Neovim Navigate TODOs in file</h2>
+<p>TODO I want to see and move amongst my todos.
+I also want to expand this for other markers,
+such as NOTE,
+MAYBE,
+...</p>
+<h2>Neovim Create New File in Working Directory</h2>
+<p>I can create a new file with <code>:n &lt;filename&gt;</code>,
+but this creates it in the <em>root dir</em>.
+How to create the new file directly in the calling dir?
+Preferably from a <a href="/#Neovim Create New File From Template">template</a>.</p>
 <p>TODO</p>
-<h2>How to preview Markdown</h2>
-<p>There is a Markdown preview configured via <code>&lt;spc&gt;cp</code>.</p>
-<p>FIXME running the preview breaks completions.</p>
+<h2>Neovim Create New File From Template</h2>
+<p>I'd like to emulate the Obsidian 'weekly notes' functionality,
+where I can create a new note from a template in a specific folder.
+This will also be very helpful to quickly pre-set a new blog post.
+(Well,
+to be fair,
+I don't post,
+I produce micro-snippets of content 😁)</p>
 <h2>How to count words</h2>
 <p>Words are a terrible metric for writing productivity,
 but sometimes I just want to know.
@@ -255,16 +367,11 @@ although this may also be something I find annoying fast.</p>
 <p>To get the wordcount,
 run <code>:echo wordcount().words</code>.</p>
 <h2>How to do soft-wrap</h2>
-<h2>Add matching _* in Markdown buffers</h2>
-<p>It annoys me that <code>_</code> (<em>italic</em>) and <code>*</code> (<strong>bold</strong>))) don't auto-close.</p>
-<p>TODO left for the future.
-<code>mini.pairs</code> doesn't support per-filetype config,
-and I didn't feel like setting generic pairing rules and then needing to write autocommands.
-See <a href="https://github.com/nvim-mini/mini.nvim/discussions/805">How do I disable mini.pairs for markdown files? (My autocmd isn't working) · nvim-mini/mini.nvim · Discussion #805</a></p>
 <h2>Display the keymap</h2>
-<p>Keymaps can be searched with <code>&lt;spc&gt;sk</code>.</p>
-<p>There is also <code>spc + ?</code></p>
-<h2>Advanced keymaps in picker</h2>
+<p>Keymaps can be searched with <code>&lt;spc&gt;sk</code>.
+Additionally,
+there is also <code>spc + ?</code>.</p>
+<h2>Are there any keybinds in the Picker dialogue?</h2>
 <p>I believe that the fuzzy search via Telescope allows more keys beyond just <code>tab</code> and <code>ret</code>.
 Which?
 E: It seems that LazyVim doesn't use Telescope anymore,
@@ -278,6 +385,22 @@ and then explore the help from there.</p>
 <p><em>Tip: Cycle the window in reverse with <code>C-w</code>.</em></p>
 <p>The preview can be toggled with <code>A-p</code>.
 <code>C-r</code> can be used to insert something from a register.</p>
+<h2>Markdown disable the Markdown linter</h2>
+<p>LazyVim uses <em>conform.nvim</em>.</p>
+<p>I want to disable this.
+Or alternatively be able to look up and understand why a word gets highlighted.</p>
+<p>E: It seems we can disable it explicitly by setting the markdown option to empty brackets in the Lazy config.</p>
+<pre><code class="language-lua">{
+        &quot;mfussenegger/nvim-lint&quot;,
+        enabled = true,
+        opts = {
+            linters_by_ft = {
+                markdown = {},
+            },
+        },
+    }
+</code></pre>
+<p>MAYBE understand how to do a more granular configuration of the linting rules</p>
 <h2>Markdown One Sentence Per Line</h2>
 <p>Do I really have to do this manually?</p>
 <p>No.
@@ -287,12 +410,42 @@ I wrote a function to do so.</p>
 <p><a href="/posts/markdown-one-sentence-per-line/">Markdown One Sentence Per Line</a></p>
 </blockquote>
 </blockquote>
-<h2>Markdown Rendering</h2>
+<h2>Markdown Preview In Browser</h2>
+<p>There is a Markdown preview configured via <code>&lt;spc&gt;cp</code>.</p>
+<p>DONE running the preview breaks completions.
+This was a bug in the <code>markdown-plus</code> plugin.</p>
+<h2>Markdown Rendering In The Neovim Buffer</h2>
 <p>I like to use <em>&gt;&gt;</em> in my writings to refer to things.
 However,
 I noticed that <em>&gt;&gt;</em> got rendered as ▋ in some cases.
 After some digging,
 I found <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim?tab=readme-ov-file#block-quotes">the culprint</a>.</p>
+<h2>Markdown Image Preview</h2>
+<h2>Markdown Paste Image</h2>
+<h2>Markdown Add Matching _* in Markdown buffers</h2>
+<p>It annoys me that <code>_</code> (<em>italic</em>) and <code>*</code> (<strong>bold</strong>))) don't auto-close.</p>
+<p>TODO left for the future.
+<code>mini.pairs</code> doesn't support per-filetype config,
+and I didn't feel like setting generic pairing rules and then needing to write autocommands.
+See <a href="https://github.com/nvim-mini/mini.nvim/discussions/805">How do I disable mini.pairs for markdown files?</a>
+Another approach would be to <em>surround</em> the word with aforementioned characters.
+This works for <code>_</code>,
+but not for double <code>**</code>.</p>
+<p>TODO find a way to repeat the first surround (<code>gsa</code>),
+so that the 2nd <code>*</code> is added.</p>
+<h2>Send Links From Browser To Markdown</h2>
+<p>Likely more of a Linux integration,
+but I want to emulate <em>org-roam-capture</em>.</p>
+<h2>Markdown Insert Event from iCal/Calendar</h2>
+<p>This could be useful,
+for example for a weekly summary of my week,
+where I insert the preview of that weeks calendar.</p>
+<h2>How to manage projects?</h2>
+<p>I'd like to be able to hop to my projects (git root folders).
+Do I need to do this via <code>yazi</code> or <code>z</code> in the CLI,
+or is there a neovim way to do this?</p>
+<h2>Markdown Mindmaps</h2>
+<p>Use Markmap</p>
 <h2>Other / Advanced</h2>
 <ul>
 <li>maybe set up https://github.com/seth-brown/formd as described in https://aliquote.org/post/neovim-markdown/ to collect inline-references at the bottom, instead of in the text.</li>
@@ -324,7 +477,13 @@ I found <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim?ta
 <li>use emacs org-roam-protocol? for download?</li>
 </ul>
 </li>
-<li>undo history -- https://github.com/y3owk1n/time-machine.nvim</li>
+<li>undo history -- https://github.com/y3owk1n/time-machine.nvim
+<ul>
+<li>Understand <a href="https://github.com/gbprod/yanky.nvim">gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim</a> yank history picker</li>
+</ul>
+</li>
+<li><a href="https://github.com/ThePrimeagen/refactoring.nvim">ThePrimeagen/refactoring.nvim: The Refactoring library based off the Refactoring book by Martin Fowler</a></li>
+<li>Set up multi-lang spell :: <a href="https://willcodefor.beer/posts/spellnvim">Spellcheck multiple languages in Neovim</a></li>
 </ul>
 
 		</article>
@@ -430,6 +589,10 @@ I found <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim?ta
 			</li>
 			
 			<li>
+				<a href="/posts/creativity-cognition-and-writing/" class="text-blue-600 underline">Creativity, Cognition and why I write</a>
+			</li>
+			
+			<li>
 				<a href="/posts/jj-dotfiles/" class="text-blue-600 underline">Dotfiles with Jujutsu (jj)</a>
 			</li>
 			
@@ -463,6 +626,38 @@ I found <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim?ta
 			
 			<li>
 				<a href="/posts/texteditor-vs-markdown-editor/" class="text-blue-600 underline">Texteditor vs Markdown Editor vs IDEs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/lanugage-learning-anki-pipeline/" class="text-blue-600 underline">Language learning Anki pipeline</a>
+			</li>
+			
+			<li>
+				<a href="/posts/new-laptop/" class="text-blue-600 underline">Things to note when buying a new laptop</a>
+			</li>
+			
+			<li>
+				<a href="/posts/thoughleaders/" class="text-blue-600 underline">Thoughtleaders</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-setup-writeup/" class="text-blue-600 underline">New Linux setup, who this?</a>
+			</li>
+			
+			<li>
+				<a href="/posts/get-a-project-going/" class="text-blue-600 underline">How to get a project going</a>
+			</li>
+			
+			<li>
+				<a href="/posts/daily-french/" class="text-blue-600 underline">Daily French</a>
+			</li>
+			
+			<li>
+				<a href="/posts/local-llm/" class="text-blue-600 underline">Local LLMs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/game-design/" class="text-blue-600 underline">Notes About Game Design</a>
 			</li>
 			
 		</ol>

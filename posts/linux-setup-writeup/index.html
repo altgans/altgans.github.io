@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Eleventy v3.1.2">
   <link rel="stylesheet" href="/styles.css">
-<title>Altgans—Schreiben I - Be my boyfriend! [DE]</title>
+<title>Altgans—New Linux setup, who this?</title>
 </head>
 <body class="w-full h-screen flex flex-col bg-gray-500">
 		
 <div class="mx-auto px-4 py-12 sm:px-6 md:max-w-3xl lg:max-w-4xl w-full">	
 	<head >
-		<p class="text-gray-200 italic">2025-08-30 </p>
-		<h1 class="text-white text-4xl font-bold mb-2">Schreiben I - Be my boyfriend! [DE]</h1>
+		<p class="text-gray-200 italic">2025-11-06 </p>
+		<h1 class="text-white text-4xl font-bold mb-2">New Linux setup, who this?</h1>
 	</head>
 	<main class="bg-gray-300 markdown p-4">
 
@@ -22,21 +22,94 @@
 			<a href="/index.html" class="text-blue-600 underline pl-1">← Back to Home</a>
 		</p> 
 		<article>
-			<h4>Kurzfassung</h4>
-<blockquote>
-<p>Dämon schwimmt durch die primordiale Ewigkeit und wartet auf seine nächste Beschwörung. Denkt über seine bisherige Lebensleistung und Meisterwerke nach. Wird beschworen, von einer jungen Frau. Die Frau möchte, dass er ihr fester Freund wird. Romantikkomödie.</p>
-</blockquote>
-<p>...</p>
-<p>&quot;Sprich, Sterbliche, was ist dein Begehr?&quot;</p>
-<p>Sebas schaute sich im Raum herum. Die ersten Sekunden einer neuen Beschwörung waren immer die schwierigsten. Wer weiß, was einen erwartete? Ein Blutopfer? Schwierig. Eine Seelensuche? Noch schwieriger. Ein Altar der ewigen Dämmerung? Bitte nicht.</p>
-<p>Aber es war keine Gruft voller Kultisten in dunklen Roben. Auch kein Hügelgrab bei Mitternacht. Noch nicht einmal ein finsterer Wald. Es war ein Zimmer. Etwas unaufgeräumt, mit einem großen Bett in der Mitte. Links ein Nachttisch voller okulter Bücher, rechts eine Kommode mit einem Schminktisch und einem großen, rosanen Spiegel. Davor etliche Statullen, Kästchen, silberner Schmuck. Zwei große Kleiderschränke, einer davon offen und zum Bersten mit schwarzen Kleidern gefüllt. Am Boden lauter Zettel. Ein Bannkreis, und davor.. eine junge Frau.</p>
-<p>Sebas betrachtete die Frau. Lila Lippenstift, lila Nagellack und lila Haar. Fahle Haut, schwarze Augenringe. Der Duft von Zitronenshampoo und Erde. Die Frau schaute zurück, holte tief Luft und platzte mit ihrem Wunsch heraus.</p>
-<p>&quot;Be my boyfriend!&quot;</p>
-<p>&quot;Was?&quot;</p>
-<p>&quot;Du sollst mein fester Freund sein! Mit mir ins Kino gehen, Shoppen, Essen. Zusammen in den Urlaub fahren, romantisch am Strand spazieren gehen, in der Sonne liegen, mich einkremen. Du wirst mir Kürbis Matcha Latte bringen wenn es mir nicht gut geht, mir immer gut zuhören und alle meine Sorgen verstehen. Du wirst mir mit meiner Abschlussarbeit helfen, Bilder für mich aufhängen, meine Sachen tragen, für mich kochen, und abends werden wir zusammen auf der Couch liegen, Romantikkomödien schauen und..&quot; Die junge Frau errötete.</p>
-<p>Sebas nutzte die Gelegenheit um nachzuhaken.</p>
-<p>&quot;Ich soll dein Sklave sein?&quot;</p>
-<p>&quot;Nein, mein Boyfriend.&quot;</p>
+			<p>This is a more readable and opinionated version of my <a href="/posts/linux-setup/">Linux setup</a> logbook.
+Where the former describes the journey,
+this post only has the results.</p>
+<h1>New Linux setup, who this?</h1>
+<p>When setting up a new <em>rice</em>, there are three separate modules that interchangeably sit on top of each other.</p>
+<ul>
+<li>
+<p>Linux system</p>
+</li>
+<li>
+<p>DE/WM and all the graphical elements like GTK-Theme, icons, statusbar, ..</p>
+</li>
+<li>
+<p>The terminal emulator and shell tools</p>
+</li>
+</ul>
+<h2>Base Linux</h2>
+<p>Arch, obviously. Manjaro, to be more specific. Why? Because I prefer the stable updates instead of a rolling package model. Maybe I am too old, but I prefer something that just works, has batteries included and doesn't crash over the <em>bleeding edge</em>. #philosophy</p>
+<p>Things left to do</p>
+<ul>
+<li>disk encryption setup (LUKS?)</li>
+</ul>
+<h2>## GUI layer</h2>
+<p>The WM, statusbar, icons, theme and all non-terminal/GUI applications.</p>
+<h3>Window Manager (WM)</h3>
+<p>Niri, where have you been all my life? Imo, the current holy grail of window management on a Linux laptop. Infinite scrolling columns make my 15 Inch laptop appear way bigger than it is.</p>
+<p>Things to improve the default <code>niri</code> setup with:</p>
+<ul>
+<li>
+<p>Some way of easy window management, because I get lost in not-yet-closed windows.</p>
+<ul>
+<li><code>niriswitcher</code>, <code>nirius</code></li>
+</ul>
+</li>
+<li>
+<p>I wish for a way to designate tags and then jump to the tagged window, similar how I have designated workspaces on <em>sway</em> that I can jump to</p>
+</li>
+<li>
+<p>parallax :)</p>
+</li>
+</ul>
+<h3>Statusbar</h3>
+<p>Quickshell/Noctalia. Batteries included, easy install. It works, it is responsive, It has IPC to easily set hotkeys, it looks amazing.</p>
+<p>Things to improve</p>
+<ul>
+<li>Nothing</li>
+</ul>
+<h3>Theme</h3>
+<p>Juno-Filelight for the theme, and Papirus-Dark for icons. My favorite DotA2 wallpaper (TODO link to wallpaper)</p>
+<p>Things to improve</p>
+<ul>
+<li>
+<p>I wish I knew how to set a system-wide cursor :(</p>
+</li>
+<li>
+<p>I'd like to have a more sane way to manage the theme. I edited around 5 config files and then also needed to install <code>gnome-tweaks</code>, <code>lxappearance</code> and <code>kvantummanager</code> to set everything. Hey, at least it works and looks like a unified design now :)</p>
+</li>
+</ul>
+<h3>File Manager</h3>
+<p>Nemo as file manager. I prefer it over PcManFM, which I used for quite a long time.</p>
+<ul>
+<li>Needed to run a random command to set the open-with-terminal terminal correctly</li>
+</ul>
+<h3>Launcher</h3>
+<p>Fuzzel. I tried <code>anyrun</code> and <code>walker</code> aswell, but they were either ugly, didn't run or were diffcult to configure. Or all of them :)</p>
+<ul>
+<li>
+<p>I combine <code>fuzzel -d</code> with <code>rofimoji</code> as emoji and unicode selector</p>
+</li>
+<li>
+<p>I added <code>.desktop</code> files for my internal websites and dashboards, e.g. to directly launch the GUI of Synology, Syncthing, Pi-Hole or router</p>
+</li>
+</ul>
+<h3>Image Viewer</h3>
+<p>Lightningview as default image viewer. Very fast. Nothing special.</p>
+<p>Oculante as featureful image viewer.</p>
+<ul>
+<li>I don't like the UI theme, but no idea how to change it. Maybe disable the window decorations?</li>
+</ul>
+<h3>Document Viewer</h3>
+<p>TODO PDF <code>zathura</code>? <code>Document Viewer</code>?</p>
+<p>Calibre for ebook management. Self-explanatory for everyone who reads.</p>
+<ul>
+<li>I use a Kobo BW reader with Plato as reader application. I don't recommend the default Kobo, but Plato is amazing.</li>
+</ul>
+<h2>Shell layer</h2>
+<h3>Terminal</h3>
+<h3>Shell</h3>
 
 		</article>
 	</main>

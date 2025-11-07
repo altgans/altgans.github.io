@@ -942,6 +942,81 @@ I needed to first toggle it a few times in <code>blueman</code>/<code>bluetoothc
 <p>2025-11-03 21:00
 Wrote a bit more about my editor setup and choice &gt;&gt; <a href="/posts/texteditor-vs-markdown-editor/">Texteditor vs Markdown Editor vs IDEs</a>
 TODO set up <a href="https://sioyek.info/">Sioyek</a> as PDF viewr</p>
+<p>2025-11-06 15:44
+looking into local LLMs
+installed <code>ollama</code>, <code>golama</code> and <code>LM studio</code>
+TODO set up photo management and tagging for my holiday pictures and snapshots
+TODO set up a document management (paperless?)
+removed <code>marketext</code>, as I use <code>nvim</code> exclusively now
+DONE also install whisperAI -- <code>vibe transcribe</code>, <code>whisper-gui</code> or <code>handy tts</code>?
+installed <code>vibe</code>
+downloading AI models
+TODO AI TTS -- <code>chatterbox</code>, <code>tortoise tts</code>?</p>
+<p>2025-11-06 16:31
+change from <code>pip</code> to <code>uv</code>
+all the LLM tools make it necessary to have a more robust python setup
+The OSS 20B-ChatGPT is pretty useless :)</p>
+<p>2025-11-06 17:46
+added <code>~/.lmstudio/models</code> to my rysnc-ignore, so I don't backup 20 GB+ files</p>
+<p>2025-11-06 19:14
+DONE set up local CLI dictionary
+<code>dict</code> is the way to go,
+although there is also <code>stardict</code>
+unfortunately not all the <a href="https://download.freedict.org/dictionaries/">dictionaries</a> are available in the AUR</p>
+<p>2025-11-06 20:34
+set up <code>sdcv</code>/<code>stardict</code> by downloading a bunch of dictionaries into my <code>set -xU STARDICT_DATA_DIR /home/&lt;user&gt;/.stardict/</code> folder
+needed to untar them: <code>for file in *.tar.xz; tar -xf $file; end</code>
+the output is ugly and contains HTML tags..</p>
+<p>2025-11-06 21:24
+downloaded a bunch more dictionary files from FreeDict
+find all <code>.dict.dz</code> and <code>.index</code> files in current dir and move them to parent</p>
+<pre><code class="language-fish">find . -type f \( -name &quot;*.dict.dz&quot; -o -name &quot;*.index&quot; \) | while read -l f
+	# dry run
+	echo mv $f (dirname (dirname $f))/
+	# set parent (dirname (dirname $f))
+	# sudo mv $f $parent/
+end
+</code></pre>
+<p>list all folders in current dir: <code>ls -d */</code>
+delete all folders in current dir: <code>sudo trash */</code></p>
+<p>2025-11-06 21:29
+I also installed the <code>devil</code> dictionary, lol</p>
+<p>2025-11-06 21:45
+needed to collect all the .dict.dz and .index files in <code>/usr/share/dictd</code> and write them to <code>/etc/dict/dict.conf</code>.</p>
+<pre><code class="language-fish">#!/usr/bin/env fish
+
+# Directory containing the dict files
+set dictdir &quot;/usr/share/dictd&quot;
+
+# Output file
+set outfile &quot;dictd.conf&quot;
+
+# Clear or create the output file
+echo &quot;&quot; &gt; $outfile
+
+# Loop over all *.dict.dz files in the directory
+for datafile in (ls $dictdir/*.dict.dz)
+    # Extract the base name without extension (e.g., ara-eng)
+    set basename (basename $datafile .dict.dz)
+
+    # Write the config block
+    echo &quot;database $basename {&quot; &gt;&gt; $outfile
+    echo &quot;	data $dictdir/$basename.dict.dz&quot; &gt;&gt; $outfile
+    echo &quot;	index $dictdir/$basename.index&quot; &gt;&gt; $outfile
+    echo &quot;}&quot; &gt;&gt; $outfile
+    echo &quot;&quot; &gt;&gt; $outfile
+end
+
+echo &quot;Generated $outfile&quot;
+</code></pre>
+<p>it would be nice to have the phonetics for both languages, but who am I to complain?</p>
+<p>2025-11-07 13:31
+TODO set up compose key (or unicode picker) for language cleaning</p>
+<blockquote>
+<blockquote>
+<p><a href="/posts/daily-french/">Daily French</a></p>
+</blockquote>
+</blockquote>
 
 		</article>
 	</main>
@@ -1046,6 +1121,10 @@ TODO set up <a href="https://sioyek.info/">Sioyek</a> as PDF viewr</p>
 			</li>
 			
 			<li>
+				<a href="/posts/creativity-cognition-and-writing/" class="text-blue-600 underline">Creativity, Cognition and why I write</a>
+			</li>
+			
+			<li>
 				<a href="/posts/jj-dotfiles/" class="text-blue-600 underline">Dotfiles with Jujutsu (jj)</a>
 			</li>
 			
@@ -1079,6 +1158,38 @@ TODO set up <a href="https://sioyek.info/">Sioyek</a> as PDF viewr</p>
 			
 			<li>
 				<a href="/posts/texteditor-vs-markdown-editor/" class="text-blue-600 underline">Texteditor vs Markdown Editor vs IDEs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/lanugage-learning-anki-pipeline/" class="text-blue-600 underline">Language learning Anki pipeline</a>
+			</li>
+			
+			<li>
+				<a href="/posts/new-laptop/" class="text-blue-600 underline">Things to note when buying a new laptop</a>
+			</li>
+			
+			<li>
+				<a href="/posts/thoughleaders/" class="text-blue-600 underline">Thoughtleaders</a>
+			</li>
+			
+			<li>
+				<a href="/posts/linux-setup-writeup/" class="text-blue-600 underline">New Linux setup, who this?</a>
+			</li>
+			
+			<li>
+				<a href="/posts/get-a-project-going/" class="text-blue-600 underline">How to get a project going</a>
+			</li>
+			
+			<li>
+				<a href="/posts/daily-french/" class="text-blue-600 underline">Daily French</a>
+			</li>
+			
+			<li>
+				<a href="/posts/local-llm/" class="text-blue-600 underline">Local LLMs</a>
+			</li>
+			
+			<li>
+				<a href="/posts/game-design/" class="text-blue-600 underline">Notes About Game Design</a>
 			</li>
 			
 		</ol>
