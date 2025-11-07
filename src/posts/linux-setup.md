@@ -1085,3 +1085,6 @@ it would be nice to have the phonetics for both languages, but who am I to compl
 TODO set up compose key (or unicode picker) for language cleaning
 >> [[daily-french]]
 
+2025-11-07 18:45
+found out that `C-Ret` makes a window fullscreen in niri
+E: it seems to just make the terminal fullscreen, so I guess ghostty specific?

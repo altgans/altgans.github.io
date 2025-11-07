@@ -20,9 +20,14 @@ Not sure why I come back to `nvim` all the time, especially as there are new coo
 
 ## Batteries included
 
-Lazyvim, cause the maintainer seems like a cool guy. There are some other projects, but they felt too complicated/complex/opinionated.
+LazyVim, cause the maintainer seems like a cool guy. There are some other projects, but they felt too complicated/complex/opinionated.
 
 Note: This means that I assume lazyvim-style config folder
+
+## Recommended reading
+
+For a better introduction of all LazyVim features, 
+I recommend [this](https://lazyvim-ambitious-devs.phillips.codes/course/chapter-1/) book.
 
 ## Some Vim Terminology
 
@@ -113,7 +118,30 @@ But after I enter my project folder,
 I seem to lose this ability.
 How can I open the LazyVim config from anywhere?
 
-TODO maybe via _projects_?
+With `:lua Snacks.dashboard()` we can open the initial dashboard.
+Not the biggest win,
+but I take it.
+
+E: Found it! 
+All we need to do is press `<leader>fc` to _find config file_. 
+
+## Understand options merging
+
+TODO I never understood the options tables;
+do they get merged by default?
+I.e. do my modifications overwrite the defaults,
+but otherwise leave the defaults intact?
+Or do I overwrite everything?
+
+Read and understand [Chapter 5: Plugin Basics](https://lazyvim-ambitious-devs.phillips.codes/course/chapter-5/#_customizing_mini_files_options)
+
+E: It seems that,
+indeed,
+the `opts` tables get merged.
+No more copying all the _opts_ from LazyVim!
+
+This also means that it is _not_ necessary to copy plugin defaults.
+Only change what is necessary!
 
 ## How to apply config changes to my running buffer
 
@@ -122,6 +150,10 @@ I don't want to need to reload my current vim session,
 but instead be able to apply the config changes to the running session directly.
 
 Maybe 'sourcing' is the right term?
+
+There seems to be a [way](https://github.com/folke/lazy.nvim/issues/445),
+but I am a bit sceptic.
+I guess I will stick to exit-and-restart.
 
 ## Disabling a plugin
 
@@ -516,6 +548,15 @@ I noticed that _>>_ got rendered as ▋ in some cases.
 After some digging,
 I found [the culprint](https://github.com/MeanderingProgrammer/render-markdown.nvim?tab=readme-ov-file#block-quotes).
 
+## Markdown Sticky Headings
+
+Using `nvim-treesitter-context`,
+the current context sticks to the top.
+This is mostly relevant for deeply nested code functions,
+but in markdown buffers this translates to keeping the heading sticky,
+if it were to move off-screen. 
+(For example when writing a very long section.) 
+
 ## Markdown Image Preview
 ## Markdown Paste Image 
 ## Markdown Add Matching _* in Markdown buffers
@@ -548,11 +589,54 @@ where I insert the preview of that weeks calendar.
 
 I'd like to be able to hop to my projects (git root folders). 
 Do I need to do this via `yazi` or `z` in the CLI,
-or is there a neovim way to do this?
+or is there a LazyVim way to do this?
+
+E: We can do `<leader>fp`,
+although I don't understand the criteria for the displayed project folders.
+
+E2: The criteria can be defined in the config ([snacks.nvim/docs/picker.md](https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#projects)); 
+by default the projects picker looks for `.git` folders.
+
+I extended the config with some hard-coded `.config` folders, 
+such as my fish and niri config.
+
+```lua
+{
+        "folke/snacks.nvim",
+        opts = {
+                picker = {
+                    sources = {
+                        projects = {
+                            dev = { "~/Projects/webdev/", "~/.config/" },
+                            patterns = { ".git", ".sln" },
+                            projects = { "~/.config/fish/" },
+                        },
+                    },
+                },
+            }
+    },
+```
+
+
+## Neovim More Picker Sources
+
+[snacks.nvim/docs/picker](https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#-sources) has a lot more sources than what I currently use.
+TODO set up more sources,
+such as cliphist, ... 
+(not sure I actually need all of them)
 
 ## Markdown Mindmaps
 
 Use Markmap
+
+## Version Control with LazyGit
+
+LazyGit, not related to LazyVim(TM).
+
+We can do `<spc>gg` to open LazyGit.
+However,
+I wanted to move to `jiujutsu`,
+so let's see for how long this stays useful.
 
 ## Other / Advanced
 
