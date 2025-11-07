@@ -410,7 +410,14 @@ but this creates it in the _root dir_.
 How to create the new file directly in the calling dir?
 Preferably from a [[#Neovim Create New File From Template|template]].
 
-TODO
+See working directory with `:pwd`.
+Expand working dir with e.g. `:e %<tab>`.
+Get just the folder (head) with `:e %:h<tab>`.
+Create new file in working folder: `:e %:h/<filename>`.
+
+Alternatively,
+this can be done via the File Picker;
+`<leader>ea` to add a new file.
 
 ## Neovim Create New File From Template
 
