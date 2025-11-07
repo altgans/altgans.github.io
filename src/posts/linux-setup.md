@@ -1081,3 +1081,7 @@ echo "Generated $outfile"
 ```
 it would be nice to have the phonetics for both languages, but who am I to complain?
 
+2025-11-07 13:31
+TODO set up compose key (or unicode picker) for language cleaning
+>> [[daily-french]]
+

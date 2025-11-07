@@ -293,6 +293,25 @@ To add a word to our wordlist (`spellfile`),
 i.e. notifying the program that it is spelled correctly,
 we do `zg`.
 
+## Neovim Multiple Dictionaries
+
+For the spell checker,
+it is set to EN by default.
+I write in multiple languages though,
+and would like to check all of them (or at least switch amongst them).
+
+TODO
+
+## Neovim Create New File From Template
+
+I'd like to emulate the Obsidian 'weekly notes' functionality,
+where I can create a new note from a template in a specific folder.
+This will also be very helpful to quickly pre-set a new blog post.
+(Well, 
+to be fair,
+I don't post,
+I produce micro-snippets of content 😁)
+
 ## How to count words
 
 Words are a terrible metric for writing productivity,
