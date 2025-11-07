@@ -38,8 +38,11 @@
 <li>editor for writing novels and world-building</li>
 </ul>
 <h2>Batteries included</h2>
-<p>Lazyvim, cause the maintainer seems like a cool guy. There are some other projects, but they felt too complicated/complex/opinionated.</p>
+<p>LazyVim, cause the maintainer seems like a cool guy. There are some other projects, but they felt too complicated/complex/opinionated.</p>
 <p>Note: This means that I assume lazyvim-style config folder</p>
+<h2>Recommended reading</h2>
+<p>For a better introduction of all LazyVim features,
+I recommend <a href="https://lazyvim-ambitious-devs.phillips.codes/course/chapter-1/">this</a> book.</p>
 <h2>Some Vim Terminology</h2>
 <ul>
 <li>buffer :: the 'file', i.e. the text that you load and edit
@@ -125,12 +128,32 @@ I can press <code>c</code> to jump to the config folder.
 But after I enter my project folder,
 I seem to lose this ability.
 How can I open the LazyVim config from anywhere?</p>
-<p>TODO maybe via <em>projects</em>?</p>
+<p>With <code>:lua Snacks.dashboard()</code> we can open the initial dashboard.
+Not the biggest win,
+but I take it.</p>
+<p>E: Found it!
+All we need to do is press <code>&lt;leader&gt;fc</code> to <em>find config file</em>.</p>
+<h2>Understand options merging</h2>
+<p>TODO I never understood the options tables;
+do they get merged by default?
+I.e. do my modifications overwrite the defaults,
+but otherwise leave the defaults intact?
+Or do I overwrite everything?</p>
+<p>Read and understand <a href="https://lazyvim-ambitious-devs.phillips.codes/course/chapter-5/#_customizing_mini_files_options">Chapter 5: Plugin Basics</a></p>
+<p>E: It seems that,
+indeed,
+the <code>opts</code> tables get merged.
+No more copying all the <em>opts</em> from LazyVim!</p>
+<p>This also means that it is <em>not</em> necessary to copy plugin defaults.
+Only change what is necessary!</p>
 <h2>How to apply config changes to my running buffer</h2>
 <p>After I change the config,
 I don't want to need to reload my current vim session,
 but instead be able to apply the config changes to the running session directly.</p>
 <p>Maybe 'sourcing' is the right term?</p>
+<p>There seems to be a <a href="https://github.com/folke/lazy.nvim/issues/445">way</a>,
+but I am a bit sceptic.
+I guess I will stick to exit-and-restart.</p>
 <h2>Disabling a plugin</h2>
 <p>We can do <code>enabled=false</code> in the config.</p>
 <pre><code class="language-lua">return {
@@ -426,6 +449,13 @@ However,
 I noticed that <em>&gt;&gt;</em> got rendered as ▋ in some cases.
 After some digging,
 I found <a href="https://github.com/MeanderingProgrammer/render-markdown.nvim?tab=readme-ov-file#block-quotes">the culprint</a>.</p>
+<h2>Markdown Sticky Headings</h2>
+<p>Using <code>nvim-treesitter-context</code>,
+the current context sticks to the top.
+This is mostly relevant for deeply nested code functions,
+but in markdown buffers this translates to keeping the heading sticky,
+if it were to move off-screen.
+(For example when writing a very long section.)</p>
 <h2>Markdown Image Preview</h2>
 <h2>Markdown Paste Image</h2>
 <h2>Markdown Add Matching _* in Markdown buffers</h2>
@@ -449,9 +479,41 @@ where I insert the preview of that weeks calendar.</p>
 <h2>How to manage projects?</h2>
 <p>I'd like to be able to hop to my projects (git root folders).
 Do I need to do this via <code>yazi</code> or <code>z</code> in the CLI,
-or is there a neovim way to do this?</p>
+or is there a LazyVim way to do this?</p>
+<p>E: We can do <code>&lt;leader&gt;fp</code>,
+although I don't understand the criteria for the displayed project folders.</p>
+<p>E2: The criteria can be defined in the config (<a href="https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#projects">snacks.nvim/docs/picker.md</a>);
+by default the projects picker looks for <code>.git</code> folders.</p>
+<p>I extended the config with some hard-coded <code>.config</code> folders,
+such as my fish and niri config.</p>
+<pre><code class="language-lua">{
+        &quot;folke/snacks.nvim&quot;,
+        opts = {
+                picker = {
+                    sources = {
+                        projects = {
+                            dev = { &quot;~/Projects/webdev/&quot;, &quot;~/.config/&quot; },
+                            patterns = { &quot;.git&quot;, &quot;.sln&quot; },
+                            projects = { &quot;~/.config/fish/&quot; },
+                        },
+                    },
+                },
+            }
+    },
+</code></pre>
+<h2>Neovim More Picker Sources</h2>
+<p><a href="https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#-sources">snacks.nvim/docs/picker</a> has a lot more sources than what I currently use.
+TODO set up more sources,
+such as cliphist, ...
+(not sure I actually need all of them)</p>
 <h2>Markdown Mindmaps</h2>
 <p>Use Markmap</p>
+<h2>Version Control with LazyGit</h2>
+<p>LazyGit, not related to LazyVim(TM).</p>
+<p>We can do <code>&lt;spc&gt;gg</code> to open LazyGit.
+However,
+I wanted to move to <code>jiujutsu</code>,
+so let's see for how long this stays useful.</p>
 <h2>Other / Advanced</h2>
 <ul>
 <li>maybe set up https://github.com/seth-brown/formd as described in https://aliquote.org/post/neovim-markdown/ to collect inline-references at the bottom, instead of in the text.</li>
