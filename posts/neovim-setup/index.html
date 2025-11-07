@@ -349,7 +349,13 @@ MAYBE,
 but this creates it in the <em>root dir</em>.
 How to create the new file directly in the calling dir?
 Preferably from a <a href="/#Neovim Create New File From Template">template</a>.</p>
-<p>TODO</p>
+<p>See working directory with <code>:pwd</code>.
+Expand working dir with e.g. <code>:e %&lt;tab&gt;</code>.
+Get just the folder (head) with <code>:e %:h&lt;tab&gt;</code>.
+Create new file in working folder: <code>:e %:h/&lt;filename&gt;</code>.</p>
+<p>Alternatively,
+this can be done via the File Picker;
+<code>&lt;leader&gt;ea</code> to add a new file.</p>
 <h2>Neovim Create New File From Template</h2>
 <p>I'd like to emulate the Obsidian 'weekly notes' functionality,
 where I can create a new note from a template in a specific folder.
