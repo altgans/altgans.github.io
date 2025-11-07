@@ -24,6 +24,19 @@ Lazyvim, cause the maintainer seems like a cool guy. There are some other projec
 
 Note: This means that I assume lazyvim-style config folder
 
+## Some Vim Terminology
+
+- buffer :: the 'file', i.e. the text that you load and edit
+    - there are also helper buffers that show something different, such as a file picker or side bar
+- window :: the pane where the buffer gets displayed in
+- frame :: the big border around the application, where the `Minimize | Resize | Close` buttons are.
+    - In windows, this is the 'Window'
+- bufferline :: the status bar at the bottom
+    - most likely shows the editing mode, the row and column number, ...
+- tabline :: the status bar at the top, which shows the open buffers
+- leader key :: most likely the space key, but can be configured
+- yank / paste :: copy / paste
+
 ## Listing all the plugins installed
 
 A list of installed plugins can be retrieved from the `lazy-lock.json` in the _nvim_ folder. 
@@ -92,10 +105,46 @@ which-key.nvim	https://github.com/folke/which-key.nvim
 yanky.nvim	https://github.com/gbprod/yanky.nvim
 ```
 
+## Open the LazyVim config 
+
+When starting LazyVim,
+I can press `c` to jump to the config folder.
+But after I enter my project folder,
+I seem to lose this ability.
+How can I open the LazyVim config from anywhere?
+
+TODO maybe via _projects_?
+
+## How to apply config changes to my running buffer
+
+After I change the config,
+I don't want to need to reload my current vim session,
+but instead be able to apply the config changes to the running session directly.
+
+Maybe 'sourcing' is the right term?
+
+## Disabling a plugin
+
+We can do `enabled=false` in the config.
+
+```lua
+return {
+  -- disable trouble
+  { "folke/trouble.nvim", enabled = false },
+}
+```
+
+Source: [Plugins | LazyVim](https://www.lazyvim.org/configuration/plugins#-disabling-plugins)
+
 
 ## Change which-key description to name the plugin
 
-Example: `<spc>sr` opens search & replace, which actually is `grug-far.nvim` under the hood. I want understand all of this, to better be able to find help and guidance.
+Example: `<spc>sr` opens search & replace,
+which actually is `grug-far.nvim` under the hood.
+I want understand all of this,
+to better be able to find help and guidance.
+
+TODO: change the keymap descriptions to also show the originating plugin
 
 ## How to collapse Markdown headings
 
@@ -182,7 +231,7 @@ N = normal mode, V = visual mode, I = insert mode
   - `<leader>sb` :: buffer line search (find words/lines)
 
 
-## Navigate with Markdown Treesitter Textobjects
+
 ## Indent lists and text in Markdown files
 
 - smark.nvim :: better list handling
@@ -223,18 +272,9 @@ _Hint: Switch to the newly opened window with `<spc>ww`._
 A better way is to use the Telescope symbol picker,
 `<leader>ss` (local) or `<leader>sS` (across project root).
 
-## Disabling a plugin
-
-We can do `enabled=false` in the config.
-
-```lua
-return {
-  -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
-}
-```
-
-Source: [Plugins | LazyVim](https://www.lazyvim.org/configuration/plugins#-disabling-plugins)
+Additionally,
+there is Aerial,
+which can be opened with `<leader>cs` to show an outline of LSP symbols in the current buffer.
 
 ## Jump to visible word
 
@@ -244,8 +284,57 @@ followed by the auto-generated jump mark.
 
 This uses [folke/flash.nvim](https://github.com/folke/flash.nvim?tab=readme-ov-file)
 
-## Text surround
+## Incremental selection 
 
+Found this in a [random blog](https://www.josean.com/posts/nvim-treesitter-and-textobjects);
+`C-spc` allows to incrementally select the current TS Node/block.
+
+TODO: Find more nifty tricks and keybinds for Treesitter selections.
+(Above blog is a good start).
+
+## Markdown Jump to start/end of code block
+
+Not perfect, 
+but `[i` and `]i` work to jump to _edge of scope_
+whatever that means.
+
+NOTE: doesn't always work..
+
+There is also `:InspectTree`, 
+which shows all the symbols in a buffer.
+My guess is that we can write a function to target the start/end of code blocks here.
+
+## Navigate with Markdown Treesitter Textobjects
+
+TODO I only found `]m` so far.
+I'd like to have a list of granular text objects I can jump to.
+
+Seems to be done with either 
+[nvim-treesitter/nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
+or 
+[folke/flash.nvim](https://github.com/folke/flash.nvim?tab=readme-ov-file).
+
+>> [[#Jump to visible word]]
+
+## Highlight duplicate words under cursor
+
+Useful for writing and editing, 
+where I want to know if I already used the word in previous paragraphs.
+
+DONE Maybe with [RRethy/vim-illuminate](https://github.com/RRethy/vim-illuminate)
+
+## Markdown Move Headings up/down
+
+Emacs Orgmode does this,
+and it is really useful.
+
+TODO Maybe with [nvim-mini/mini.move](https://github.com/nvim-mini/mini.move)?
+
+## Jump to next/prev misspell
+
+Jump with `]s` and `[s`
+
+## Text surround
 
 Install `mini.surround`. 
 Then select text (`viw`) and surround with `gsa`.
@@ -299,6 +388,27 @@ For the spell checker,
 it is set to EN by default.
 I write in multiple languages though,
 and would like to check all of them (or at least switch amongst them).
+
+TODO
+
+## Neovim Make Upper/Lowercase
+
+Use `gU` for UPPERCASE and `gu` for _lowercase_.
+
+## Neovim Navigate TODOs in file
+
+TODO I want to see and move amongst my todos.
+I also want to expand this for other markers,
+such as NOTE, 
+MAYBE,
+...
+
+## Neovim Create New File in Working Directory
+
+I can create a new file with `:n <filename>`,
+but this creates it in the _root dir_.
+How to create the new file directly in the calling dir?
+Preferably from a [[#Neovim Create New File From Template|template]].
 
 TODO
 
@@ -408,7 +518,7 @@ It annoys me that `_` (_italic_) and `*` (**bold**))) don't auto-close.
 TODO left for the future.
 `mini.pairs` doesn't support per-filetype config,
 and I didn't feel like setting generic pairing rules and then needing to write autocommands.
-See [How do I disable mini.pairs for markdown files? (My autocmd isn't working) · nvim-mini/mini.nvim · Discussion #805](https://github.com/nvim-mini/mini.nvim/discussions/805)
+See [How do I disable mini.pairs for markdown files?](https://github.com/nvim-mini/mini.nvim/discussions/805)
 Another approach would be to _surround_ the word with aforementioned characters.
 This works for `_`,
 but not for double `**`.
@@ -427,6 +537,16 @@ This could be useful,
 for example for a weekly summary of my week,
 where I insert the preview of that weeks calendar.
 
+## How to manage projects?
+
+I'd like to be able to hop to my projects (git root folders). 
+Do I need to do this via `yazi` or `z` in the CLI,
+or is there a neovim way to do this?
+
+## Markdown Mindmaps
+
+Use Markmap
+
 ## Other / Advanced
 
 - maybe set up https://github.com/seth-brown/formd as described in https://aliquote.org/post/neovim-markdown/ to collect inline-references at the bottom, instead of in the text.
@@ -444,4 +564,7 @@ where I insert the preview of that weeks calendar.
 - markdown download -- [deathau/markdownload: A Firefox and Google Chrome extension to clip websites and download them into a readable markdown file.](https://github.com/deathau/markdownload)
   - use emacs org-roam-protocol? for download?
 - undo history -- https://github.com/y3owk1n/time-machine.nvim
+	- Understand [gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim](https://github.com/gbprod/yanky.nvim) yank history picker
+- [ThePrimeagen/refactoring.nvim: The Refactoring library based off the Refactoring book by Martin Fowler](https://github.com/ThePrimeagen/refactoring.nvim)
+- Set up multi-lang spell :: [Spellcheck multiple languages in Neovim](https://willcodefor.beer/posts/spellnvim)
 

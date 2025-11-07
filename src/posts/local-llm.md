@@ -23,7 +23,10 @@ Other stuff to know:
     - This also explains the hype around Apple M-CPUs: They share RAM and VRAM, which is more useful than the common x86 CPU architecture
 - ( RAM + VRAM ) / 2 = ~ the size of the model you can use (in Billions of tokens)
     - I have 30 GB of RAM and 12 GB of VRAM (lucky!), which means I can use a 20B model
-- Prefer uncensored models for more fun and less censorship. No more "I'm sorry, but I can't do that!", Clippy!
+- Prefer uncensored models for more fun and less censorship. 
+    - No more "I'm sorry, but I can't do that!", Clippy!
+- The whole conversation stays in memory and is used as 'tokens'. That means, that, the longer the conversation goes, the more random context from the previous chat gets used. 
+    - I understand this so, that it is better to star a new conversation instead of letting the existing conversation go too long.
 
 Interesting links:
 
@@ -248,7 +251,6 @@ Ok. Let's produce final answer.
 Also include IPA keys in square brackets at the beginning of each row? It's inside the column. We'll put them as [IPA].
 
 Let's produce now.
-
 ```
 
 ### The result
