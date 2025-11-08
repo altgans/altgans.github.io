@@ -558,7 +558,60 @@ if it were to move off-screen.
 (For example when writing a very long section.) 
 
 ## Markdown Image Preview
+
+Images in Markdown (and other files) can be previewed by snacks.nvim. 
+
+I disabled the inline preview with `inline = false`,
+so I only see the image when the cursor is on it.
+
+TODO check the image conceal levels with `render-markdown`,
+as the behaviour is not 100% smooth.
+
 ## Markdown Paste Image 
+
+Images can be pasted with [hakonharnes/img-clip.nvim](https://github.com/hakonharnes/img-clip.nvim),
+which works out of the box.
+
+However,
+I set a command to convert the image,
+and also a file-specific asset path,
+to allow for easier asset association.
+
+TODO put this into _pwd_ subordinate asset folder,
+as I post this on my Astro blog.
+Likely should also look how Obsidian does this,
+to ensure compability.
+
+```lua
+{
+        "HakonHarnes/img-clip.nvim",
+        enabled = true,
+        ft = { "markdown", "norg", "org", "vimwiki", "html", "text", "njk", "typst" },
+        event = "VeryLazy",
+        opts = {
+            -- recommended settings
+            default = {
+                embed_image_as_base64 = false,
+                prompt_for_file_name = false,
+                drag_and_drop = {
+                    insert_mode = true,
+                },
+                dir_path = function()
+                    return "assets/assets_" .. vim.fn.expand("%:t:r")
+                end,
+
+                process_cmd = "magick convert - -quality 85 -", -- compress the image with 85% quality
+                -- required for Windows users
+                -- use_absolute_path = true,
+            },
+        },
+        keys = {
+            { "<leader>mp", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+        },
+    }
+}
+```
+
 ## Markdown Add Matching _* in Markdown buffers
 
 It annoys me that `_` (_italic_) and `*` (**bold**))) don't auto-close.
