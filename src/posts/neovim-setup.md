@@ -127,7 +127,7 @@ All we need to do is press `<leader>fc` to _find config file_.
 
 ## Understand options merging
 
-TODO I never understood the options tables;
+TODO: I never understood the options tables;
 do they get merged by default?
 I.e. do my modifications overwrite the defaults,
 but otherwise leave the defaults intact?
@@ -240,7 +240,7 @@ I can do the following in my `markdown.json':
 ```
 
 
-TODO Additionally,
+TODO: Additionally,
 I'd like to append the datetime snippet to markdown headings.
 
 ## Multiple cursors
@@ -338,7 +338,7 @@ My guess is that we can write a function to target the start/end of code blocks 
 
 ## Navigate with Markdown Treesitter Textobjects
 
-TODO I only found `]m` so far.
+TODO: I only found `]m` so far.
 I'd like to have a list of granular text objects I can jump to.
 
 Seems to be done with either 
@@ -360,7 +360,7 @@ DONE Maybe with [RRethy/vim-illuminate](https://github.com/RRethy/vim-illuminate
 Emacs Orgmode does this,
 and it is really useful.
 
-TODO Maybe with [nvim-mini/mini.move](https://github.com/nvim-mini/mini.move)?
+TODO: Maybe with [nvim-mini/mini.move](https://github.com/nvim-mini/mini.move)?
 
 ## Jump to next/prev misspell
 
@@ -395,7 +395,7 @@ When writing,
 I want `blink.cmp` to recommend me words from my set up dictionaries and spell
 lists.
 
-TODO FIXME This should be achievable with [Kaiser-Yang/blink-cmp-dictionary](https://github.com/Kaiser-Yang/blink-cmp-dictionary?tab=readme-ov-file#how-to-customize-the-command), 
+TODO: FIXME This should be achievable with [Kaiser-Yang/blink-cmp-dictionary](https://github.com/Kaiser-Yang/blink-cmp-dictionary?tab=readme-ov-file#how-to-customize-the-command), 
 however my autocompletions stay empty.
 
 ## Look up words in dictionary
@@ -455,7 +455,7 @@ Use `gU` for UPPERCASE and `gu` for _lowercase_.
 
 ## Neovim Navigate TODOs in file
 
-TODO I want to see and move amongst my todos.
+TODO: I want to see and move amongst my todos.
 I also want to expand this for other markers,
 such as NOTE, 
 MAYBE,
@@ -592,7 +592,7 @@ Images in Markdown (and other files) can be previewed by snacks.nvim.
 I disabled the inline preview with `inline = false`,
 so I only see the image when the cursor is on it.
 
-TODO check the image conceal levels with `render-markdown`,
+TODO: check the image conceal levels with `render-markdown`,
 as the behaviour is not 100% smooth.
 
 ## Markdown Paste Image 
@@ -605,7 +605,7 @@ I set a command to convert the image,
 and also a file-specific asset path,
 to allow for easier asset association.
 
-TODO put this into _pwd_ subordinate asset folder,
+TODO: put this into _pwd_ subordinate asset folder,
 as I post this on my Astro blog.
 Likely should also look how Obsidian does this,
 to ensure compatibility.
@@ -644,7 +644,7 @@ to ensure compatibility.
 
 It annoys me that `_` (_italic_) and `*` (**bold**))) don't auto-close.
 
-TODO left for the future.
+TODO: left for the future.
 `mini.pairs` doesn't support per-filetype config,
 and I didn't feel like setting generic pairing rules and then needing to write autocommands.
 See [How do I disable mini.pairs for markdown files?](https://github.com/nvim-mini/mini.nvim/discussions/805)
@@ -652,7 +652,7 @@ Another approach would be to _surround_ the word with aforementioned characters.
 This works for `_`,
 but not for double `**`.
 
-TODO find a way to repeat the first surround (`gsa`),
+TODO: find a way to repeat the first surround (`gsa`),
 so that the 2nd `*` is added.
 
 ## Send Links From Browser To Markdown
@@ -702,7 +702,7 @@ such as my fish and niri config.
 ## Neovim More Picker Sources
 
 [snacks.nvim/docs/picker](https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#-sources) has a lot more sources than what I currently use.
-TODO set up more sources,
+TODO: set up more sources,
 such as cliphist, ... 
 (not sure I actually need all of them)
 
