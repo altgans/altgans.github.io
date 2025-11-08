@@ -457,7 +457,50 @@ but in markdown buffers this translates to keeping the heading sticky,
 if it were to move off-screen.
 (For example when writing a very long section.)</p>
 <h2>Markdown Image Preview</h2>
+<p>Images in Markdown (and other files) can be previewed by snacks.nvim.</p>
+<p>I disabled the inline preview with <code>inline = false</code>,
+so I only see the image when the cursor is on it.</p>
+<p>TODO check the image conceal levels with <code>render-markdown</code>,
+as the behaviour is not 100% smooth.</p>
 <h2>Markdown Paste Image</h2>
+<p>Images can be pasted with <a href="https://github.com/hakonharnes/img-clip.nvim">hakonharnes/img-clip.nvim</a>,
+which works out of the box.</p>
+<p>However,
+I set a command to convert the image,
+and also a file-specific asset path,
+to allow for easier asset association.</p>
+<p>TODO put this into <em>pwd</em> subordinate asset folder,
+as I post this on my Astro blog.
+Likely should also look how Obsidian does this,
+to ensure compability.</p>
+<pre><code class="language-lua">{
+        &quot;HakonHarnes/img-clip.nvim&quot;,
+        enabled = true,
+        ft = { &quot;markdown&quot;, &quot;norg&quot;, &quot;org&quot;, &quot;vimwiki&quot;, &quot;html&quot;, &quot;text&quot;, &quot;njk&quot;, &quot;typst&quot; },
+        event = &quot;VeryLazy&quot;,
+        opts = {
+            -- recommended settings
+            default = {
+                embed_image_as_base64 = false,
+                prompt_for_file_name = false,
+                drag_and_drop = {
+                    insert_mode = true,
+                },
+                dir_path = function()
+                    return &quot;assets/assets_&quot; .. vim.fn.expand(&quot;%:t:r&quot;)
+                end,
+
+                process_cmd = &quot;magick convert - -quality 85 -&quot;, -- compress the image with 85% quality
+                -- required for Windows users
+                -- use_absolute_path = true,
+            },
+        },
+        keys = {
+            { &quot;&lt;leader&gt;mp&quot;, &quot;&lt;cmd&gt;PasteImage&lt;cr&gt;&quot;, desc = &quot;Paste image from system clipboard&quot; },
+        },
+    }
+}
+</code></pre>
 <h2>Markdown Add Matching _* in Markdown buffers</h2>
 <p>It annoys me that <code>_</code> (<em>italic</em>) and <code>*</code> (<strong>bold</strong>))) don't auto-close.</p>
 <p>TODO left for the future.
@@ -552,6 +595,23 @@ so let's see for how long this stays useful.</p>
 </li>
 <li><a href="https://github.com/ThePrimeagen/refactoring.nvim">ThePrimeagen/refactoring.nvim: The Refactoring library based off the Refactoring book by Martin Fowler</a></li>
 <li>Set up multi-lang spell :: <a href="https://willcodefor.beer/posts/spellnvim">Spellcheck multiple languages in Neovim</a></li>
+<li>cooler comments :: <a href="https://github.com/jameswolensky/marker-groups.nvim">GitHub - jameswolensky/marker-groups.nvim: Create persistent code notes without modifying code</a></li>
+<li>integrate with <a href="https://github.com/zk-org/zk?tab=readme-ov-file">GitHub - zk-org/zk: A plain text note-taking assistant</a>?
+<ul>
+<li>or <a href="https://github.com/obsidian-nvim/obsidian.nvim">GitHub - obsidian-nvim/obsidian.nvim: Obsidian 🤝 Neovim</a></li>
+</ul>
+</li>
+<li>a global note capturing system
+<ul>
+<li>an inbox system as demonstrated in <a href="https://github.com/y3owk1n/dotmd.nvim">y3owk1n/dotmd.nvim</a>?</li>
+</ul>
+</li>
+<li>create note under cursor, like in Obsidian</li>
+<li>text interlacing for multi-lang editing
+<ul>
+<li><a href="https://github.com/tanloong/interlaced.nvim">tanloong/interlaced.nvim</a> :: is this EN-CN only?</li>
+</ul>
+</li>
 </ul>
 
 		</article>
