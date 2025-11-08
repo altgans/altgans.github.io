@@ -1088,3 +1088,16 @@ TODO set up compose key (or unicode picker) for language cleaning
 2025-11-07 18:45
 found out that `C-Ret` makes a window fullscreen in niri
 E: it seems to just make the terminal fullscreen, so I guess ghostty specific?
+
+2025-11-08 12:45
+setting up Mullvad as VPN
+installed `mullvad-bin`
+removed `audacity`
+TODO fix my xdg-defaults
+
+2025-11-08 15:07
+TODO could look into [papis/papis](https://github.com/papis/papis) for managing sources, although I don't want to get into academia;
+maybe useful for capturing websites, videos, blogs, etc, and then refering to them in neovim. Or videos, movies I watched, books I read, to better identify patterns and great authors/artists
+TODO look into zk -- or better said, into any way to quickly capture thoughts from the CLI
+In that sense, I really hate 'todos'; I perceive them as strict and robotic, and believe they will break some time in the future, as humans are not robots
+

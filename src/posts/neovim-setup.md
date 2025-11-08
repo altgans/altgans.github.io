@@ -658,4 +658,13 @@ so let's see for how long this stays useful.
 	- Understand [gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim](https://github.com/gbprod/yanky.nvim) yank history picker
 - [ThePrimeagen/refactoring.nvim: The Refactoring library based off the Refactoring book by Martin Fowler](https://github.com/ThePrimeagen/refactoring.nvim)
 - Set up multi-lang spell :: [Spellcheck multiple languages in Neovim](https://willcodefor.beer/posts/spellnvim)
+- cooler comments :: [GitHub - jameswolensky/marker-groups.nvim: Create persistent code notes without modifying code](https://github.com/jameswolensky/marker-groups.nvim)
+- integrate with [GitHub - zk-org/zk: A plain text note-taking assistant](https://github.com/zk-org/zk?tab=readme-ov-file)?
+    - or [GitHub - obsidian-nvim/obsidian.nvim: Obsidian 🤝 Neovim](https://github.com/obsidian-nvim/obsidian.nvim)
+- a global note capturing system
+    - an inbox system as demonstrated in [y3owk1n/dotmd.nvim](https://github.com/y3owk1n/dotmd.nvim)?
+- create note under cursor, like in Obsidian
+- text interlacing for multi-lang editing
+    - [tanloong/interlaced.nvim](https://github.com/tanloong/interlaced.nvim) :: is this EN-CN only?
+    
 

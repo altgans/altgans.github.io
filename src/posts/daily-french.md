@@ -21,9 +21,7 @@ I notice that long log files (think 17th century captain's log of the Royal Brit
 It is easier to have a long-form dialogue that can be amended,
 instead of having to create the same file over and over.
 
-## Daily log of French
-
-### 2025-11-07 13:29
+## 2025-11-07 13:29
 
 Alors, commonceons!
 C'est un bonne journée,
@@ -88,3 +86,67 @@ Bonne journée !
 * *en nettoyer mes dents → et me brosser les dents* : correction lexicale et grammaticale.
 ```
 
+
+## 2025-11-08 14:03
+
+Aujourdhui,
+je veule ecire de mon expérience le journée passé.
+J'ai ete malade encore,
+mais je reconnetre avec mon ami à Filmbar.
+Nous converseons bon,
+et danceones aussi un peu de musique de 90s et 00s.
+
+Toujours,
+j'ai voire un video pour améliorer mes étudies Francais et mon vie,
+généralement.
+Je dois immerser moi en Francais divertissement,
+en qu'and je pense je suis fatigue,
+je ne suis fatigue pas,
+je suis ennuyeux!
+
+### Corrigez
+
+```markdown
+Bien sûr 😊 Corrigeons ton texte **et expliquons chaque correction** pour t’aider à comprendre et progresser.
+
+---
+
+### 📝 **Texte corrigé :**
+
+> Aujourd’hui,
+> je veux écrire sur mon expérience d’hier.
+> J’ai encore été malade,
+> mais j’ai retrouvé mon ami au Filmbar.
+> Nous avons bien discuté
+> et nous avons aussi dansé un peu sur de la musique des années 90 et 2000.
+>
+> Comme toujours,
+> j’ai regardé une vidéo pour améliorer mes études de français et ma vie en général.
+> Je dois m’immerger dans le divertissement en français,
+> et quand je pense que je suis fatigué,
+> en réalité je ne suis pas fatigué — je m’ennuie !
+
+---
+
+### 💬 **Explications détaillées :**
+
+| Erreur originale                                                  | Correction                                                                   | Explication                                                                                                                           |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Aujourdhui**                                                    | **Aujourd’hui**                                                              | Il faut l’apostrophe et le tréma sur le « i ».                                                                                        |
+| **je veule ecire**                                                | **je veux écrire**                                                           | « Veule » n’existe pas ici : verbe *vouloir* → *je veux*. Et *écrire* avec un accent.                                                 |
+| **de mon expérience le journée passé**                            | **sur mon expérience d’hier**                                                | On dit *écrire sur* quelque chose. *Le journée* → *la journée*. Mais ici, *hier* est plus naturel.                                    |
+| **J'ai ete malade encore**                                        | **J’ai encore été malade**                                                   | Le verbe *être* → *été*. En français, *encore* se place **avant** le participe passé.                                                 |
+| **mais je reconnetre avec mon ami à Filmbar**                     | **mais j’ai retrouvé mon ami au Filmbar**                                    | Le verbe est *retrouver*, pas *reconnaître*. Et *au Filmbar* (préposition correcte).                                                  |
+| **Nous converseons bon**                                          | **Nous avons bien discuté**                                                  | On ne dit pas *converser bon* → *bien discuter* est naturel. Passé composé pour cohérence temporelle.                                 |
+| **et danceones aussi un peu de musique de 90s et 00s**            | **et nous avons aussi dansé un peu sur de la musique des années 90 et 2000** | *Danser* → *dansé*. En français, on danse **sur** de la musique. Et on dit *les années 90 / 2000*.                                    |
+| **Toujours, j'ai voire un video**                                 | **Comme toujours, j’ai regardé une vidéo**                                   | *Toujours* → *Comme toujours* pour le sens. Verbe correct : *regarder*. *Une vidéo* féminin.                                          |
+| **pour améliorer mes étudies Francais et mon vie, généralement.** | **pour améliorer mes études de français et ma vie en général.**              | *étudies* → *études*. *français* minuscule. *en général* est l’expression correcte.                                                   |
+| **Je dois immerser moi en Francais divertissement**               | **Je dois m’immerger dans le divertissement en français**                    | Verbe pronominal : *s’immerger*. Préposition : *dans*. Et *divertissement en français* est plus fluide.                               |
+| **en qu'and je pense je suis fatigue,**                           | **et quand je pense que je suis fatigué,**                                   | *en qu'and* → *et quand*. Ajout de *que* pour la subordonnée. Accent sur *fatigué*.                                                   |
+| **je ne suis fatigue pas, je suis ennuyeux!**                     | **je ne suis pas fatigué — je m’ennuie !**                                   | Ordre correct de la négation (*ne... pas*). Et *je m’ennuie* (verbe s’ennuyer) = « I’m bored ». *Je suis ennuyeux* = « I am boring ». |
+
+---
+
+Souhaites-tu que je te propose une **version encore plus naturelle et fluide**, comme la dirait un locuteur natif, tout en gardant ton style personnel ?
+
+```
