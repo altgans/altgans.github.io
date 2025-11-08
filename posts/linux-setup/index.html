@@ -444,8 +444,8 @@ found out how to quickshell IPC for logout from niri</p>
 </code></pre>
 <p>still need to figure out how to insert unicode via my <code>fuzzel</code>
 DONE decide on <code>fuzzel</code>, <code>rofi</code>, <code>dmenu</code>, ... (bemenu, wofi, wmenu, ilia, ...) and configure them
-TODO save my dotfiles (don't want to lose them...)
-TODO research yubikey for auth</p>
+TODO: save my dotfiles (don't want to lose them...)
+TODO: research yubikey for auth</p>
 <p>2025-10-18 00:48
 decided on <code>fuzzel</code>
 looking for unicode pickers, but this doesn't seem to be available. Closest is <code>bemoji</code> and <code>rofimoji</code> -- no unicode though?
@@ -497,7 +497,7 @@ don't like the <code>anyrun</code> symbols browser
 <code>walker</code> is the fastest, but needs to configure <code>elephant</code>
 decided to set up walker
 <code>elephant service enable</code> and <code>systemctl --user start elephant.service</code>
-TODO why is there not auto complete for <code>elephant</code> in <code>fish</code>?</p>
+TODO: why is there not auto complete for <code>elephant</code> in <code>fish</code>?</p>
 <p>2025-10-18 14:28
 seems there is an OOO bug with walker
 trying to set a systemd service that restarts when hitting 500mb</p>
@@ -576,14 +576,14 @@ DONE figure out why rofimoji-fuzzel shows weird emoji chars (maybe because of th
 fixed <code>rofimoji --selector fuzzel</code> showing outline-only emojis by adding <code>font=Hack:weight=medium:size=20,Noto Emoji:size=22</code> into my <code>fuzzel</code> config
 removed <code>swaylock</code>
 figured out that I can lock my screen by calling this quickshell IPC <code>qs -c noctalia-shell ipc call sessionMenu lockAndSuspend</code>
-TODO mediakyes for quickshell <code>qs -c noctalia-shell ipc call media next</code></p>
+TODO: mediakyes for quickshell <code>qs -c noctalia-shell ipc call media next</code></p>
 <p>2025-10-19 19:30
 looking to set up ssh and gpg, again
 goal: unlock the keyring until I lock the screen again (or am idle 15 min)
 grok seems more useful for tech support than chatGPT</p>
 <p>2025-10-19 20:27
 discovered some zsh and bash config files -- should I remove them?
-TODO notify my when I run a command for which I have a fish alias/function (like <code>yazi</code> instead of <code>y</code>)</p>
+TODO: notify my when I run a command for which I have a fish alias/function (like <code>yazi</code> instead of <code>y</code>)</p>
 <p>2025-10-19 20:43
 added a shortcut for opening my syncthing localhost url via <code>fuzzel</code> (by creating a .desktop file in <code>/home/jst/.local/share/applications</code>)
 I think this is a good way to remember localhost URLs (syncthing, paperless, synology-gui, gitea, pihole, ...)</p>
@@ -596,21 +596,21 @@ Terminal=false
 </code></pre>
 <p>installed <code>cliphist</code>, need to figure out what it does -- just another <code>wl-copy</code>? E: requires <code>wl-clipboard</code>, so seems to sit 'above'
 we can run <code>cliphist list | fuzzel -d | cliphist decode | wl-copy</code> to have <code>fuzzel</code> show the last pastes
-TODO set a hotkey for this, and/or use the quickshell variant
-TODO check my screenshot setup and/or maybe set up <code>grim</code> and <code>slurp</code>
+TODO: set a hotkey for this, and/or use the quickshell variant
+TODO: check my screenshot setup and/or maybe set up <code>grim</code> and <code>slurp</code>
 removed <code>pnpm</code>
 added <code>keychain</code> to my fish.conf <code>eval (keychain --eval --quiet KEY_ID)</code> :: <code>gpg --list-secret-keys --keyid-format=long</code>, it's the part after <code>sec   rsa4096/</code>
 check agents: <code>ssh-add -l</code> (lists SSH keys) and <code>gpg --list-keys</code>
-TODO look into SSHFS for remote-mounting to/from synology
-TODO set up ssh aliases
-TODO set up hypralax</p>
+TODO: look into SSHFS for remote-mounting to/from synology
+TODO: set up ssh aliases
+TODO: set up hypralax</p>
 <p>2025-10-19 21:53
 installed <code>nemo</code>
 looks nice, very similar to <code>pcmanfm</code>
-TODO transform all my niri startups into systemd services, for better support
+TODO: transform all my niri startups into systemd services, for better support
 setup <code>niriswitcher</code>, very nice, fills a gap to make <code>niri</code> more useful (don't have to scroll across thousands of windows..) -- <a href="https://github.com/isaksamsten/niriswitcher?tab=readme-ov-file">https://github.com/isaksamsten/niriswitcher?tab=readme-ov-file</a>
-TODO take a look at <code>nirius</code> (<a href="https://sr.ht/~tsdh/nirius/">https://sr.ht/~tsdh/nirius/</a>)
-TODO take a look at <code>stasis</code> for better idle handling (<a href="https://github.com/saltnpepper97/stasis?tab=readme-ov-file">https://github.com/saltnpepper97/stasis?tab=readme-ov-file</a>)</p>
+TODO: take a look at <code>nirius</code> (<a href="https://sr.ht/~tsdh/nirius/">https://sr.ht/~tsdh/nirius/</a>)
+TODO: take a look at <code>stasis</code> for better idle handling (<a href="https://github.com/saltnpepper97/stasis?tab=readme-ov-file">https://github.com/saltnpepper97/stasis?tab=readme-ov-file</a>)</p>
 <p>2025-10-19 22:15
 I think I am mostly done configuring everything</p>
 <ul>
@@ -631,16 +631,16 @@ I think I am mostly done configuring everything</p>
 </ul>
 <p>2025-10-19 22:36
 More ricing? Instead of quickshell there is also aylur :)
-TODO also, i could check my icons and gtk theme
+TODO: also, i could check my icons and gtk theme
 DONE decrease <code>fuzzel</code> font size
 removed <code>google-chrome</code>
 set cool wallpaper
-TODO configure standard utils for opening images, pdf, ..
-TODO accidentally removed my gtk theme when cleaning unused packages :)
+TODO: configure standard utils for opening images, pdf, ..
+TODO: accidentally removed my gtk theme when cleaning unused packages :)
 fixed <code>nemo</code> not opening a terminal by calling <code>gsettings set org.cinnamon.desktop.default-applications.terminal exec ghostty</code>
 removed <code>etcher</code>
 set <code>nemo</code> as default file launcher <code>xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search</code>
-TODO <code>xdg-open</code> vs <code>gtk-launch</code></p>
+TODO: <code>xdg-open</code> vs <code>gtk-launch</code></p>
 <p>2025-10-20 20:38
 need to change gtk theme and everything... best if there is a way to write this to a config or have a gui?
 looking to install the <em>arc</em> theme, but no idea how :)
@@ -661,9 +661,9 @@ I really like <code>Juno-Palenight</code> in combination with <code>Papirus-Dark
 removed <code>pcmanfm-gtk3</code></p>
 <p>2025-10-20 21:47
 figure out why <code>keychain</code> doesn't work properly -- should only store my auth when I need my ssh keys the first time, and not whenever I open <code>fish</code>...
-TODO can I see which package installed which?
-TODO show news in paru
-TODO figure out how to change cursor theme
+TODO: can I see which package installed which?
+TODO: show news in paru
+TODO: figure out how to change cursor theme
 maybe this works better for <code>keychain</code> in my <code>fish</code> conf</p>
 <pre><code class="language-fish">if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -675,11 +675,11 @@ end
 </code></pre>
 <p>2025-10-20 22:44
 added a desktop icon for fritz.box
-TODO look into pihole (+ hardware) &gt;&gt; Desktop Beelink GK35 maybe?
-TODO change firefox userchrome css to style the blank loading page to something dark (no more blinding white #fff) -- <a href="https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load">https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load</a></p>
+TODO: look into pihole (+ hardware) &gt;&gt; Desktop Beelink GK35 maybe?
+TODO: change firefox userchrome css to style the blank loading page to something dark (no more blinding white #fff) -- <a href="https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load">https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load</a></p>
 <p>2025-10-21 20:50
 figured out that my screenshots are saved in ~/Pictures/Screenshots/
-TODO configure image viewer and (maybe) screenshot tool
+TODO: configure image viewer and (maybe) screenshot tool
 installing a script engine to block <em>Login with Google</em> prompts.
 it seems that tampermonkey is the up-to-date-one
 decided against installing tampermonkey, cause too much risk for someone random too update their script maliciously
@@ -696,7 +696,7 @@ end
 </code></pre>
 <p>2025-10-21 21:14
 also added <code>AddKeysToAgent yes</code> to my <code>.ssh/config</code>
-TODO take a look at the <code>.XCompose</code> file
+TODO: take a look at the <code>.XCompose</code> file
 removed <code>okular</code>
 installed <code>lightningview</code>, <code>okulante</code>. <code>viewskater</code> also looks good, but not on <em>aur</em>
 set niri to <code>prefer-no-csd</code>, to remove okulante window decorations
@@ -709,9 +709,9 @@ removed <code>impala</code> and <code>iwd</code>, as they cause problems with my
 NOTE when in doubt about packages that mess with internet, disable and restart before deleting, in case they are required to make the internet work on your machine ... :)
 installed <code>marktext</code> (for markdown writing; but could also configure nvim or Obsidian to do the job)
 thinking about <code>pinta</code>, but don't see the need (editing images, also have <code>krita</code>)
-TODO set up PDF viewer/editor (Document Viewer, Xournal, Firefox/Zen)
-TODO see if I want to switch to Cascadia font (interstingly also the default font choide of Omarchy.. :))
-TODO reinstall arch with disk encryption? :)</p>
+TODO: set up PDF viewer/editor (Document Viewer, Xournal, Firefox/Zen)
+TODO: see if I want to switch to Cascadia font (interstingly also the default font choide of Omarchy.. :))
+TODO: reinstall arch with disk encryption? :)</p>
 <p>2025-10-21 22:31
 set a few fish abbrevs and aliases</p>
 <pre><code class="language-fish">function zd
@@ -748,36 +748,36 @@ abbr --add gcam git commit -a -m
 abbr --add gcad git commit -a --amend
 </code></pre>
 <p>also found out that <code>fish</code> provides <code>open</code> by default, so no need for <code>xdg-open</code>
-TODO backup my .dotfiles and version control them (stow?)</p>
+TODO: backup my .dotfiles and version control them (stow?)</p>
 <p>2025-10-22 00:07
 I found the holy grail of dotfiles management -- <a href="https://mitxela.com/projects/dotfiles_management">Dotfiles Management - mitxela.com</a>
 I created a .dotfiles folder in my home, did an init bare git on it, set to my root / and then add files to it via a helper function. No need for any other dotfiles management software! Universal git!
-TODO look into git/exclude</p>
+TODO: look into git/exclude</p>
 <p>2025-10-24 11:04
 set my ublock to follow the recommended filters -- <a href="https://github.com/yokoffing/filterlists">https://github.com/yokoffing/filterlists</a>
 DONE block youtube recommendations and shorts -- <a href="https://github.com/gijsdev/ublock-hide-yt-shorts">https://github.com/gijsdev/ublock-hide-yt-shorts</a>
-TODO block 'login with google'
+TODO: block 'login with google'
 DONE block youtube auto dub
 DONE see <a href="https://old.reddit.com/r/uBlockOrigin/wiki/solutions/youtube#wiki_video_annotations">https://old.reddit.com/r/uBlockOrigin/wiki/solutions/youtube#wiki_video_annotations</a> for all the above
-TODO highlight todos in markdown/neovim :)
-TODO look into fedora for thin client (for pihole)
-TODO set auto suspend on linux</p>
+TODO: highlight todos in markdown/neovim :)
+TODO: look into fedora for thin client (for pihole)
+TODO: set auto suspend on linux</p>
 <p>2025-10-24 13:11
-TODO allow to click on links in neovim
+TODO: allow to click on links in neovim
 E: works with <code>gx</code>, but not mapped in lazyvim
-TODO dump this link somewhere -- <a href="https://scrollguard.app/">https://scrollguard.app/</a>
-TODO get updates on new blogs (RSS)
-TODO set up Jujutsu (as git replacement)</p>
+TODO: dump this link somewhere -- <a href="https://scrollguard.app/">https://scrollguard.app/</a>
+TODO: get updates on new blogs (RSS)
+TODO: set up Jujutsu (as git replacement)</p>
 <p>2025-10-24 14:00
-TODO look into fedora atomic images, they seem like another intersting alternative to <code>nix</code> and keeping an immutable system. maybe I could try to get this system working on fedora, and otherwise set up manjaro with file encryption?</p>
+TODO: look into fedora atomic images, they seem like another intersting alternative to <code>nix</code> and keeping an immutable system. maybe I could try to get this system working on fedora, and otherwise set up manjaro with file encryption?</p>
 <p>2025-10-24 16:05
 maybe change to rofi for a beautfiul fullscreen app launcher? (seen here -- <a href="https://github.com/kianblakley/niri-land?tab=readme-ov-file">https://github.com/kianblakley/niri-land?tab=readme-ov-file</a>)
-TODO look into <a href="https://apps.gnome.org/Amberol/">Amberol – Apps for GNOME</a> music player
+TODO: look into <a href="https://apps.gnome.org/Amberol/">Amberol – Apps for GNOME</a> music player
 set music keys for niri on via ipc (Mod+Alt+567 inc dec mute; 890 prev next pause)
 decided to start 'my' keybinds with <code>my..</code> in the comment blocks, to better distinguish them from pre-set keybinds
 installed <code>paru</code>
-TODO improve bluetooth integration to allow to skip music (MPRIS?)
-TODO set up <code>espanso</code>?</p>
+TODO: improve bluetooth integration to allow to skip music (MPRIS?)
+TODO: set up <code>espanso</code>?</p>
 <p>2025-10-26 22:29
 installed <code>logseq</code>, <code>treesheets</code>, <code>freeplane</code>
 i'd like to set up freeplane with markdown to have a markdown canvas</p>
@@ -785,13 +785,13 @@ i'd like to set up freeplane with markdown to have a markdown canvas</p>
 installed <code>smark.nvim</code>
 looking to set up markdown indent via Tab and S-Tab in nvim (can do <code>&gt;&gt;</code> and <code>&lt;&lt;</code>)
 decided to split <code>nvim</code> related config into a dedicated file
-TODO neovim find a way to add auto-spacing between lines in markdown (the current file here shows everything inline)</p>
+TODO: neovim find a way to add auto-spacing between lines in markdown (the current file here shows everything inline)</p>
 <p>2025-10-27 21:30
 installed https://www.soimort.org/translate-shell/</p>
 <p>2025-10-28 15:23
 could set a shell screensaver (and/or use it as desktop/lockscreen wallpaper) -- https://github.com/attogram/bash-screensavers?tab=readme-ov-file or https://github.com/abishekvashok/cmatrix
 it may make sense to use <code>alacritty</code> for these types of things, as it is featureless but fast
-TODO set up obsidian web clipper (or org-roam-protocol) -- https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian/ or https://github.com/deathau/markdownload</p>
+TODO: set up obsidian web clipper (or org-roam-protocol) -- https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian/ or https://github.com/deathau/markdownload</p>
 <p>2025-10-28 15:49
 think about multi-cursor in nvim</p>
 <p>2025-10-28 21:57
@@ -842,30 +842,30 @@ came across this, which seems like yet another benefit of fedora immutable silve
 want to install <code>hx-lsp</code> for helix via <code>mise</code>, but first need to install <code>mise use -g rust</code>: <code>mise use -g cargo:hx-lsp</code></p>
 <p>2025-10-29T21:33
 Setting up <code>helix</code> with <code>marksman</code>, <code>prettier</code> and <code>ltex-ls-plus</code> (https://github.com/ltex-plus/ltex-ls-plus)
-TODO jsut found https://strudel.cc/ to make live music</p>
+TODO: jsut found https://strudel.cc/ to make live music</p>
 <p>2025-10-30 13:46
 found https://github.com/ShawnMcCool/quickshell-cheatsheet, looks cool
 will change back from <code>hx</code> to <code>nvim</code>. looked at <code>kakoune</code>, but nope, seems like a mess.
 removed <code>marksman</code>, <code>mpls</code>, <code>ltex-ls-plus</code>, <code>prettier</code>, <code>mise uninstall cargo:hx-lsp@</code></p>
 <p>2025-10-30 17:41
-TODO steal from this: a really cool digital garden -- https://meleu.dev/</p>
+TODO: steal from this: a really cool digital garden -- https://meleu.dev/</p>
 <p>2025-10-31 13:27
-TODO improve browser search by blacklisting specific websites (pinterest, ...)
-TODO have a solution to manage photos on my NAS, sync with my phone, have albums</p>
+TODO: improve browser search by blacklisting specific websites (pinterest, ...)
+TODO: have a solution to manage photos on my NAS, sync with my phone, have albums</p>
 <p>2025-10-31 16:27
-TODO if i ever switch to fedora silverblue and then manage via distrobox, https://flathub.org/en/apps/com.ranfdev.DistroShelf looks useful</p>
+TODO: if i ever switch to fedora silverblue and then manage via distrobox, https://flathub.org/en/apps/com.ranfdev.DistroShelf looks useful</p>
 <p>2025-11-01 14:56
 it's saturday and I should find a strategy to backup my files to my NAS &gt;&gt; <a href="/posts/linux-backup/">Linux backup</a></p>
 <p>2025-11-01 21:04
 took a bit, but I finally managed it!
 Everything backuped (I hope) and also committed to my syno-git</p>
 <p>2025-11-02 11:39
-TODO change linux greeter setup
+TODO: change linux greeter setup
 DONE is there a way to color man pages? <code>navi</code>, <code>qman</code>, ..
 installed <code>bat-extras</code> and can now do <code>batman</code>.
 I prefer this over changing the <code>MANPAGER</code> to <code>most</code> or similar, because I want to keep my muscle-memory for <code>man</code> keybinds
 Just doing <code>export MANPAGER=&quot;sh -c 'col -bx | batcat -l man -p'&quot;</code> didn't work for me. It caused weird chars in the man pages
-TODO I'd like to know how to search with <code>fzf</code> in <code>batman</code>
+TODO: I'd like to know how to search with <code>fzf</code> in <code>batman</code>
 discovered <code>&amp;</code> in man pages which narrows to found lines</p>
 <p>2025-11-02 12:30
 installed <code>wikiman</code>
@@ -899,7 +899,7 @@ user = &quot;greeter&quot;
 command = &quot;niri&quot;
 user = &quot;jst&quot;
 </code></pre>
-<p>TODO The internet recommends to use <code>niri-session</code>,
+<p>TODO: The internet recommends to use <code>niri-session</code>,
 but then notify doesn't get styled anymore -- <code>niri</code> works.</p>
 <p>2025-11-02 16:53
 added time display in my starship config</p>
@@ -914,7 +914,7 @@ I can do <code>git diff &lt;file&gt;</code></p>
 <p>2025-11-03 16:31
 just discovered <a href="https://github.com/9001/copyparty">9001/copyparty: Portable file server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++ all in one file, no deps</a>,
 which seems like the coolest webserver ever.
-TODO dedicated post -- <a href="https://www.youtube.com/watch?v=15_-hgsX2V0">introducing copyparty, the FOSS file server - YouTube</a></p>
+TODO: dedicated post -- <a href="https://www.youtube.com/watch?v=15_-hgsX2V0">introducing copyparty, the FOSS file server - YouTube</a></p>
 <p>2025-11-03 17:09
 DONE when connected via a bluetooth headset,
 allow to change volume and music
@@ -941,17 +941,17 @@ it didn't start in quickshell.
 I needed to first toggle it a few times in <code>blueman</code>/<code>bluetoothctl</code></p>
 <p>2025-11-03 21:00
 Wrote a bit more about my editor setup and choice &gt;&gt; <a href="/posts/texteditor-vs-markdown-editor/">Texteditor vs Markdown Editor vs IDEs</a>
-TODO set up <a href="https://sioyek.info/">Sioyek</a> as PDF viewr</p>
+TODO: set up <a href="https://sioyek.info/">Sioyek</a> as PDF viewr</p>
 <p>2025-11-06 15:44
 looking into local LLMs
 installed <code>ollama</code>, <code>golama</code> and <code>LM studio</code>
-TODO set up photo management and tagging for my holiday pictures and snapshots
-TODO set up a document management (paperless?)
+TODO: set up photo management and tagging for my holiday pictures and snapshots
+TODO: set up a document management (paperless?)
 removed <code>marketext</code>, as I use <code>nvim</code> exclusively now
 DONE also install whisperAI -- <code>vibe transcribe</code>, <code>whisper-gui</code> or <code>handy tts</code>?
 installed <code>vibe</code>
 downloading AI models
-TODO AI TTS -- <code>chatterbox</code>, <code>tortoise tts</code>?</p>
+TODO: AI TTS -- <code>chatterbox</code>, <code>tortoise tts</code>?</p>
 <p>2025-11-06 16:31
 change from <code>pip</code> to <code>uv</code>
 all the LLM tools make it necessary to have a more robust python setup
@@ -1011,7 +1011,7 @@ echo &quot;Generated $outfile&quot;
 </code></pre>
 <p>it would be nice to have the phonetics for both languages, but who am I to complain?</p>
 <p>2025-11-07 13:31
-TODO set up compose key (or unicode picker) for language cleaning</p>
+TODO: set up compose key (or unicode picker) for language cleaning</p>
 <blockquote>
 <blockquote>
 <p><a href="/posts/daily-french/">Daily French</a></p>
@@ -1024,12 +1024,18 @@ E: it seems to just make the terminal fullscreen, so I guess ghostty specific?</
 setting up Mullvad as VPN
 installed <code>mullvad-bin</code>
 removed <code>audacity</code>
-TODO fix my xdg-defaults</p>
+TODO: fix my xdg-defaults</p>
 <p>2025-11-08 15:07
-TODO could look into <a href="https://github.com/papis/papis">papis/papis</a> for managing sources, although I don't want to get into academia;
+TODO: could look into <a href="https://github.com/papis/papis">papis/papis</a> for managing sources, although I don't want to get into academia;
 maybe useful for capturing websites, videos, blogs, etc, and then refering to them in neovim. Or videos, movies I watched, books I read, to better identify patterns and great authors/artists
-TODO look into zk -- or better said, into any way to quickly capture thoughts from the CLI
+TODO: look into zk -- or better said, into any way to quickly capture thoughts from the CLI
 In that sense, I really hate 'todos'; I perceive them as strict and robotic, and believe they will break some time in the future, as humans are not robots</p>
+<p>2025-11-08 21:33
+I guess I reached config fatigue.
+Some things still to do,
+but I don't want to spend more time looking at github repos and reading readmes!
+I also don't want to write more pages on the blog, lol
+I unpacked <code>mixxx</code> and did some DJ'ing instead.</p>
 
 		</article>
 	</main>

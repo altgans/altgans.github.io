@@ -134,7 +134,7 @@ but I take it.</p>
 <p>E: Found it!
 All we need to do is press <code>&lt;leader&gt;fc</code> to <em>find config file</em>.</p>
 <h2>Understand options merging</h2>
-<p>TODO I never understood the options tables;
+<p>TODO: I never understood the options tables;
 do they get merged by default?
 I.e. do my modifications overwrite the defaults,
 but otherwise leave the defaults intact?
@@ -216,7 +216,7 @@ I can do the following in my `markdown.json':</p>
 	}
 }
 </code></pre>
-<p>TODO Additionally,
+<p>TODO: Additionally,
 I'd like to append the datetime snippet to markdown headings.</p>
 <h2>Multiple cursors</h2>
 <p>Apparently not supported, as it is not in line with the 'vim philosophy'. We can do <code>C-v</code> for visual block mode though, and/or do a regex search and replace.</p>
@@ -292,7 +292,7 @@ whatever that means.</p>
 which shows all the symbols in a buffer.
 My guess is that we can write a function to target the start/end of code blocks here.</p>
 <h2>Navigate with Markdown Treesitter Textobjects</h2>
-<p>TODO I only found <code>]m</code> so far.
+<p>TODO: I only found <code>]m</code> so far.
 I'd like to have a list of granular text objects I can jump to.</p>
 <p>Seems to be done with either
 <a href="https://github.com/nvim-treesitter/nvim-treesitter-textobjects">nvim-treesitter/nvim-treesitter-textobjects</a>
@@ -310,17 +310,35 @@ where I want to know if I already used the word in previous paragraphs.</p>
 <h2>Markdown Move Headings up/down</h2>
 <p>Emacs Orgmode does this,
 and it is really useful.</p>
-<p>TODO Maybe with <a href="https://github.com/nvim-mini/mini.move">nvim-mini/mini.move</a>?</p>
+<p>TODO: Maybe with <a href="https://github.com/nvim-mini/mini.move">nvim-mini/mini.move</a>?</p>
 <h2>Jump to next/prev misspell</h2>
 <p>Jump with <code>]s</code> and <code>[s</code></p>
+<h2>Neovim set options</h2>
+<p>Press <code>:h &lt;option&gt;</code> to see the help text.
+Check an options current value with <code>:set &lt;option&gt;?</code>.
+Set the option in your config with <code>vim.opt.option</code> (almost always).</p>
+<h2>Neovim enable cursor line and column</h2>
+<p>Cursorline enables a highlight of the current line/row.
+Cursorcolumn enables a highlight of the current column.
+It will feel unfamiliar at first,
+but it is cool to see how the cursor moves across the page when typing,
+it helps finding the cursor quickly after jumping,
+and it also helps to align text and identify the right bracket in source code.</p>
 <h2>Text surround</h2>
 <p>Install <code>mini.surround</code>.
 Then select text (<code>viw</code>) and surround with <code>gsa</code>.</p>
 <p><em>Hint: Look up more keybinds with <code>&lt;spc&gt;sk 'surround'</code>.</em></p>
+<h2>Autocomplete words from dictionary</h2>
+<p>When writing,
+I want <code>blink.cmp</code> to recommend me words from my set up dictionaries and spell
+lists.</p>
+<p>TODO: FIXME This should be achievable with <a href="https://github.com/Kaiser-Yang/blink-cmp-dictionary?tab=readme-ov-file#how-to-customize-the-command">Kaiser-Yang/blink-cmp-dictionary</a>,
+however my autocompletions stay empty.</p>
 <h2>Look up words in dictionary</h2>
 <ol>
 <li>Set up <code>dict</code> in Linux</li>
 <li>Install <code>dict.nvim</code></li>
+<li>Look up words under cursor with <code>&lt;spc&gt;mk</code>!</li>
 </ol>
 <pre><code class="language-lua">-- ~/.config/nvim/lua/plugins/dict.lua
 return {
@@ -358,15 +376,16 @@ we do <code>zg</code>.</p>
 it is set to EN by default.
 I write in multiple languages though,
 and would like to check all of them (or at least switch amongst them).</p>
-<p>TODO</p>
+<p><code>vim.opt.spelllang = { &quot;en&quot;, &quot;de&quot;, &quot;fr&quot; } -- Set languages</code></p>
 <h2>Neovim Make Upper/Lowercase</h2>
 <p>Use <code>gU</code> for UPPERCASE and <code>gu</code> for <em>lowercase</em>.</p>
 <h2>Neovim Navigate TODOs in file</h2>
-<p>TODO I want to see and move amongst my todos.
+<p>TODO: I want to see and move amongst my todos.
 I also want to expand this for other markers,
 such as NOTE,
 MAYBE,
 ...</p>
+<p>This is configured by <a href="https://github.com/folke/todo-comments.nvim">folke/todo-comments.nvims</a></p>
 <h2>Neovim Create New File in Working Directory</h2>
 <p>I can create a new file with <code>:n &lt;filename&gt;</code>,
 but this creates it in the <em>root dir</em>.
@@ -460,7 +479,7 @@ if it were to move off-screen.
 <p>Images in Markdown (and other files) can be previewed by snacks.nvim.</p>
 <p>I disabled the inline preview with <code>inline = false</code>,
 so I only see the image when the cursor is on it.</p>
-<p>TODO check the image conceal levels with <code>render-markdown</code>,
+<p>TODO: check the image conceal levels with <code>render-markdown</code>,
 as the behaviour is not 100% smooth.</p>
 <h2>Markdown Paste Image</h2>
 <p>Images can be pasted with <a href="https://github.com/hakonharnes/img-clip.nvim">hakonharnes/img-clip.nvim</a>,
@@ -469,10 +488,10 @@ which works out of the box.</p>
 I set a command to convert the image,
 and also a file-specific asset path,
 to allow for easier asset association.</p>
-<p>TODO put this into <em>pwd</em> subordinate asset folder,
+<p>TODO: put this into <em>pwd</em> subordinate asset folder,
 as I post this on my Astro blog.
 Likely should also look how Obsidian does this,
-to ensure compability.</p>
+to ensure compatibility.</p>
 <pre><code class="language-lua">{
         &quot;HakonHarnes/img-clip.nvim&quot;,
         enabled = true,
@@ -503,14 +522,14 @@ to ensure compability.</p>
 </code></pre>
 <h2>Markdown Add Matching _* in Markdown buffers</h2>
 <p>It annoys me that <code>_</code> (<em>italic</em>) and <code>*</code> (<strong>bold</strong>))) don't auto-close.</p>
-<p>TODO left for the future.
+<p>TODO: left for the future.
 <code>mini.pairs</code> doesn't support per-filetype config,
 and I didn't feel like setting generic pairing rules and then needing to write autocommands.
 See <a href="https://github.com/nvim-mini/mini.nvim/discussions/805">How do I disable mini.pairs for markdown files?</a>
 Another approach would be to <em>surround</em> the word with aforementioned characters.
 This works for <code>_</code>,
 but not for double <code>**</code>.</p>
-<p>TODO find a way to repeat the first surround (<code>gsa</code>),
+<p>TODO: find a way to repeat the first surround (<code>gsa</code>),
 so that the 2nd <code>*</code> is added.</p>
 <h2>Send Links From Browser To Markdown</h2>
 <p>Likely more of a Linux integration,
@@ -546,7 +565,7 @@ such as my fish and niri config.</p>
 </code></pre>
 <h2>Neovim More Picker Sources</h2>
 <p><a href="https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#-sources">snacks.nvim/docs/picker</a> has a lot more sources than what I currently use.
-TODO set up more sources,
+TODO: set up more sources,
 such as cliphist, ...
 (not sure I actually need all of them)</p>
 <h2>Markdown Mindmaps</h2>
