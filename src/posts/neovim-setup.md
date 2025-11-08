@@ -366,6 +366,22 @@ TODO Maybe with [nvim-mini/mini.move](https://github.com/nvim-mini/mini.move)?
 
 Jump with `]s` and `[s`
 
+## Neovim set options
+
+Press `:h <option>` to see the help text.
+Check an options current value with `:set <option>?`.
+Set the option in your config with `vim.opt.option` (almost always).
+
+
+## Neovim enable cursor line and column
+
+Cursorline enables a highlight of the current line/row.
+Cursorcolumn enables a highlight of the current column.
+It will feel unfamiliar at first,
+but it is cool to see how the cursor moves across the page when typing,
+it helps finding the cursor quickly after jumping,
+and it also helps to align text and identify the right bracket in source code.
+
 ## Text surround
 
 Install `mini.surround`. 
@@ -373,10 +389,20 @@ Then select text (`viw`) and surround with `gsa`.
 
 _Hint: Look up more keybinds with `<spc>sk 'surround'`._
 
+## Autocomplete words from dictionary
+
+When writing,
+I want `blink.cmp` to recommend me words from my set up dictionaries and spell
+lists.
+
+TODO FIXME This should be achievable with [Kaiser-Yang/blink-cmp-dictionary](https://github.com/Kaiser-Yang/blink-cmp-dictionary?tab=readme-ov-file#how-to-customize-the-command), 
+however my autocompletions stay empty.
+
 ## Look up words in dictionary
 
 1. Set up `dict` in Linux
 2. Install `dict.nvim`
+3. Look up words under cursor with `<spc>mk`!
 
 ```lua
 -- ~/.config/nvim/lua/plugins/dict.lua
@@ -421,7 +447,7 @@ it is set to EN by default.
 I write in multiple languages though,
 and would like to check all of them (or at least switch amongst them).
 
-TODO
+`vim.opt.spelllang = { "en", "de", "fr" } -- Set languages`
 
 ## Neovim Make Upper/Lowercase
 
@@ -434,6 +460,8 @@ I also want to expand this for other markers,
 such as NOTE, 
 MAYBE,
 ...
+
+This is configured by [folke/todo-comments.nvims](https://github.com/folke/todo-comments.nvim)
 
 ## Neovim Create New File in Working Directory
 
@@ -580,7 +608,7 @@ to allow for easier asset association.
 TODO put this into _pwd_ subordinate asset folder,
 as I post this on my Astro blog.
 Likely should also look how Obsidian does this,
-to ensure compability.
+to ensure compatibility.
 
 ```lua
 {

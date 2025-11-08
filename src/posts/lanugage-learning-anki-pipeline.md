@@ -66,7 +66,7 @@ will take some time
 - https://www.datamuse.com/api/
 - [tatuylonen/wiktextract: Wiktionary dump file parser and multilingual data extractor](https://github.com/tatuylonen/wiktextract)
 - https://github.com/freedict/fd-dictionaries/wiki/Import-Centre
-- 
+- [dwyl/english-words: A text file containing 479k English words ](https://github.com/dwyl/english-words?tab=readme-ov-file)
 ### Database
 ### Binary
 

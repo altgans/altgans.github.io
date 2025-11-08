@@ -6,12 +6,6 @@ tags: ["posts", "schreiben"]
 
 # Creativity, Cognition and why I write
 
-
-
-
-
-
-
 ## Re: When is it better to think without words?
 
 Thoughts about [When is better to think without words? - by Henrik Karlsson](https://www.henrikkarlsson.xyz/p/wordless-thought)
@@ -124,18 +118,8 @@ How is this article relevant? Because the author tries to provide structure to t
 
 
 
-TODO describe why _I_ write
+TODO: describe why _I_ write
 
-TODO for work, write summaries of ongoing topics (rollouts, problems, ...) to capture the core ideas and problems
+TODO: for work, write summaries of ongoing topics (rollouts, problems, ...) to capture the core ideas and problems
 
-TODO ask more questions -- why does something not work? why do we do things in a specific way?
-
-
-
-
-
-
-
-
-
-
+TODO: ask more questions -- why does something not work? why do we do things in a specific way?

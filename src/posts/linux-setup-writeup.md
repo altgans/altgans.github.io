@@ -86,7 +86,7 @@ Oculante as featureful image viewer.
 
 ### Document Viewer
 
-TODO PDF `zathura`? `Document Viewer`?
+TODO: PDF `zathura`? `Document Viewer`?
 
 Calibre for ebook management. Self-explanatory for everyone who reads.
 

@@ -413,8 +413,8 @@ Mod+Shift+E { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggl
 
 still need to figure out how to insert unicode via my `fuzzel`
 DONE decide on `fuzzel`, `rofi`, `dmenu`, ... (bemenu, wofi, wmenu, ilia, ...) and configure them
-TODO save my dotfiles (don't want to lose them...)
-TODO research yubikey for auth
+TODO: save my dotfiles (don't want to lose them...)
+TODO: research yubikey for auth
 
 2025-10-18 00:48
 decided on `fuzzel`
@@ -473,7 +473,7 @@ don't like the `anyrun` symbols browser
 `walker` is the fastest, but needs to configure `elephant`
 decided to set up walker
 `elephant service enable` and `systemctl --user start elephant.service`
-TODO why is there not auto complete for `elephant` in `fish`?
+TODO: why is there not auto complete for `elephant` in `fish`?
 
 2025-10-18 14:28
 seems there is an OOO bug with walker
@@ -566,7 +566,7 @@ DONE figure out why rofimoji-fuzzel shows weird emoji chars (maybe because of th
 fixed `rofimoji --selector fuzzel` showing outline-only emojis by adding `font=Hack:weight=medium:size=20,Noto Emoji:size=22` into my `fuzzel` config
 removed `swaylock`
 figured out that I can lock my screen by calling this quickshell IPC `qs -c noctalia-shell ipc call sessionMenu lockAndSuspend`
-TODO mediakyes for quickshell `qs -c noctalia-shell ipc call media next`
+TODO: mediakyes for quickshell `qs -c noctalia-shell ipc call media next`
 
 2025-10-19 19:30
 looking to set up ssh and gpg, again
@@ -575,7 +575,7 @@ grok seems more useful for tech support than chatGPT
 
 2025-10-19 20:27
 discovered some zsh and bash config files -- should I remove them?
-TODO notify my when I run a command for which I have a fish alias/function (like `yazi` instead of `y`)
+TODO: notify my when I run a command for which I have a fish alias/function (like `yazi` instead of `y`)
 
 2025-10-19 20:43
 added a shortcut for opening my syncthing localhost url via `fuzzel` (by creating a .desktop file in `/home/jst/.local/share/applications`)
@@ -592,22 +592,22 @@ Terminal=false
 
 installed `cliphist`, need to figure out what it does -- just another `wl-copy`? E: requires `wl-clipboard`, so seems to sit 'above'
 we can run `cliphist list | fuzzel -d | cliphist decode | wl-copy` to have `fuzzel` show the last pastes
-TODO set a hotkey for this, and/or use the quickshell variant
-TODO check my screenshot setup and/or maybe set up `grim` and `slurp`
+TODO: set a hotkey for this, and/or use the quickshell variant
+TODO: check my screenshot setup and/or maybe set up `grim` and `slurp`
 removed `pnpm`
 added `keychain` to my fish.conf `eval (keychain --eval --quiet KEY_ID)` :: `gpg --list-secret-keys --keyid-format=long`, it's the part after `sec   rsa4096/`
 check agents: `ssh-add -l` (lists SSH keys) and `gpg --list-keys`
-TODO look into SSHFS for remote-mounting to/from synology
-TODO set up ssh aliases
-TODO set up hypralax
+TODO: look into SSHFS for remote-mounting to/from synology
+TODO: set up ssh aliases
+TODO: set up hypralax
 
 2025-10-19 21:53
 installed `nemo`
 looks nice, very similar to `pcmanfm`
-TODO transform all my niri startups into systemd services, for better support
+TODO: transform all my niri startups into systemd services, for better support
 setup `niriswitcher`, very nice, fills a gap to make `niri` more useful (don't have to scroll across thousands of windows..) -- <https://github.com/isaksamsten/niriswitcher?tab=readme-ov-file>
-TODO take a look at `nirius` (<https://sr.ht/~tsdh/nirius/>)
-TODO take a look at `stasis` for better idle handling (<https://github.com/saltnpepper97/stasis?tab=readme-ov-file>)
+TODO: take a look at `nirius` (<https://sr.ht/~tsdh/nirius/>)
+TODO: take a look at `stasis` for better idle handling (<https://github.com/saltnpepper97/stasis?tab=readme-ov-file>)
 
 2025-10-19 22:15
 I think I am mostly done configuring everything
@@ -629,16 +629,16 @@ TODO
 
 2025-10-19 22:36
 More ricing? Instead of quickshell there is also aylur :)
-TODO also, i could check my icons and gtk theme
+TODO: also, i could check my icons and gtk theme
 DONE decrease `fuzzel` font size
 removed `google-chrome`
 set cool wallpaper
-TODO configure standard utils for opening images, pdf, ..
-TODO accidentally removed my gtk theme when cleaning unused packages :)
+TODO: configure standard utils for opening images, pdf, ..
+TODO: accidentally removed my gtk theme when cleaning unused packages :)
 fixed `nemo` not opening a terminal by calling `gsettings set org.cinnamon.desktop.default-applications.terminal exec ghostty`
 removed `etcher`
 set `nemo` as default file launcher `xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search`
-TODO `xdg-open` vs `gtk-launch`
+TODO: `xdg-open` vs `gtk-launch`
 
 2025-10-20 20:38
 need to change gtk theme and everything... best if there is a way to write this to a config or have a gui?
@@ -664,9 +664,9 @@ removed `pcmanfm-gtk3`
 
 2025-10-20 21:47
 figure out why `keychain` doesn't work properly -- should only store my auth when I need my ssh keys the first time, and not whenever I open `fish`...
-TODO can I see which package installed which?
-TODO show news in paru
-TODO figure out how to change cursor theme
+TODO: can I see which package installed which?
+TODO: show news in paru
+TODO: figure out how to change cursor theme
 maybe this works better for `keychain` in my `fish` conf
 
 ```fish
@@ -681,12 +681,12 @@ end
 
 2025-10-20 22:44
 added a desktop icon for fritz.box
-TODO look into pihole (+ hardware) >> Desktop Beelink GK35 maybe?
-TODO change firefox userchrome css to style the blank loading page to something dark (no more blinding white #fff) -- <https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load>
+TODO: look into pihole (+ hardware) >> Desktop Beelink GK35 maybe?
+TODO: change firefox userchrome css to style the blank loading page to something dark (no more blinding white #fff) -- <https://stackoverflow.com/questions/26680708/customize-firefox-background-color-of-the-browser-between-page-load>
 
 2025-10-21 20:50
 figured out that my screenshots are saved in ~/Pictures/Screenshots/
-TODO configure image viewer and (maybe) screenshot tool
+TODO: configure image viewer and (maybe) screenshot tool
 installing a script engine to block _Login with Google_ prompts.
 it seems that tampermonkey is the up-to-date-one
 decided against installing tampermonkey, cause too much risk for someone random too update their script maliciously
@@ -706,7 +706,7 @@ end
 
 2025-10-21 21:14
 also added `AddKeysToAgent yes` to my `.ssh/config`
-TODO take a look at the `.XCompose` file
+TODO: take a look at the `.XCompose` file
 removed `okular`
 installed `lightningview`, `okulante`. `viewskater` also looks good, but not on _aur_
 set niri to `prefer-no-csd`, to remove okulante window decorations
@@ -719,9 +719,9 @@ removed `impala` and `iwd`, as they cause problems with my wireless..
 NOTE when in doubt about packages that mess with internet, disable and restart before deleting, in case they are required to make the internet work on your machine ... :)
 installed `marktext` (for markdown writing; but could also configure nvim or Obsidian to do the job)
 thinking about `pinta`, but don't see the need (editing images, also have `krita`)
-TODO set up PDF viewer/editor (Document Viewer, Xournal, Firefox/Zen)
-TODO see if I want to switch to Cascadia font (interstingly also the default font choide of Omarchy.. :))
-TODO reinstall arch with disk encryption? :)
+TODO: set up PDF viewer/editor (Document Viewer, Xournal, Firefox/Zen)
+TODO: see if I want to switch to Cascadia font (interstingly also the default font choide of Omarchy.. :))
+TODO: reinstall arch with disk encryption? :)
 
 2025-10-21 22:31
 set a few fish abbrevs and aliases
@@ -766,41 +766,41 @@ abbr --add gcad git commit -a --amend
 ```
 
 also found out that `fish` provides `open` by default, so no need for `xdg-open`
-TODO backup my .dotfiles and version control them (stow?)
+TODO: backup my .dotfiles and version control them (stow?)
 
 2025-10-22 00:07
 I found the holy grail of dotfiles management -- [Dotfiles Management - mitxela.com](https://mitxela.com/projects/dotfiles_management)
 I created a .dotfiles folder in my home, did an init bare git on it, set to my root / and then add files to it via a helper function. No need for any other dotfiles management software! Universal git!
-TODO look into git/exclude
+TODO: look into git/exclude
 
 2025-10-24 11:04
 set my ublock to follow the recommended filters -- <https://github.com/yokoffing/filterlists>
 DONE block youtube recommendations and shorts -- <https://github.com/gijsdev/ublock-hide-yt-shorts>
-TODO block 'login with google'
+TODO: block 'login with google'
 DONE block youtube auto dub
 DONE see <https://old.reddit.com/r/uBlockOrigin/wiki/solutions/youtube#wiki_video_annotations> for all the above
-TODO highlight todos in markdown/neovim :)
-TODO look into fedora for thin client (for pihole)
-TODO set auto suspend on linux
+TODO: highlight todos in markdown/neovim :)
+TODO: look into fedora for thin client (for pihole)
+TODO: set auto suspend on linux
 
 2025-10-24 13:11
-TODO allow to click on links in neovim
+TODO: allow to click on links in neovim
 E: works with `gx`, but not mapped in lazyvim
-TODO dump this link somewhere -- <https://scrollguard.app/>
-TODO get updates on new blogs (RSS)
-TODO set up Jujutsu (as git replacement)
+TODO: dump this link somewhere -- <https://scrollguard.app/>
+TODO: get updates on new blogs (RSS)
+TODO: set up Jujutsu (as git replacement)
 
 2025-10-24 14:00
-TODO look into fedora atomic images, they seem like another intersting alternative to `nix` and keeping an immutable system. maybe I could try to get this system working on fedora, and otherwise set up manjaro with file encryption?
+TODO: look into fedora atomic images, they seem like another intersting alternative to `nix` and keeping an immutable system. maybe I could try to get this system working on fedora, and otherwise set up manjaro with file encryption?
 
 2025-10-24 16:05
 maybe change to rofi for a beautfiul fullscreen app launcher? (seen here -- <https://github.com/kianblakley/niri-land?tab=readme-ov-file>)
-TODO look into [Amberol – Apps for GNOME](https://apps.gnome.org/Amberol/) music player
+TODO: look into [Amberol – Apps for GNOME](https://apps.gnome.org/Amberol/) music player
 set music keys for niri on via ipc (Mod+Alt+567 inc dec mute; 890 prev next pause)
 decided to start 'my' keybinds with `my..` in the comment blocks, to better distinguish them from pre-set keybinds
 installed `paru`
-TODO improve bluetooth integration to allow to skip music (MPRIS?)
-TODO set up `espanso`?
+TODO: improve bluetooth integration to allow to skip music (MPRIS?)
+TODO: set up `espanso`?
 
 2025-10-26 22:29
 installed `logseq`, `treesheets`, `freeplane`
@@ -810,7 +810,7 @@ i'd like to set up freeplane with markdown to have a markdown canvas
 installed `smark.nvim`
 looking to set up markdown indent via Tab and S-Tab in nvim (can do `>>` and `<<`)
 decided to split `nvim` related config into a dedicated file
-TODO neovim find a way to add auto-spacing between lines in markdown (the current file here shows everything inline)
+TODO: neovim find a way to add auto-spacing between lines in markdown (the current file here shows everything inline)
 
 2025-10-27 21:30
 installed https://www.soimort.org/translate-shell/
@@ -818,7 +818,7 @@ installed https://www.soimort.org/translate-shell/
 2025-10-28 15:23
 could set a shell screensaver (and/or use it as desktop/lockscreen wallpaper) -- https://github.com/attogram/bash-screensavers?tab=readme-ov-file or https://github.com/abishekvashok/cmatrix
 it may make sense to use `alacritty` for these types of things, as it is featureless but fast
-TODO set up obsidian web clipper (or org-roam-protocol) -- https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian/ or https://github.com/deathau/markdownload
+TODO: set up obsidian web clipper (or org-roam-protocol) -- https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian/ or https://github.com/deathau/markdownload
 
 2025-10-28 15:49
 think about multi-cursor in nvim
@@ -876,7 +876,7 @@ want to install `hx-lsp` for helix via `mise`, but first need to install `mise u
 
 2025-10-29T21:33
 Setting up `helix` with `marksman`, `prettier` and `ltex-ls-plus` (https://github.com/ltex-plus/ltex-ls-plus)
-TODO jsut found https://strudel.cc/ to make live music
+TODO: jsut found https://strudel.cc/ to make live music
 
 2025-10-30 13:46
 found https://github.com/ShawnMcCool/quickshell-cheatsheet, looks cool
@@ -884,14 +884,14 @@ will change back from `hx` to `nvim`. looked at `kakoune`, but nope, seems like 
 removed `marksman`, `mpls`, `ltex-ls-plus`, `prettier`, `mise uninstall cargo:hx-lsp@`
 
 2025-10-30 17:41
-TODO steal from this: a really cool digital garden -- https://meleu.dev/
+TODO: steal from this: a really cool digital garden -- https://meleu.dev/
 
 2025-10-31 13:27
-TODO improve browser search by blacklisting specific websites (pinterest, ...)
-TODO have a solution to manage photos on my NAS, sync with my phone, have albums
+TODO: improve browser search by blacklisting specific websites (pinterest, ...)
+TODO: have a solution to manage photos on my NAS, sync with my phone, have albums
 
 2025-10-31 16:27
-TODO if i ever switch to fedora silverblue and then manage via distrobox, https://flathub.org/en/apps/com.ranfdev.DistroShelf looks useful
+TODO: if i ever switch to fedora silverblue and then manage via distrobox, https://flathub.org/en/apps/com.ranfdev.DistroShelf looks useful
 
 2025-11-01 14:56
 it's saturday and I should find a strategy to backup my files to my NAS >> [[linux-backup]]
@@ -901,12 +901,12 @@ took a bit, but I finally managed it!
 Everything backuped (I hope) and also committed to my syno-git
 
 2025-11-02 11:39
-TODO change linux greeter setup
+TODO: change linux greeter setup
 DONE is there a way to color man pages? `navi`, `qman`, ..
 installed `bat-extras` and can now do `batman`. 
 I prefer this over changing the `MANPAGER` to `most` or similar, because I want to keep my muscle-memory for `man` keybinds
 Just doing `export MANPAGER="sh -c 'col -bx | batcat -l man -p'"` didn't work for me. It caused weird chars in the man pages
-TODO I'd like to know how to search with `fzf` in `batman` 
+TODO: I'd like to know how to search with `fzf` in `batman` 
 discovered `&` in man pages which narrows to found lines
 
 2025-11-02 12:30
@@ -950,7 +950,7 @@ command = "niri"
 user = "jst"
 ```
 
-TODO The internet recommends to use `niri-session`,
+TODO: The internet recommends to use `niri-session`,
 but then notify doesn't get styled anymore -- `niri` works.
 
 2025-11-02 16:53
@@ -969,7 +969,7 @@ I can do `git diff <file>`
 2025-11-03 16:31
 just discovered [9001/copyparty: Portable file server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++ all in one file, no deps](https://github.com/9001/copyparty),
 which seems like the coolest webserver ever.
-TODO dedicated post -- [introducing copyparty, the FOSS file server - YouTube](https://www.youtube.com/watch?v=15_-hgsX2V0)
+TODO: dedicated post -- [introducing copyparty, the FOSS file server - YouTube](https://www.youtube.com/watch?v=15_-hgsX2V0)
 
 2025-11-03 17:09
 DONE when connected via a bluetooth headset,
@@ -1001,18 +1001,18 @@ I needed to first toggle it a few times in `blueman`/`bluetoothctl`
 
 2025-11-03 21:00
 Wrote a bit more about my editor setup and choice >> [[texteditor-vs-markdown-editor]]
-TODO set up [Sioyek](https://sioyek.info/) as PDF viewr
+TODO: set up [Sioyek](https://sioyek.info/) as PDF viewr
 
 2025-11-06 15:44
 looking into local LLMs
 installed `ollama`, `golama` and `LM studio`
-TODO set up photo management and tagging for my holiday pictures and snapshots
-TODO set up a document management (paperless?)
+TODO: set up photo management and tagging for my holiday pictures and snapshots
+TODO: set up a document management (paperless?)
 removed `marketext`, as I use `nvim` exclusively now
 DONE also install whisperAI -- `vibe transcribe`, `whisper-gui` or `handy tts`?
 installed `vibe`
 downloading AI models
-TODO AI TTS -- `chatterbox`, `tortoise tts`?
+TODO: AI TTS -- `chatterbox`, `tortoise tts`?
 
 2025-11-06 16:31
 change from `pip` to `uv`
@@ -1082,7 +1082,7 @@ echo "Generated $outfile"
 it would be nice to have the phonetics for both languages, but who am I to complain?
 
 2025-11-07 13:31
-TODO set up compose key (or unicode picker) for language cleaning
+TODO: set up compose key (or unicode picker) for language cleaning
 >> [[daily-french]]
 
 2025-11-07 18:45
@@ -1093,11 +1093,17 @@ E: it seems to just make the terminal fullscreen, so I guess ghostty specific?
 setting up Mullvad as VPN
 installed `mullvad-bin`
 removed `audacity`
-TODO fix my xdg-defaults
+TODO: fix my xdg-defaults
 
 2025-11-08 15:07
-TODO could look into [papis/papis](https://github.com/papis/papis) for managing sources, although I don't want to get into academia;
+TODO: could look into [papis/papis](https://github.com/papis/papis) for managing sources, although I don't want to get into academia;
 maybe useful for capturing websites, videos, blogs, etc, and then refering to them in neovim. Or videos, movies I watched, books I read, to better identify patterns and great authors/artists
-TODO look into zk -- or better said, into any way to quickly capture thoughts from the CLI
+TODO: look into zk -- or better said, into any way to quickly capture thoughts from the CLI
 In that sense, I really hate 'todos'; I perceive them as strict and robotic, and believe they will break some time in the future, as humans are not robots
 
+2025-11-08 21:33
+I guess I reached config fatigue. 
+Some things still to do,
+but I don't want to spend more time looking at github repos and reading readmes!
+I also don't want to write more pages on the blog, lol
+I unpacked `mixxx` and did some DJ'ing instead.
