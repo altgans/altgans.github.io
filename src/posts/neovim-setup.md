@@ -747,5 +747,8 @@ so let's see for how long this stays useful.
 - create note under cursor, like in Obsidian
 - text interlacing for multi-lang editing
     - [tanloong/interlaced.nvim](https://github.com/tanloong/interlaced.nvim) :: is this EN-CN only?
-    
+- better motion
+	- [GitHub - drybalka/tree-climber.nvim](https://github.com/drybalka/tree-climber.nvim?tab=readme-ov-file)
+- TODO: learn about marks in nvim
+    - [GitHub - ThePrimeagen/harpoon at harpoon2](https://github.com/ThePrimeagen/harpoon/tree/harpoon2)
 
