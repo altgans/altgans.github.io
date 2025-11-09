@@ -1107,3 +1107,41 @@ Some things still to do,
 but I don't want to spend more time looking at github repos and reading readmes!
 I also don't want to write more pages on the blog, lol
 I unpacked `mixxx` and did some DJ'ing instead.
+
+2025-11-09 13:45
+changed some `niri` keybinds (and their title) to appear in the niri hotkey overview
+changed default width of `zen` browser to 0.8 screen width
+```config
+window-rule {
+	match app-id="zen"
+	default-column-width {proportion 0.8;}
+}
+```
+to get the *app-id* we can do `niri msg pick-window`
+
+2025-11-09 14:49
+looking into music/audio players
+these are separate from media players -- music players are for listening to a
+collection of music
+media players are for opening a variety of media files (audio, video, ...)
+`amberol` is really cool, but it has problems with my non-GTK setup. 
+I guess the problems is the gtk portals? >> [Important Software · YaLTeR/niri Wiki](https://github.com/YaLTeR/niri/wiki/Important-Software)
+2025-11-09 16:01
+trying to add the missing portals
+`xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search`
+I guess I also need to fix my greetd script to use niri-session
+
+2025-11-09 17:27
+attempting to fix niri-session
+it seems that the `mako` service doesn't start correctly
+
+```linux
+mkdir -p ~/.config/systemd/user/niri.service.wants
+ln -s /usr/lib/systemd/user/mako.service ~/.config/systemd/user/niri.service.wants/
+```
+just found out that niri cursor theme can be changed in the config!
+(doesn't mean I have a good theme in mind)
+
+2025-11-09 17:46
+fixed the notifications with `niri-session`!
+needed to create a `mako` config..

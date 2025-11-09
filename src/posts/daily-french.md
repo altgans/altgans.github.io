@@ -44,11 +44,6 @@ Bonne journée!
 
 ### Correct version
 
-```markdown
-Voici le texte corrigé, avec une version fluide et naturelle en français :
-
----
-
 **Texte corrigé :**
 
 Alors, commençons !
@@ -84,7 +79,6 @@ Bonne journée !
 * *visiter une bar → aller dans un bar* : on ne « visite » pas un bar, on y va.
 * *comme je dit avant → comme je l’ai dit plus tôt* : conjugaison et expression plus naturelle.
 * *en nettoyer mes dents → et me brosser les dents* : correction lexicale et grammaticale.
-```
 
 
 ## 2025-11-08 14:03
@@ -106,13 +100,6 @@ je suis ennuyeux!
 
 ### Corrigez
 
-```markdown
-Bien sûr 😊 Corrigeons ton texte **et expliquons chaque correction** pour t’aider à comprendre et progresser.
-
----
-
-### 📝 **Texte corrigé :**
-
 > Aujourd’hui,
 > je veux écrire sur mon expérience d’hier.
 > J’ai encore été malade,
@@ -126,9 +113,8 @@ Bien sûr 😊 Corrigeons ton texte **et expliquons chaque correction** pour t�
 > et quand je pense que je suis fatigué,
 > en réalité je ne suis pas fatigué — je m’ennuie !
 
----
 
-### 💬 **Explications détaillées :**
+**Explications détaillées :**
 
 | Erreur originale                                                  | Correction                                                                   | Explication                                                                                                                           |
 | ----------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -145,8 +131,47 @@ Bien sûr 😊 Corrigeons ton texte **et expliquons chaque correction** pour t�
 | **en qu'and je pense je suis fatigue,**                           | **et quand je pense que je suis fatigué,**                                   | *en qu'and* → *et quand*. Ajout de *que* pour la subordonnée. Accent sur *fatigué*.                                                   |
 | **je ne suis fatigue pas, je suis ennuyeux!**                     | **je ne suis pas fatigué — je m’ennuie !**                                   | Ordre correct de la négation (*ne... pas*). Et *je m’ennuie* (verbe s’ennuyer) = « I’m bored ». *Je suis ennuyeux* = « I am boring ». |
 
+
+## 2025-11-09 17:47
+
+Aujourd'hui,
+c'est le neuvième Novembre,
+un dimanche.
+J'ecouté un peu de musique,
+et je veux aller au cinema postérieur.
+Un comédie!
+Aujourd'hui,
+je sens un peu meilleur,
+mais mes dents faites mal,
+et j'ai la pain du tête.
+Devons je vraiment aller au cinema?
+
+### Correction
+
+**Texte corrigé :**
+
+Aujourd’hui,
+c’est le **neuf novembre**,
+un **dimanche**.
+J’**ai écouté** un peu de musique,
+et je veux aller **au cinéma plus tard**.
+Une comédie !
+Aujourd’hui,
+je me sens un peu **mieux**,
+mais mes dents **me font mal**,
+et j’ai **mal à la tête**.
+**Dois-je** vraiment aller au cinéma ?
+
 ---
 
-Souhaites-tu que je te propose une **version encore plus naturelle et fluide**, comme la dirait un locuteur natif, tout en gardant ton style personnel ?
+**Explications des corrections :**
 
-```
+* **le neuf novembre** → on écrit la date avec le chiffre cardinal (neuf), pas « neuvième », sauf si on parle d’un ordre (ex. *le neuvième jour du mois*).
+* **J’ai écouté** → passé composé avec *avoir*.
+* **au cinéma plus tard** → « postérieur » n’est pas correct ici. On dit plutôt *plus tard* ou *tout à l’heure*.
+* **Une comédie !** → « un comédie » → le mot est féminin.
+* **je me sens mieux** → *meilleur* s’emploie pour comparer des choses, *mieux* pour l’état ou le ressenti.
+* **mes dents me font mal** → c’est la bonne tournure pour dire « my teeth hurt ».
+* **j’ai mal à la tête** → expression correcte pour *I have a headache*.
+* **Dois-je** → la bonne inversion du verbe pour une question formelle.
+
